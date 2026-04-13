@@ -24,7 +24,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   try {
-    await fetch('/api/rsvp', {
+    await fetch('/api/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
