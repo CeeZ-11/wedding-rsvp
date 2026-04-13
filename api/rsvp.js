@@ -1,9 +1,6 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+/* eslint-env node */
 
-module.exports = async function handler(
-  req: VercelRequest,
-  res: VercelResponse
-) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
