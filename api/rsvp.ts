@@ -4,9 +4,6 @@ module.exports = async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  console.log("METHOD:", req.method);
-  console.log("BODY:", req.body);
-
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -14,8 +11,7 @@ module.exports = async function handler(
   const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
   if (!scriptUrl) {
-    console.error("Missing GOOGLE_SCRIPT_URL");
-    return res.status(500).json({ error: 'Missing env variable' });
+    return res.status(500).json({ error: 'Missing GOOGLE_SCRIPT_URL' });
   }
 
   try {
