@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default async function handler(
+module.exports = async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
@@ -25,8 +25,7 @@ export default async function handler(
       body: JSON.stringify(req.body),
     });
 
-    const text = await response.text(); // 👈 important
-
+    const text = await response.text();
     console.log("GOOGLE RESPONSE:", text);
 
     return res.status(200).json({ success: true });
@@ -34,4 +33,4 @@ export default async function handler(
     console.error("FETCH ERROR:", err);
     return res.status(500).json({ error: 'Fetch failed' });
   }
-}
+};
