@@ -27,7 +27,10 @@ export const GiftRegistry: React.FC<Props> = ({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {GIFTS.map((gift) => {
           const isSelected = selectedGiftId === gift.id;
-          const isTaken = takenGifts.includes(gift.id);
+
+          // ✅ FIX: compare using gift.name (matches Google Sheets)
+          const isTaken = takenGifts.includes(gift.name);
+
           const Icon = gift.icon || Gift;
 
           return (
@@ -35,7 +38,9 @@ export const GiftRegistry: React.FC<Props> = ({
               key={gift.id}
               type="button"
               disabled={isTaken}
-              onClick={() => onSelectGift(gift.id)} // ✅ IMPORTANT
+              onClick={() =>
+                !isTaken && onSelectGift(isSelected ? '' : gift.id)
+              }
               className={`
                 relative p-4 rounded-sm border transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] text-center
                 ${
@@ -61,15 +66,15 @@ export const GiftRegistry: React.FC<Props> = ({
                 {gift.name}
               </span>
 
-              {/* Taken */}
+              {/* Taken Label */}
               {isTaken && (
                 <span className="text-[10px] uppercase tracking-widest mt-2 text-warm-beige font-medium">
                   Taken
                 </span>
               )}
 
-              {/* Selected */}
-              {isSelected && (
+              {/* Selected Check */}
+              {isSelected && !isTaken && (
                 <div className="absolute top-2 right-2 text-deep-olive">
                   <svg
                     className="w-3.5 h-3.5"

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GiftRegistry } from './GiftRegistry';
 import { LocationMap } from './LocationMap';
 import { TransportationSection } from './TransportationSection';
@@ -7,16 +7,33 @@ import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
-  const [fullName, setFullName] = useState(''); // ✅ FIXED
+  const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const [takenGifts, setTakenGifts] = useState<string[]>([]); // ✅ NEW
+
   const [errors, setErrors] = useState<{
     name?: string;
     attendance?: string;
   }>({});
+
+  // ✅ FETCH TAKEN GIFTS
+  useEffect(() => {
+    const fetchGifts = async () => {
+      try {
+        const res = await fetch('/api/gifts');
+        const data = await res.json();
+        setTakenGifts(data.takenGifts || []);
+      } catch (err) {
+        console.error('Failed to fetch gifts', err);
+      }
+    };
+
+    fetchGifts();
+  }, []);
 
   // ✅ VALIDATION
   const validate = () => {
@@ -39,13 +56,14 @@ export function RSVPForm() {
 
     if (!validate()) return;
 
+    // ✅ GET GIFT NAME (IMPORTANT)
     const selectedGiftName =
       GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
     const data = {
       name: fullName,
       attendance,
-      gift: selectedGiftName, // ✅ FIXED
+      gift: selectedGiftName,
       dietary:
         (document.getElementById('dietary') as HTMLInputElement)?.value || '',
       message:
@@ -54,7 +72,7 @@ export function RSVPForm() {
       transportation,
     };
 
-    console.log('SUBMIT DATA:', data); // 🔍 DEBUG
+    console.log('SUBMIT DATA:', data);
 
     try {
       await fetch('/api/rsvp', {
@@ -90,7 +108,6 @@ export function RSVPForm() {
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-16 px-4 md:px-12">
-      
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
@@ -102,7 +119,6 @@ export function RSVPForm() {
       </div>
 
       <form className="space-y-8" onSubmit={handleSubmit}>
-
         {/* Name */}
         <div className="space-y-2">
           <label
@@ -205,10 +221,11 @@ export function RSVPForm() {
             className="w-full border px-4 py-3 text-center"
           />
 
+          {/* ✅ CONNECTED TO LIVE DATA */}
           <GiftRegistry
             selectedGiftId={selectedGiftId}
             onSelectGift={setSelectedGiftId}
-            takenGifts={[]}
+            takenGifts={takenGifts}
           />
 
           <LocationMap />
@@ -230,7 +247,6 @@ export function RSVPForm() {
             Send RSVP
           </button>
         </div>
-
       </form>
     </div>
   );
