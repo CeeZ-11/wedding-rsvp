@@ -1,4 +1,4 @@
-import { CornerBranch } from './FloralAccent';
+// import { CornerBranch } from './FloralAccent';
 import { GIFTS } from '../data/gifts';
 
 interface ConfirmationProps {
@@ -41,7 +41,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
 
       {/* Decorative Corners */}
 
-     <CornerBranch
+     {/* <CornerBranch
         position="top-left"
         className="absolute top-0 left-0 w-28 h-28 md:w-36 md:h-36 -translate-x-4 -translate-y-4 opacity-60"
       />
@@ -59,7 +59,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
       <CornerBranch
         position="bottom-right"
         className="absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 translate-x-4 translate-y-4 opacity-60"
-      />
+      /> */}
 
       {/* Title */}
       <h2 className="font-script text-4xl md:text-5xl text-deep-olive">
