@@ -1,4 +1,3 @@
-// import { CornerBranch } from './FloralAccent';
 import { GIFTS } from '../data/gifts';
 
 interface ConfirmationProps {
@@ -23,7 +22,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
   return (
     <div className="text-center space-y-6 animate-in fade-in zoom-in duration-700">
       {/* Icon */}
-      <div className="inline-block p-4 rounded-full bg-light-sage/30 mb-4">
+      <div className="inline-block p-4 rounded-full bg-light-sage/30 mb-4 mt-4">
         <svg
           className="w-12 h-12 text-deep-olive"
           fill="none"
@@ -38,28 +37,6 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
           />
         </svg>
       </div>
-
-      {/* Decorative Corners */}
-
-     {/* <CornerBranch
-        position="top-left"
-        className="absolute top-0 left-0 w-28 h-28 md:w-36 md:h-36 -translate-x-4 -translate-y-4 opacity-60"
-      />
-
-      <CornerBranch
-        position="top-right"
-        className="absolute top-0 right-0 w-28 h-28 md:w-36 md:h-36 translate-x-4 -translate-y-4 opacity-60"
-      />
-
-      <CornerBranch
-        position="bottom-left"
-        className="absolute bottom-0 left-0 w-28 h-28 md:w-36 md:h-36 -translate-x-4 translate-y-4 opacity-60"
-      />
-
-      <CornerBranch
-        position="bottom-right"
-        className="absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 translate-x-4 translate-y-4 opacity-60"
-      /> */}
 
       {/* Title */}
       <h2 className="font-script text-4xl md:text-5xl text-deep-olive">
