@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import {
   Flame,
   LayoutGrid,
@@ -33,20 +33,28 @@ const GIFTS: GiftItem[] = [
   { id: 'g5', name: 'Heater', icon: ThermometerSun, taken: true },
   { id: 'g6', name: 'Steaming Iron', icon: Shirt },
   { id: 'g7', name: 'Water Dispenser', icon: Droplets },
-  { id: 'g8', name: 'Cutlery Set', icon: UtensilsCrossed},
+  { id: 'g8', name: 'Cutlery Set', icon: UtensilsCrossed },
   { id: 'g9', name: 'Knives Set', icon: Utensils },
   { id: 'g10', name: 'Essential Oil Diffuser', icon: Wind },
   { id: 'g11', name: 'Bed Sheet', icon: Bed },
   { id: 'g12', name: 'Coffee Maker', icon: Coffee },
   { id: 'g13', name: 'Toaster', icon: Zap },
   { id: 'g14', name: 'Frying Pan', icon: Circle },
-  { id: 'g15', name: 'Food Processor', icon: RefreshCw},
+  { id: 'g15', name: 'Food Processor', icon: RefreshCw },
   { id: 'g16', name: 'Hand Mixer', icon: Wand2 },
 ];
 
-export function GiftRegistry() {
-  const [selectedGift, setSelectedGift] = useState<string | null>(null);
+interface Props {
+  selectedGiftId: string | null;
+  onSelectGift: (id: string | null) => void;
+  takenGifts: string[];
+}
 
+export function GiftRegistry({
+  selectedGiftId,
+  onSelectGift,
+  takenGifts,
+}: Props) {
   return (
     <div className="w-full mt-12">
       {/* Header */}
@@ -63,8 +71,8 @@ export function GiftRegistry() {
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {GIFTS.map((gift) => {
-          const isSelected = selectedGift === gift.id;
-          const isTaken = gift.taken;
+          const isSelected = selectedGiftId === gift.id;
+          const isTaken = gift.taken || takenGifts.includes(gift.id);
           const Icon = gift.icon;
 
           return (
@@ -73,7 +81,7 @@ export function GiftRegistry() {
               type="button"
               disabled={isTaken}
               onClick={() =>
-                setSelectedGift(isSelected ? null : gift.id)
+                onSelectGift(isSelected ? null : gift.id)
               }
               className={`
                 relative flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300
@@ -89,7 +97,7 @@ export function GiftRegistry() {
               {/* Icon */}
               <div
                 className={`
-                  p-3 rounded-full mb-3 transition-colors
+                  p-3 rounded-full mb-3
                   ${
                     isTaken
                       ? 'bg-gray-200 text-gray-400'
@@ -111,29 +119,29 @@ export function GiftRegistry() {
                 {gift.name}
               </span>
 
-              {/* Reserved Overlay */}
+              {/* Reserved */}
               {isTaken && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-xl">
-                  <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-gray-700 uppercase">
                     Reserved
                   </span>
                 </div>
               )}
 
-              {/* Selected Check */}
+              {/* Selected */}
               {isSelected && (
                 <div className="absolute top-2 right-2 w-5 h-5 bg-deep-olive rounded-full flex items-center justify-center">
                   <svg
                     className="w-3 h-3 text-white"
-                    fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    fill="none"
                   >
                     <path
+                      d="M5 13l4 4L19 7"
+                      stroke="currentColor"
                       strokeWidth={3}
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
                     />
                   </svg>
                 </div>
@@ -143,13 +151,13 @@ export function GiftRegistry() {
         })}
       </div>
 
-      {/* Selected message */}
-      {selectedGift && (
+      {/* Selected label */}
+      {selectedGiftId && (
         <div className="mt-6 text-center">
           <p className="font-serif text-sm text-deep-olive bg-light-sage/20 inline-block px-5 py-2 rounded-full">
             You selected:{' '}
             <span className="font-semibold">
-              {GIFTS.find((g) => g.id === selectedGift)?.name}
+              {GIFTS.find((g) => g.id === selectedGiftId)?.name}
             </span>
           </p>
         </div>

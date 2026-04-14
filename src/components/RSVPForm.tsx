@@ -1,41 +1,90 @@
-
 import { useState } from 'react';
 import { GiftRegistry } from './GiftRegistry';
 import { LocationMap } from './LocationMap';
 import { TransportationSection } from './TransportationSection';
 import { AttireGuide } from './AttireGuide';
-
+import { Confirmation } from './Confirmation';
 
 export function RSVPForm() {
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
+  const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
+  // ✅ NEW: error state
+  const [errors, setErrors] = useState<{
+    name?: string;
+    attendance?: string;
+  }>({});
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const fullName =
+    (document.getElementById('fullName') as HTMLInputElement)?.value || '';
 
-  const data = {
-    name: (document.getElementById('fullName') as HTMLInputElement).value,
-    attendance,
-    dietary: (document.getElementById('dietary') as HTMLInputElement)?.value || '',
-    message: (document.getElementById('message') as HTMLTextAreaElement)?.value || '',
-    transportation,
+  // ✅ NEW: validation function
+  const validate = () => {
+    const newErrors: typeof errors = {};
+
+    if (!fullName.trim()) {
+      newErrors.name = 'Please enter your full name';
+    }
+
+    if (!attendance) {
+      newErrors.attendance = 'Please select attendance';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
-  try {
-    await fetch('/api/rsvp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    alert('RSVP submitted!');
-  } catch (error) {
-    console.error(error);
-    alert('Something went wrong.');
+    // ✅ VALIDATION CHECK
+    if (!validate()) return;
+
+    const data = {
+      name: fullName,
+      attendance,
+      gift: selectedGiftId,
+      dietary:
+        (document.getElementById('dietary') as HTMLInputElement)?.value || '',
+      message:
+        (document.getElementById('message') as HTMLTextAreaElement)?.value ||
+        '',
+      transportation,
+    };
+
+    try {
+      await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    }
+  };
+
+  // ✅ Confirmation screen
+  if (submitted) {
+    return (
+      <Confirmation
+        name={fullName}
+        attending={attendance}
+        selectedGiftId={selectedGiftId}
+        onReset={() => {
+          setSubmitted(false);
+          setAttendance(null);
+          setSelectedGiftId(null);
+          setTransportation('');
+        }}
+      />
+    );
   }
-};
-
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-16 px-4 md:px-12">
@@ -67,8 +116,18 @@ const handleSubmit = async (e: React.FormEvent) => {
             type="text"
             id="fullName"
             placeholder="Your full name"
+            onChange={() =>
+              setErrors((prev) => ({ ...prev, name: undefined }))
+            }
             className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
           />
+
+          {/* ✅ ERROR */}
+          {errors.name && (
+            <p className="text-red-500 text-xs text-center mt-1">
+              {errors.name}
+            </p>
+          )}
         </div>
 
         {/* Attendance */}
@@ -80,7 +139,10 @@ const handleSubmit = async (e: React.FormEvent) => {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               type="button"
-              onClick={() => setAttendance('yes')}
+              onClick={() => {
+                setAttendance('yes');
+                setErrors((prev) => ({ ...prev, attendance: undefined }));
+              }}
               className={`
                 px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
                 ${
@@ -95,7 +157,10 @@ const handleSubmit = async (e: React.FormEvent) => {
 
             <button
               type="button"
-              onClick={() => setAttendance('no')}
+              onClick={() => {
+                setAttendance('no');
+                setErrors((prev) => ({ ...prev, attendance: undefined }));
+              }}
               className={`
                 px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
                 ${
@@ -108,9 +173,16 @@ const handleSubmit = async (e: React.FormEvent) => {
               Regretfully Decline
             </button>
           </div>
+
+          {/* ✅ ERROR */}
+          {errors.attendance && (
+            <p className="text-red-500 text-xs text-center mt-2">
+              {errors.attendance}
+            </p>
+          )}
         </div>
 
-        {/* Animated Section (NO JUMP FIX) */}
+        {/* CONDITIONAL */}
         <div
           className={`space-y-8 pt-4 transition-all duration-500 ${
             attendance === 'yes'
@@ -118,63 +190,36 @@ const handleSubmit = async (e: React.FormEvent) => {
               : 'opacity-0 -translate-y-2 pointer-events-none absolute'
           }`}
         >
-        
-
-          {/* Dietary */}
           <div className="space-y-2">
-            <label
-              htmlFor="dietary"
-              className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium"
-            >
-              Dietary Restrictions{' '}
-              <span className="text-xs italic text-deep-olive/50">
-                (optional)
-              </span>
-            </label>
             <input
-              type="text"
               id="dietary"
-              placeholder="e.g., Vegetarian, Nut Allergy"
-              className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
+              placeholder="Dietary restrictions"
+              className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
             />
           </div>
 
-          {/* Message */}
           <div className="space-y-2">
-            <label
-              htmlFor="message"
-              className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium"
-            >
-              Message to the Couple{' '}
-              <span className="text-xs italic text-deep-olive/50">
-                (optional)
-              </span>
-            </label>
             <textarea
               id="message"
-              rows={3}
-              placeholder="Leave a note..."
-              className="w-full bg-white/50 border border-muted-sage/40 rounded-sm px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors resize-none"
+              placeholder="Message..."
+              className="w-full border px-4 py-3 text-center"
             />
           </div>
 
-          {/* Gift Registry */}
-          <GiftRegistry />
+          <GiftRegistry
+            selectedGiftId={selectedGiftId}
+            onSelectGift={setSelectedGiftId}
+            takenGifts={[]}
+          />
 
-          {/* Event Details */}
-          <h3 className="text-center font-serif text-sm tracking-widest uppercase text-deep-olive/60 pt-6">
-            Event Details
-          </h3>
+          <LocationMap />
 
-          {/* Proper spacing wrapper */}
-          <div className="space-y-10">
-            <LocationMap />
-            <TransportationSection
-              needsTransport={transportation}
-              setNeedsTransport={setTransportation}
-            />
-            <AttireGuide />
-          </div>
+          <TransportationSection
+            needsTransport={transportation}
+            setNeedsTransport={setTransportation}
+          />
+
+          <AttireGuide />
         </div>
 
         {/* Submit */}
@@ -186,7 +231,6 @@ const handleSubmit = async (e: React.FormEvent) => {
             <span className="relative z-10 flex items-center gap-2">
               Send RSVP
             </span>
-            <div className="absolute inset-0 h-full w-full bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
           </button>
         </div>
 
