@@ -4,12 +4,14 @@ import { LocationMap } from './LocationMap';
 import { TransportationSection } from './TransportationSection';
 import { AttireGuide } from './AttireGuide';
 import { Confirmation } from './Confirmation';
+import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const selectedGiftName = GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
   // ✅ NEW: error state
   const [errors, setErrors] = useState<{
@@ -46,7 +48,7 @@ export function RSVPForm() {
     const data = {
       name: fullName,
       attendance,
-      gift: selectedGiftId,
+      gift: selectedGiftName,
       dietary:
         (document.getElementById('dietary') as HTMLInputElement)?.value || '',
       message:
