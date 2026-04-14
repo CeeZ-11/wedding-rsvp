@@ -12,15 +12,15 @@ export function RSVPForm() {
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-
-  const [takenGifts, setTakenGifts] = useState<string[]>([]); // ✅ NEW
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [takenGifts, setTakenGifts] = useState<string[]>([]);
 
   const [errors, setErrors] = useState<{
     name?: string;
     attendance?: string;
   }>({});
 
-  // ✅ FETCH TAKEN GIFTS
+  // ✅ Fetch taken gifts
   useEffect(() => {
     const fetchGifts = async () => {
       try {
@@ -35,7 +35,7 @@ export function RSVPForm() {
     fetchGifts();
   }, []);
 
-  // ✅ VALIDATION
+  // ✅ Validation
   const validate = () => {
     const newErrors: typeof errors = {};
 
@@ -55,8 +55,10 @@ export function RSVPForm() {
     e.preventDefault();
 
     if (!validate()) return;
+    if (isSubmitting) return;
 
-    // ✅ GET GIFT NAME (IMPORTANT)
+    setIsSubmitting(true);
+
     const selectedGiftName =
       GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
@@ -72,8 +74,6 @@ export function RSVPForm() {
       transportation,
     };
 
-    console.log('SUBMIT DATA:', data);
-
     try {
       await fetch('/api/rsvp', {
         method: 'POST',
@@ -81,20 +81,21 @@ export function RSVPForm() {
         body: JSON.stringify(data),
       });
 
-      // ✅ NEW: refresh taken gifts AFTER submit
+      // Refresh taken gifts
       const res = await fetch('/api/gifts');
       const updated = await res.json();
       setTakenGifts(updated.takenGifts || []);
 
       setSubmitted(true);
-
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // ✅ CONFIRMATION SCREEN
+  // ✅ Confirmation screen
   if (submitted) {
     return (
       <Confirmation
@@ -127,130 +128,88 @@ export function RSVPForm() {
       <form className="space-y-8" onSubmit={handleSubmit}>
         {/* Name */}
         <div className="space-y-2">
-          <label
-            htmlFor="fullName"
-            className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium"
-          >
+          <label className="block text-center font-serif uppercase text-sm">
             Full Name
           </label>
-          <p className="font-serif text-deep-olive/60 text-xs italic text-center">
-            Please enter your full name (RSVP is for one person)
-          </p>
 
           <input
             type="text"
-            id="fullName"
             value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
+            className="w-full border-b text-center py-3"
             placeholder="Your full name"
-            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
           />
 
           {errors.name && (
-            <p className="text-red-500 text-xs text-center mt-1">
+            <p className="text-red-500 text-xs text-center">
               {errors.name}
             </p>
           )}
         </div>
 
         {/* Attendance */}
-        <div className="pt-4 space-y-4">
-          <label className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium">
-            Will you attend?
-          </label>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button
-              type="button"
-              onClick={() => {
-                setAttendance('yes');
-                setErrors((prev) => ({ ...prev, attendance: undefined }));
-              }}
-              className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
-                ${
-                  attendance === 'yes'
-                    ? 'bg-deep-olive text-white border-deep-olive shadow-md'
-                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
-                }
-              `}
-            >
-              Joyfully Accept
+        <div className="text-center space-y-4">
+          <div className="flex justify-center gap-4">
+            <button type="button" onClick={() => setAttendance('yes')}>
+              Accept
             </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setAttendance('no');
-                setErrors((prev) => ({ ...prev, attendance: undefined }));
-              }}
-              className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
-                ${
-                  attendance === 'no'
-                    ? 'bg-warm-beige text-white border-warm-beige shadow-md'
-                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
-                }
-              `}
-            >
-              Regretfully Decline
+            <button type="button" onClick={() => setAttendance('no')}>
+              Decline
             </button>
           </div>
 
           {errors.attendance && (
-            <p className="text-red-500 text-xs text-center mt-2">
+            <p className="text-red-500 text-xs">
               {errors.attendance}
             </p>
           )}
         </div>
 
-        {/* CONDITIONAL */}
-        <div
-          className={`space-y-8 pt-4 transition-all duration-500 ${
-            attendance === 'yes'
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 -translate-y-2 pointer-events-none absolute'
-          }`}
-        >
-          <input
-            id="dietary"
-            placeholder="Dietary restrictions"
-            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
-          />
+        {/* Conditional */}
+        {attendance === 'yes' && (
+          <div className="space-y-8">
+            <input id="dietary" placeholder="Dietary" />
+            <textarea id="message" placeholder="Message" />
 
-          <textarea
-            id="message"
-            placeholder="Message..."
-            className="w-full border px-4 py-3 text-center"
-          />
+            <GiftRegistry
+              selectedGiftId={selectedGiftId}
+              onSelectGift={setSelectedGiftId}
+              takenGifts={takenGifts}
+            />
 
-          {/* ✅ CONNECTED TO LIVE DATA */}
-          <GiftRegistry
-            selectedGiftId={selectedGiftId}
-            onSelectGift={setSelectedGiftId}
-            takenGifts={takenGifts}
-          />
+            <LocationMap />
 
-          <LocationMap />
+            <TransportationSection
+              needsTransport={transportation}
+              setNeedsTransport={setTransportation}
+            />
 
-          <TransportationSection
-            needsTransport={transportation}
-            setNeedsTransport={setTransportation}
-          />
-
-          <AttireGuide />
-        </div>
+            <AttireGuide />
+          </div>
+        )}
 
         {/* Submit */}
-        <div className="pt-10 pb-6 flex justify-center">
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all hover:shadow-lg hover:bg-[#4a4e3c]"
+            disabled={isSubmitting}
+            className={`
+              group relative px-12 py-4 font-serif uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center gap-3
+              ${
+                isSubmitting
+                  ? 'bg-deep-olive/70 text-white cursor-not-allowed'
+                  : 'bg-deep-olive text-white hover:bg-[#4a4e3c] hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]'
+              }
+            `}
           >
-            Send RSVP
+            {isSubmitting && (
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+            )}
+
+            {isSubmitting ? 'Submitting...' : 'Send RSVP'}
           </button>
         </div>
       </form>
