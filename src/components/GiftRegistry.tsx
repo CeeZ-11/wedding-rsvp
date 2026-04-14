@@ -1,147 +1,87 @@
-
-import {
-  Flame,
-  LayoutGrid,
-  Soup,
-  CircleDashed,
-  ThermometerSun,
-  Shirt,
-  Droplets,
-  UtensilsCrossed,
-  Utensils,
-  Wind,
-  Bed,
-  Coffee,
-  Zap,
-  Circle,
-  RefreshCw,
-  Wand2,
-} from 'lucide-react';
-
-type GiftItem = {
-  id: string;
-  name: string;
-  icon: React.ElementType;
-  taken?: boolean;
-};
-
-const GIFTS: GiftItem[] = [
-  { id: 'g1', name: 'Air Fryer', icon: Flame },
-  { id: 'g2', name: 'Table', icon: LayoutGrid },
-  { id: 'g3', name: 'Rice Cooker', icon: Soup },
-  { id: 'g4', name: 'Induction Cooker', icon: CircleDashed },
-  { id: 'g5', name: 'Heater', icon: ThermometerSun, taken: true },
-  { id: 'g6', name: 'Steaming Iron', icon: Shirt },
-  { id: 'g7', name: 'Water Dispenser', icon: Droplets },
-  { id: 'g8', name: 'Cutlery Set', icon: UtensilsCrossed },
-  { id: 'g9', name: 'Knives Set', icon: Utensils },
-  { id: 'g10', name: 'Essential Oil Diffuser', icon: Wind },
-  { id: 'g11', name: 'Bed Sheet', icon: Bed },
-  { id: 'g12', name: 'Coffee Maker', icon: Coffee },
-  { id: 'g13', name: 'Toaster', icon: Zap },
-  { id: 'g14', name: 'Frying Pan', icon: Circle },
-  { id: 'g15', name: 'Food Processor', icon: RefreshCw },
-  { id: 'g16', name: 'Hand Mixer', icon: Wand2 },
-];
+import { Gift } from 'lucide-react';
+import { GIFTS } from '../data/gifts';
 
 interface Props {
   selectedGiftId: string | null;
-  onSelectGift: (id: string | null) => void;
+  onSelectGift: (id: string) => void;
   takenGifts: string[];
 }
 
-export function GiftRegistry({
+export const GiftRegistry: React.FC<Props> = ({
   selectedGiftId,
   onSelectGift,
   takenGifts,
-}: Props) {
+}) => {
   return (
     <div className="w-full mt-12">
-      {/* Header */}
       <div className="text-center mb-8">
-        <h3 className="font-serif text-3xl text-deep-olive mb-2">
+        <h3 className="font-serif text-2xl text-deep-olive mb-2">
           Gift Registry{' '}
           <span className="text-lg italic text-deep-olive/50">(Optional)</span>
         </h3>
-        <p className="font-serif text-deep-olive/60 text-sm max-w-md mx-auto">
-          Your presence is the greatest gift. If you wish, you may select one item below.
+        <p className="font-serif text-deep-olive/60 text-sm tracking-wide font-medium">
+          If you wish to give a gift, you may select one item below
         </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {GIFTS.map((gift) => {
           const isSelected = selectedGiftId === gift.id;
-          const isTaken = gift.taken || takenGifts.includes(gift.id);
-          const Icon = gift.icon;
+          const isTaken = takenGifts.includes(gift.id);
+          const Icon = gift.icon || Gift;
 
           return (
             <button
               key={gift.id}
               type="button"
               disabled={isTaken}
-              onClick={() =>
-                onSelectGift(isSelected ? null : gift.id)
-              }
+              onClick={() => onSelectGift(gift.id)} // ✅ IMPORTANT
               className={`
-                relative flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300
+                relative p-4 rounded-sm border transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] text-center
                 ${
                   isTaken
-                    ? 'bg-gray-50 border-gray-200 opacity-60 cursor-not-allowed'
+                    ? 'border-gray-200 bg-gray-50/50 text-gray-400 cursor-not-allowed'
                     : isSelected
-                    ? 'bg-light-sage/30 border-deep-olive shadow-md scale-[1.02]'
-                    : 'bg-white border-muted-sage/30 hover:border-muted-sage hover:shadow-sm hover:-translate-y-0.5'
+                    ? 'border-deep-olive bg-deep-olive/5 text-deep-olive shadow-sm'
+                    : 'border-muted-sage/30 hover:border-muted-sage/60 bg-white text-deep-olive hover:bg-card-bg'
                 }
               `}
             >
               {/* Icon */}
-              <div
-                className={`
-                  p-3 rounded-full mb-3
-                  ${
-                    isTaken
-                      ? 'bg-gray-200 text-gray-400'
-                      : isSelected
-                      ? 'bg-deep-olive text-white'
-                      : 'bg-light-sage/20 text-deep-olive'
-                  }
-                `}
-              >
-                <Icon size={22} strokeWidth={1.5} />
+              <div className="mb-2">
+                <Icon className="w-5 h-5 mx-auto" strokeWidth={1.5} />
               </div>
 
               {/* Name */}
               <span
-                className={`font-serif text-sm text-center ${
-                  isTaken ? 'text-gray-500 line-through' : 'text-deep-olive'
+                className={`font-serif text-sm md:text-base ${
+                  isTaken ? 'line-through opacity-60' : ''
                 }`}
               >
                 {gift.name}
               </span>
 
-              {/* Reserved */}
+              {/* Taken */}
               {isTaken && (
-                <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-xl">
-                  <span className="text-xs font-semibold text-gray-700 uppercase">
-                    Reserved
-                  </span>
-                </div>
+                <span className="text-[10px] uppercase tracking-widest mt-2 text-warm-beige font-medium">
+                  Taken
+                </span>
               )}
 
               {/* Selected */}
               {isSelected && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-deep-olive rounded-full flex items-center justify-center">
+                <div className="absolute top-2 right-2 text-deep-olive">
                   <svg
-                    className="w-3 h-3 text-white"
-                    viewBox="0 0 24 24"
+                    className="w-3.5 h-3.5"
                     fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
                     <path
-                      d="M5 13l4 4L19 7"
-                      stroke="currentColor"
-                      strokeWidth={3}
+                      strokeWidth={2}
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
                     />
                   </svg>
                 </div>
@@ -150,18 +90,6 @@ export function GiftRegistry({
           );
         })}
       </div>
-
-      {/* Selected label */}
-      {selectedGiftId && (
-        <div className="mt-6 text-center">
-          <p className="font-serif text-sm text-deep-olive bg-light-sage/20 inline-block px-5 py-2 rounded-full">
-            You selected:{' '}
-            <span className="font-semibold">
-              {GIFTS.find((g) => g.id === selectedGiftId)?.name}
-            </span>
-          </p>
-        </div>
-      )}
     </div>
   );
-}
+};
