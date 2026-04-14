@@ -7,7 +7,7 @@ export function TransportationSection({
   setNeedsTransport,
 }: Props) {
   return (
-    <div className="w-full">
+    <div className="w-full pt-10">
       <div className="text-center mb-8">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
           Transportation Assistance

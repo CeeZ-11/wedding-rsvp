@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { GiftRegistry } from './GiftRegistry';
 import { LocationMap } from './LocationMap';
 import { TransportationSection } from './TransportationSection';
+import { Entourage } from './Entourage';
 import { AttireGuide } from './AttireGuide';
 import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
@@ -244,6 +245,8 @@ export function RSVPForm() {
             needsTransport={transportation}
             setNeedsTransport={setTransportation}
           />
+
+          <Entourage /> 
 
           <AttireGuide />
         </div>

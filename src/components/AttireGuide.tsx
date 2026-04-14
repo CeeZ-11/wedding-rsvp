@@ -1,7 +1,7 @@
 import React from 'react';
 export function AttireGuide() {
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 md:px-12">
+    <div className="pt-10 w-full max-w-3xl mx-auto px-4 md:px-12">
       <div className="text-center mb-12">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
           Attire Guide

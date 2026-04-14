@@ -2,7 +2,7 @@ export function LocationMap() {
   const mapLink = "https://maps.app.goo.gl/ZXqCjSzFiSum3R749";
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 md:px-12">
+    <div className="pt-10 w-full max-w-2xl mx-auto px-4 md:px-12">
       
       {/* Title */}
       <div className="text-center mb-10">
