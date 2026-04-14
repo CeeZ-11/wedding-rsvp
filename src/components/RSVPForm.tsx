@@ -81,7 +81,13 @@ export function RSVPForm() {
         body: JSON.stringify(data),
       });
 
+      // ✅ NEW: refresh taken gifts AFTER submit
+      const res = await fetch('/api/gifts');
+      const updated = await res.json();
+      setTakenGifts(updated.takenGifts || []);
+
       setSubmitted(true);
+
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
