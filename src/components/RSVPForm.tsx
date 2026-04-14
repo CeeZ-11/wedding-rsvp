@@ -7,11 +7,13 @@ import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
+  const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [takenGifts, setTakenGifts] = useState<string[]>([]);
 
   const [errors, setErrors] = useState<{
@@ -19,7 +21,7 @@ export function RSVPForm() {
     attendance?: string;
   }>({});
 
-  // ✅ Fetch taken gifts
+  // FETCH TAKEN GIFTS
   useEffect(() => {
     const fetchGifts = async () => {
       try {
@@ -27,19 +29,18 @@ export function RSVPForm() {
         const data = await res.json();
         setTakenGifts(data.takenGifts || []);
       } catch (err) {
-        console.error(err);
+        console.error('Failed to fetch gifts', err);
       }
     };
 
     fetchGifts();
   }, []);
 
+  // VALIDATION
   const validate = () => {
-    const name = (document.getElementById('fullName') as HTMLInputElement)?.value;
-
     const newErrors: typeof errors = {};
 
-    if (!name || !name.trim()) {
+    if (!fullName.trim()) {
       newErrors.name = 'Please enter your full name';
     }
 
@@ -59,14 +60,11 @@ export function RSVPForm() {
 
     setIsSubmitting(true);
 
-    const name =
-      (document.getElementById('fullName') as HTMLInputElement)?.value || '';
-
     const selectedGiftName =
       GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
     const data = {
-      name,
+      name: fullName,
       attendance,
       gift: selectedGiftName,
       dietary:
@@ -77,6 +75,8 @@ export function RSVPForm() {
       transportation,
     };
 
+    console.log('SUBMIT DATA:', data);
+
     try {
       await fetch('/api/rsvp', {
         method: 'POST',
@@ -84,12 +84,13 @@ export function RSVPForm() {
         body: JSON.stringify(data),
       });
 
-      // refresh gifts
+      // refresh taken gifts
       const res = await fetch('/api/gifts');
       const updated = await res.json();
       setTakenGifts(updated.takenGifts || []);
 
       setSubmitted(true);
+
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
@@ -98,15 +99,16 @@ export function RSVPForm() {
     }
   };
 
-  // ✅ Confirmation
+  // CONFIRMATION
   if (submitted) {
     return (
       <Confirmation
-        name={(document.getElementById('fullName') as HTMLInputElement)?.value || ''}
+        name={fullName}
         attending={attendance}
         selectedGiftId={selectedGiftId}
         onReset={() => {
           setSubmitted(false);
+          setFullName('');
           setAttendance(null);
           setSelectedGiftId(null);
           setTransportation('');
@@ -130,19 +132,30 @@ export function RSVPForm() {
       <form className="space-y-8" onSubmit={handleSubmit}>
         {/* Name */}
         <div className="space-y-2">
-          <label className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium">
+          <label
+            htmlFor="fullName"
+            className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium"
+          >
             Full Name
           </label>
+          <p className="font-serif text-deep-olive/60 text-xs italic text-center">
+            Please enter your full name (RSVP is for one person)
+          </p>
 
           <input
             type="text"
             id="fullName"
+            value={fullName}
+            onChange={(e) => {
+              setFullName(e.target.value);
+              setErrors((prev) => ({ ...prev, name: undefined }));
+            }}
             placeholder="Your full name"
-            className="w-full bg-transparent border-b px-4 py-3 text-center"
+            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
           />
 
           {errors.name && (
-            <p className="text-red-500 text-xs text-center">
+            <p className="text-red-500 text-xs text-center mt-1">
               {errors.name}
             </p>
           )}
@@ -150,50 +163,111 @@ export function RSVPForm() {
 
         {/* Attendance */}
         <div className="pt-4 space-y-4">
-          <div className="flex justify-center gap-4">
-            <button type="button" onClick={() => setAttendance('yes')}>
-              Accept
+          <label className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium">
+            Will you attend?
+          </label>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button
+              type="button"
+              onClick={() => {
+                setAttendance('yes');
+                setErrors((prev) => ({ ...prev, attendance: undefined }));
+              }}
+              className={`
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
+                ${
+                  attendance === 'yes'
+                    ? 'bg-deep-olive text-white border-deep-olive shadow-md'
+                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
+                }
+              `}
+            >
+              Joyfully Accept
             </button>
 
-            <button type="button" onClick={() => setAttendance('no')}>
-              Decline
+            <button
+              type="button"
+              onClick={() => {
+                setAttendance('no');
+                setErrors((prev) => ({ ...prev, attendance: undefined }));
+              }}
+              className={`
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
+                ${
+                  attendance === 'no'
+                    ? 'bg-warm-beige text-white border-warm-beige shadow-md'
+                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
+                }
+              `}
+            >
+              Regretfully Decline
             </button>
           </div>
 
           {errors.attendance && (
-            <p className="text-red-500 text-xs text-center">
+            <p className="text-red-500 text-xs text-center mt-2">
               {errors.attendance}
             </p>
           )}
         </div>
 
         {/* CONDITIONAL */}
-        {attendance === 'yes' && (
-          <div className="space-y-8 pt-4">
-            <input id="dietary" placeholder="Dietary" />
-            <textarea id="message" placeholder="Message" />
+        <div
+          className={`space-y-8 pt-4 transition-all duration-500 ${
+            attendance === 'yes'
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 -translate-y-2 pointer-events-none absolute'
+          }`}
+        >
+          <input
+            id="dietary"
+            placeholder="Dietary restrictions"
+            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
+          />
 
-            <GiftRegistry
-              selectedGiftId={selectedGiftId}
-              onSelectGift={setSelectedGiftId}
-              takenGifts={takenGifts}
-            />
+          <textarea
+            id="message"
+            placeholder="Message..."
+            className="w-full border px-4 py-3 text-center"
+          />
 
-            <LocationMap />
+          <GiftRegistry
+            selectedGiftId={selectedGiftId}
+            onSelectGift={setSelectedGiftId}
+            takenGifts={takenGifts}
+          />
 
-            <TransportationSection
-              needsTransport={transportation}
-              setNeedsTransport={setTransportation}
-            />
+          <LocationMap />
 
-            <AttireGuide />
-          </div>
-        )}
+          <TransportationSection
+            needsTransport={transportation}
+            setNeedsTransport={setTransportation}
+          />
 
-        {/* Submit (YOUR DESIGN PRESERVED) */}
-        <div className="flex justify-center">
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Send RSVP'}
+          <AttireGuide />
+        </div>
+
+        {/* Submit */}
+        <div className="pt-10 pb-6 flex justify-center">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`
+              group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all
+              ${
+                isSubmitting
+                  ? 'opacity-70 cursor-not-allowed'
+                  : 'hover:shadow-lg hover:bg-[#4a4e3c]'
+              }
+            `}
+          >
+            <span className="flex items-center gap-3 justify-center">
+              {isSubmitting && (
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              )}
+              {isSubmitting ? 'Submitting...' : 'Send RSVP'}
+            </span>
           </button>
         </div>
       </form>
