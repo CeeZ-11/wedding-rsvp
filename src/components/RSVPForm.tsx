@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { GiftRegistry } from './GiftRegistry';
-import { DividerFloral } from './FloralAccent';
 import { LocationMap } from './LocationMap';
 import { TransportationSection } from './TransportationSection';
 import { AttireGuide } from './AttireGuide';
@@ -119,7 +118,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               : 'opacity-0 -translate-y-2 pointer-events-none absolute'
           }`}
         >
-          <DividerFloral className="my-8" />
+        
 
           {/* Dietary */}
           <div className="space-y-2">

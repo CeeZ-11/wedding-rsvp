@@ -1,9 +1,6 @@
 
 import { motion } from 'framer-motion';
-import {
-  FloralCornerTopLeft,
-  FloralCornerBottomRight,
-  DividerFloral } from
+import { CornerBranch } from
 './FloralAccent';
 import { RSVPForm } from './RSVPForm';
 export function InvitationCard() {
@@ -23,13 +20,27 @@ export function InvitationCard() {
       }}
       className="relative w-full max-w-4xl mx-auto bg-card-bg shadow-card rounded-sm overflow-hidden border border-[#F0EBE1]">
       
-      {/* Decorative Corners */}
-      <div className="absolute top-0 left-0 p-4">
-        <FloralCornerTopLeft className="w-24 h-24 md:w-32 md:h-32" />
-      </div>
-      <div className="absolute bottom-0 right-0 p-4">
-        <FloralCornerBottomRight className="w-24 h-24 md:w-32 md:h-32" />
-      </div>
+     {/* Decorative Corners */}
+
+     <CornerBranch
+        position="top-left"
+        className="absolute top-0 left-0 w-28 h-28 md:w-36 md:h-36 -translate-x-4 -translate-y-4 opacity-60"
+      />
+
+      <CornerBranch
+        position="top-right"
+        className="absolute top-0 right-0 w-28 h-28 md:w-36 md:h-36 translate-x-4 -translate-y-4 opacity-60"
+      />
+
+      <CornerBranch
+        position="bottom-left"
+        className="absolute bottom-0 left-0 w-28 h-28 md:w-36 md:h-36 -translate-x-4 translate-y-4 opacity-60"
+      />
+
+      <CornerBranch
+        position="bottom-right"
+        className="absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 translate-x-4 translate-y-4 opacity-60"
+      />
 
       {/* Inner Border to simulate printed card */}
       <div className="m-3 md:m-5 border border-light-sage/20 rounded-sm p-8 md:p-16 relative z-10">
@@ -75,8 +86,6 @@ export function InvitationCard() {
           </div>
         </motion.div>
 
-        <DividerFloral className="my-12 md:my-16" />
-
         {/* Form Section */}
         <motion.div
           initial={{
@@ -97,7 +106,6 @@ export function InvitationCard() {
           <RSVPForm />
         </motion.div>
 
-        <DividerFloral className="my-12 md:my-16" />
 
       </div>
     </motion.div>);

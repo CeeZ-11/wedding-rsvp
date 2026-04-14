@@ -1,135 +1,100 @@
-import React from 'react';
-export function FloralCornerTopLeft({
-  className = ''
-
-
-}: {className?: string;}) {
+export const CornerBranch = ({
+  className = '',
+  position = 'top-left',
+}: {
+  className?: string
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+}) => {
+  const rotation = {
+    'top-left': 'rotate-0',
+    'top-right': 'rotate-90',
+    'bottom-right': 'rotate-180',
+    'bottom-left': '-rotate-90',
+  }[position]
   return (
     <svg
-      className={`opacity-20 text-muted-sage pointer-events-none ${className}`}
-      width="120"
-      height="120"
-      viewBox="0 0 120 120"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      
-      <path
-        d="M10 10C30 15 45 30 50 50"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M10 10C20 35 30 45 40 60"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M10 10C40 5 60 15 80 20"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M45 25C50 20 55 22 58 28C55 32 48 30 45 25Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M25 45C20 50 22 55 28 58C32 55 30 48 25 45Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M65 15C70 12 75 15 75 20C70 22 65 20 65 15Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M15 65C12 70 15 75 20 75C22 70 20 65 15 65Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-    </svg>);
-
-}
-export function FloralCornerBottomRight({
-  className = ''
-
-
-}: {className?: string;}) {
-  return (
-    <svg
-      className={`opacity-20 text-muted-sage pointer-events-none ${className}`}
-      width="120"
-      height="120"
-      viewBox="0 0 120 120"
+      className={`w-24 h-24 text-soft-green opacity-60 ${rotation} ${className}`}
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{
-        transform: 'rotate(180deg)'
-      }}>
-      
+    >
       <path
-        d="M10 10C30 15 45 30 50 50"
+        d="M10 10 Q 40 10 60 30 T 90 90"
         stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M10 10C20 35 30 45 40 60"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M10 10C40 5 60 15 80 20"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round" />
-      
-      <path
-        d="M45 25C50 20 55 22 58 28C55 32 48 30 45 25Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M25 45C20 50 22 55 28 58C32 55 30 48 25 45Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M65 15C70 12 75 15 75 20C70 22 65 20 65 15Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-      <path
-        d="M15 65C12 70 15 75 20 75C22 70 20 65 15 65Z"
-        fill="currentColor"
-        opacity="0.5" />
-      
-    </svg>);
-
-}
-export function DividerFloral({ className = '' }: {className?: string;}) {
-  return (
-    <div className={`flex items-center justify-center w-full ${className}`}>
-      <div className="h-[1px] w-16 bg-light-sage/50"></div>
-      <svg
-        className="mx-4 text-muted-sage opacity-40"
-        width="24"
-        height="12"
-        viewBox="0 0 24 12"
+        strokeWidth="1.5"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        
+        strokeLinecap="round"
+      />
+      <path
+        d="M25 10 Q 35 20 25 30 Q 15 20 25 10"
+        fill="currentColor"
+        opacity="0.5"
+      />
+      <path
+        d="M45 15 Q 55 25 45 35 Q 35 25 45 15"
+        fill="currentColor"
+        opacity="0.5"
+      />
+      <path
+        d="M60 30 Q 75 35 70 50 Q 55 45 60 30"
+        fill="currentColor"
+        opacity="0.5"
+      />
+      <path
+        d="M75 55 Q 90 60 85 75 Q 70 70 75 55"
+        fill="currentColor"
+        opacity="0.5"
+      />
+      <path
+        d="M10 30 Q 25 35 20 50 Q 5 45 10 30"
+        fill="currentColor"
+        opacity="0.3"
+      />
+      <path
+        d="M30 50 Q 45 55 40 70 Q 25 65 30 50"
+        fill="currentColor"
+        opacity="0.3"
+      />
+    </svg>
+  )
+}
+export const FloralDivider = ({ className = '' }: { className?: string }) => {
+  return (
+    <div
+      className={`flex items-center justify-center w-full my-8 ${className}`}
+    >
+      <div className="h-px bg-soft-green/50 flex-1 max-w-[100px]"></div>
+      <svg
+        className="w-8 h-8 mx-4 text-sage"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
-          d="M12 2C14 6 18 8 22 8C18 8 14 10 12 12C10 10 6 8 2 8C6 8 10 6 12 2Z"
-          fill="currentColor" />
-        
+          d="M12 3C12 3 14 8 18 10C14 12 12 17 12 17C12 17 10 12 6 10C10 8 12 3 12 3Z"
+          fill="currentColor"
+          opacity="0.6"
+        />
+        <path
+          d="M12 17V21"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M12 21C12 21 15 19 16 16"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M12 21C12 21 9 19 8 16"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
       </svg>
-      <div className="h-[1px] w-16 bg-light-sage/50"></div>
-    </div>);
-
+      <div className="h-px bg-soft-green/50 flex-1 max-w-[100px]"></div>
+    </div>
+  )
 }
