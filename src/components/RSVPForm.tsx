@@ -11,7 +11,6 @@ export function RSVPForm() {
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const selectedGiftName = GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
   // ✅ NEW: error state
   const [errors, setErrors] = useState<{
@@ -44,6 +43,8 @@ export function RSVPForm() {
 
     // ✅ VALIDATION CHECK
     if (!validate()) return;
+
+    const selectedGiftName = GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
     const data = {
       name: fullName,
