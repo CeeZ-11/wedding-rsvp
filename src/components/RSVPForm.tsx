@@ -7,21 +7,18 @@ import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
+  const [fullName, setFullName] = useState(''); // ✅ FIXED
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  // ✅ NEW: error state
   const [errors, setErrors] = useState<{
     name?: string;
     attendance?: string;
   }>({});
 
-  const fullName =
-    (document.getElementById('fullName') as HTMLInputElement)?.value || '';
-
-  // ✅ NEW: validation function
+  // ✅ VALIDATION
   const validate = () => {
     const newErrors: typeof errors = {};
 
@@ -34,22 +31,21 @@ export function RSVPForm() {
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ VALIDATION CHECK
     if (!validate()) return;
 
-    const selectedGiftName = GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
+    const selectedGiftName =
+      GIFTS.find((g) => g.id === selectedGiftId)?.name || '';
 
     const data = {
       name: fullName,
       attendance,
-      gift: selectedGiftName,
+      gift: selectedGiftName, // ✅ FIXED
       dietary:
         (document.getElementById('dietary') as HTMLInputElement)?.value || '',
       message:
@@ -57,6 +53,8 @@ export function RSVPForm() {
         '',
       transportation,
     };
+
+    console.log('SUBMIT DATA:', data); // 🔍 DEBUG
 
     try {
       await fetch('/api/rsvp', {
@@ -72,7 +70,7 @@ export function RSVPForm() {
     }
   };
 
-  // ✅ Confirmation screen
+  // ✅ CONFIRMATION SCREEN
   if (submitted) {
     return (
       <Confirmation
@@ -81,6 +79,7 @@ export function RSVPForm() {
         selectedGiftId={selectedGiftId}
         onReset={() => {
           setSubmitted(false);
+          setFullName('');
           setAttendance(null);
           setSelectedGiftId(null);
           setTransportation('');
@@ -104,7 +103,7 @@ export function RSVPForm() {
 
       <form className="space-y-8" onSubmit={handleSubmit}>
 
-        {/* Name Input */}
+        {/* Name */}
         <div className="space-y-2">
           <label
             htmlFor="fullName"
@@ -115,17 +114,19 @@ export function RSVPForm() {
           <p className="font-serif text-deep-olive/60 text-xs italic text-center">
             Please enter your full name (RSVP is for one person)
           </p>
+
           <input
             type="text"
             id="fullName"
+            value={fullName}
+            onChange={(e) => {
+              setFullName(e.target.value);
+              setErrors((prev) => ({ ...prev, name: undefined }));
+            }}
             placeholder="Your full name"
-            onChange={() =>
-              setErrors((prev) => ({ ...prev, name: undefined }))
-            }
             className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
           />
 
-          {/* ✅ ERROR */}
           {errors.name && (
             <p className="text-red-500 text-xs text-center mt-1">
               {errors.name}
@@ -177,7 +178,6 @@ export function RSVPForm() {
             </button>
           </div>
 
-          {/* ✅ ERROR */}
           {errors.attendance && (
             <p className="text-red-500 text-xs text-center mt-2">
               {errors.attendance}
@@ -193,21 +193,17 @@ export function RSVPForm() {
               : 'opacity-0 -translate-y-2 pointer-events-none absolute'
           }`}
         >
-          <div className="space-y-2">
-            <input
-              id="dietary"
-              placeholder="Dietary restrictions"
-              className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
-            />
-          </div>
+          <input
+            id="dietary"
+            placeholder="Dietary restrictions"
+            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
+          />
 
-          <div className="space-y-2">
-            <textarea
-              id="message"
-              placeholder="Message..."
-              className="w-full border px-4 py-3 text-center"
-            />
-          </div>
+          <textarea
+            id="message"
+            placeholder="Message..."
+            className="w-full border px-4 py-3 text-center"
+          />
 
           <GiftRegistry
             selectedGiftId={selectedGiftId}
@@ -231,9 +227,7 @@ export function RSVPForm() {
             type="submit"
             className="group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all hover:shadow-lg hover:bg-[#4a4e3c]"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Send RSVP
-            </span>
+            Send RSVP
           </button>
         </div>
 
