@@ -26,7 +26,7 @@ export const entourage: EntourageData = {
   principalSponsors: [{ name: 'Harvey Tee' }, { name: 'Mechiel Tee' }],
   entourage: {
     maidOfHonor: [{ name: 'Salve Regina Mendros', role: 'Maid of Honor' }],
-    bestMan: [{ name: 'Romarco Garidan', role: 'Best Man' }],
+    bestMan: [{ name: '', role: 'Best Man' }],
     bridesmaids: [{ name: 'Ekklessia', role: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Friend of the Bride' }],
     groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsmen' }, { name: 'Emmanuel Estrabon', role: 'Groomsmen' }, { name: 'Daniel Yared', role: 'Groomsmen' }],
   },
