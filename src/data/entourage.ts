@@ -7,11 +7,13 @@ export interface Person {
 export interface EntourageData {
   parents: Person[];
   principalSponsors: Person[];
+  secondarySponsors: Person[] | { veil: Person[]; cord: Person[] };
   entourage: {
     maidOfHonor: Person[];
     bestMan: Person[];
     bridesmaids: Person[];
     groomsmen: Person[];
+    flowerGirls: Person[];
   };
   bearers: Person[];
 }
@@ -24,11 +26,22 @@ export const entourage: EntourageData = {
     { name: 'Mrs. Francisca Lopez', role: 'Grandmother of the Bride' },
   ],
   principalSponsors: [{ name: 'Harvey Tee' }, { name: 'Mechiel Tee' }],
+  secondarySponsors: {
+    veil: [
+      { name: "Danimae Alcala" },
+      { name: "Anthony Alcala" },
+    ],
+    cord: [
+      { name: "Neri Garidan" },
+      { name: "Marco Garidan" },
+    ],
+  },
   entourage: {
     maidOfHonor: [{ name: 'Salve Regina Mendros', role: 'Maid of Honor' }],
     bestMan: [{ name: '', role: 'Best Man' }],
     bridesmaids: [{ name: 'Ekklessia', role: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Friend of the Bride' }],
-    groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsmen' }, { name: 'Emmanuel Estrabon', role: 'Groomsmen' }, { name: 'Daniel Yared', role: 'Groomsmen' }],
+    groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsmen' }, { name: 'Emmanuel Estrabon', role: 'Groomsmen' }, { name: 'Daniel Yared', role: 'Groomsmen' }, { name: 'Allain Paul Benito', role: 'Groomsmen' }, { name: 'John Rey Palacios', role: 'Groomsmen' },],
+    flowerGirls: [{ name: 'Diana Elie Tee', role: 'Flower Girl' }, { name: 'Eliana Faye Tee', role: 'Flower Girl' }, { name: 'Kaira Elise Tee', role: 'Flower Girl' }],
   },
   bearers: [{ name: 'Bryle Acruz', role: 'Ring Bearer' }],
 };

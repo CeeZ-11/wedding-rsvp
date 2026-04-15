@@ -102,6 +102,24 @@ export function Entourage() {
           />
 
           <Section
+            title="Veil Sponsors"
+            people={
+              entourage.secondarySponsors && 'veil' in entourage.secondarySponsors
+                ? (entourage.secondarySponsors as { veil: Person[] }).veil
+                : []
+            }
+          />
+
+          <Section
+            title="Cord Sponsors"
+            people={
+              entourage.secondarySponsors && 'cord' in entourage.secondarySponsors
+                ? (entourage.secondarySponsors as { cord: Person[] }).cord
+                : []
+            }
+          />
+
+          <Section
             title="Maid of Honor"
             people={entourage.entourage.maidOfHonor}
           />
@@ -122,6 +140,11 @@ export function Entourage() {
           />
 
           <Section title="Bearers" people={entourage.bearers} />
+
+          <Section
+            title="Flower Girl"
+            people={entourage.entourage.flowerGirls}
+          />
         </div>
       </div>
     </div>
