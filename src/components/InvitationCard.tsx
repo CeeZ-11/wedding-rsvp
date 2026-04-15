@@ -81,12 +81,25 @@ export function InvitationCard() {
             <p className="font-serif text-lg md:text-xl text-deep-olive tracking-wider font-medium">
               December 27, 2026
             </p>
-            <p className="font-serif text-base md:text-lg text-deep-olive/70 tracking-widest uppercase font-medium mb-5 pb-6">
+            <p className="font-serif text-base md:text-lg text-deep-olive/70 tracking-widest uppercase font-medium mb-5 pb-3">
               Balai Ramirez DSB
             </p>
 
-            <div className="border-t border-light-sage/20">
+            <div className="border-t border-light-sage/20 pt-6 mt-4 flex flex-col items-center">
+              <p className="text-xs tracking-[0.3em] uppercase text-deep-olive/50 mb-3">
+                Countdown to our special day
+              </p>
+
               <Countdown />
+
+              <a
+                href="https://www.google.com/calendar/render?action=TEMPLATE&text=Seamor+%26+Lady+Stephanie+Wedding&dates=20261227T060000Z/20261227T140000Z&location=Balai+Ramirez+DSB&details=Join+us+as+we+celebrate+our+wedding+day!"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 text-xs tracking-widest uppercase text-deep-olive border border-deep-olive px-5 py-2 rounded-full hover:bg-deep-olive hover:text-white transition"
+              >
+                Add to Calendar
+              </a>
             </div>
           </div>
         </motion.div>

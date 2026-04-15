@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 
-const weddingDate = new Date(2026, 11, 27, 0, 0, 0).getTime();
+const weddingDate = new Date("2026-12-27T00:00:00+08:00").getTime();
 
 function getTimeRemaining() {
   const now = new Date().getTime();
@@ -47,17 +48,24 @@ export function Countdown() {
   ];
 
   return (
-    <div className="mt-5 flex justify-center gap-6 text-center">
+    <div className="flex justify-center gap-6 text-center">
       {units.map(({ label, value }) => (
         <div key={label}>
-          <p className="text-2xl md:text-3xl font-semibold text-deep-olive">
+            <motion.p
+            key={value}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="text-2xl md:text-3xl font-semibold text-deep-olive"
+            >
             {format(value)}
-          </p>
-          <p className="text-xs uppercase tracking-widest text-deep-olive/60">
+            </motion.p>
+
+            <p className="text-xs uppercase tracking-widest text-deep-olive/60">
             {label}
-          </p>
+            </p>
         </div>
-      ))}
+        ))}
     </div>
   );
 }
