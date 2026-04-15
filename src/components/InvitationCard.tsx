@@ -81,6 +81,9 @@ export function InvitationCard() {
             <p className="font-serif text-lg md:text-xl text-deep-olive tracking-wider font-medium">
               December 27, 2026
             </p>
+            <p className="font-serif text-sm md:text-base text-deep-olive/70 tracking-widest uppercase">
+              2:00 PM – 10:00 PM
+            </p>
             <p className="font-serif text-base md:text-lg text-deep-olive/70 tracking-widest uppercase font-medium mb-5 pb-3">
               Balai Ramirez DSB
             </p>
