@@ -119,7 +119,7 @@ export function RSVPForm() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-16 px-4 md:px-12">
+    <div className="w-full max-w-2xl mx-auto mt-12 px-4 md:px-12">
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">

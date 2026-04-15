@@ -1,5 +1,6 @@
 
 import { motion } from 'framer-motion';
+import { Countdown } from './Countdown';
 import { CornerBranch } from
 './FloralAccent';
 import { RSVPForm } from './RSVPForm';
@@ -80,9 +81,13 @@ export function InvitationCard() {
             <p className="font-serif text-lg md:text-xl text-deep-olive tracking-wider font-medium">
               December 27, 2026
             </p>
-            <p className="font-serif text-base md:text-lg text-deep-olive/70 tracking-widest uppercase font-medium">
+            <p className="font-serif text-base md:text-lg text-deep-olive/70 tracking-widest uppercase font-medium mb-5 pb-6">
               Balai Ramirez DSB
             </p>
+
+            <div className="border-t border-light-sage/20">
+              <Countdown />
+            </div>
           </div>
         </motion.div>
 
