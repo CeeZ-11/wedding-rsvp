@@ -77,6 +77,7 @@ export function Entourage() {
         </h2>
 
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="text-sm text-deep-olive/70 hover:underline transition"
         >
