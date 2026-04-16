@@ -45,13 +45,13 @@ export const entourage: EntourageData = {
     ],
 
     cord: [
-      { name: "Neri Garidan", role: "Cord Sponsor" },
-      { name: "Marco Garidan", role: "Cord Sponsor" },
+      { name: "Neri Nelle Garidan", role: "Cord Sponsor" },
+      { name: "Romarco Garidan", role: "Cord Sponsor" },
     ],
 
     candle: [
-      { name: "Randy Tejada", role: "Candle Sponsor" },
-      { name: "👉 Add Partner Name", role: "Candle Sponsor" },
+      { name: "", role: "Candle Sponsor" },
+      { name: "", role: "Candle Sponsor" },
     ],
   },
 
@@ -66,7 +66,7 @@ export const entourage: EntourageData = {
 
     bestMan: [
       {
-        name: "",
+        name: "Allain Paul Benito",
         role: "Best Man",
       },
     ],
@@ -94,6 +94,7 @@ export const entourage: EntourageData = {
       { name: "Eliana Faye Tee", role: "Flower Girl" },
       { name: "Kaira Elise Tee", role: "Flower Girl" },
       { name: "Amy Rose Alcala", role: "Flower Girl" },
+      { name: "Allie Benito", role: "Flower Girl" },
     ],
   },
 
