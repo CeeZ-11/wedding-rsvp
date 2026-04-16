@@ -8,7 +8,11 @@ export interface Person {
 export interface EntourageData {
   parents: Person[];
   principalSponsors: Person[];
-  secondarySponsors: Person[] | { veil: Person[]; cord: Person[] };
+  secondarySponsors: {
+    veil: Person[];
+    cord: Person[];
+    candle: Person[];
+  };
   entourage: {
     maidOfHonor: Person[];
     bestMan: Person[];
@@ -21,28 +25,79 @@ export interface EntourageData {
 
 export const entourage: EntourageData = {
   parents: [
-    { name: 'Mr. Daniel Estrabon', role: 'Father of the Groom' },
-    { name: 'Mrs. Mercidita Estrabon', role: 'Mother of the Groom' },
-    { name: 'Mr. Pablito Acruz', role: 'Father of the Bride' },
-    { name: 'Mrs. Francisca Lopez', role: 'Grandmother of the Bride' },
+    { name: "Mr. Daniel Estrabon", role: "Father of the Groom" },
+    { name: "Mrs. Mercidita Estrabon", role: "Mother of the Groom" },
+    { name: "Mr. Pablito Acruz", role: "Father of the Bride" },
+    { name: "Mrs. Francisca Lopez", role: "Grandmother of the Bride" },
   ],
-  principalSponsors: [{ name: 'Harvey Tee', role: 'Principal Sponsor' }, { name: 'Mechiel Tee', role: 'Principal Sponsor' }],
+
+  principalSponsors: [
+    { name: "Harvey Tee", role: "Principal Sponsor" },
+    { name: "Mechiel Tee", role: "Principal Sponsor" },
+    { name: "Roland Tejada", role: "Principal Sponsor" },
+    { name: "Mariel Tejada", role: "Principal Sponsor" },
+  ],
+
   secondarySponsors: {
     veil: [
       { name: "Danimae Alcala", role: "Veil Sponsor" },
       { name: "Anthony Alcala", role: "Veil Sponsor" },
     ],
+
     cord: [
       { name: "Neri Garidan", role: "Cord Sponsor" },
       { name: "Marco Garidan", role: "Cord Sponsor" },
     ],
+
+    candle: [
+      { name: "Randy Tejada", role: "Candle Sponsor" },
+      { name: "👉 Add Partner Name", role: "Candle Sponsor" },
+    ],
   },
+
   entourage: {
-    maidOfHonor: [{ name: 'Salve Regina Vistal', role: 'Maid of Honor', relation: 'Friend of the Bride' }],
-    bestMan: [{ name: '', role: 'Best Man' }],
-    bridesmaids: [{ name: 'Krizia Belecina', role: 'Bridesmaid', relation: 'Friend of the Groom' }, { name: 'Ekklessia', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Faith Victory Villaruz', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Leizyl Resabal', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Nerilynne Briones', role: 'Bridesmaid', relation: 'Friend of the Bride' } ],
-    groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Daniel Yared', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'John Rey Palacios', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'Emmanuel Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Ariel Bargat', role: 'Groomsman', relation: 'Friend of the Bride' }, { name: 'Harold Caceres', role: 'Groomsman', relation: 'Friend of the Groom' }],
-    flowerGirls: [{ name: 'Diana Elie Tee', role: 'Flower Girl' }, { name: 'Eliana Faye Tee', role: 'Flower Girl' }, { name: 'Kaira Elise Tee', role: 'Flower Girl' }],
+    maidOfHonor: [
+      {
+        name: "Salve Regina Vistal",
+        role: "Maid of Honor",
+        relation: "Friend of the Bride",
+      },
+    ],
+
+    bestMan: [
+      {
+        name: "",
+        role: "Best Man",
+      },
+    ],
+
+    bridesmaids: [
+      { name: "Krizia Belecina", role: "Bridesmaid", relation: "Friend of the Groom" },
+      { name: "Ekklessia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Faith Victory Villaruz", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
+    ],
+
+    groomsmen: [
+      { name: "Joshua Estrabon", role: "Groomsman", relation: "Brother of the Groom" },
+      { name: "Daniel Yared", role: "Groomsman", relation: "Friend of the Groom" },
+      { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
+      { name: "Emmanuel Estrabon", role: "Groomsman", relation: "Brother of the Groom" },
+      { name: "Ariel Bargat", role: "Groomsman", relation: "Friend of the Bride" },
+      { name: "Harold Caceres", role: "Groomsman", relation: "Friend of the Groom" },
+    ],
+
+    flowerGirls: [
+      { name: "Diana Elie Tee", role: "Flower Girl" },
+      { name: "Eliana Faye Tee", role: "Flower Girl" },
+      { name: "Kaira Elise Tee", role: "Flower Girl" },
+      { name: "Amy Rose Alcala", role: "Flower Girl" },
+    ],
   },
-  bearers: [{ name: 'Bryle Acruz', role: 'Ring Bearer' }],
+
+  bearers: [
+    { name: "Bryle Acruz", role: "Ring Bearer" },
+  ],
 };
