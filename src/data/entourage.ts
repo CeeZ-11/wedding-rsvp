@@ -68,6 +68,7 @@ export const entourage: EntourageData = {
       {
         name: "Allain Paul Benito",
         role: "Best Man",
+        relation: "Friend of the Groom",
       },
     ],
 
