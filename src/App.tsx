@@ -10,7 +10,6 @@ function Home() {
       <div className="max-w-7xl mx-auto">
         <InvitationCard />
       </div>
-      <MusicPlayer />
       <FloatingGuideButton />
     </div>
   );
@@ -18,12 +17,14 @@ function Home() {
 
 export function App() {
   return (
-    <Routes>
-      {/* Main Page */}
-      <Route path="/" element={<Home />} />
+    <>
+      <MusicPlayer />
 
-      {/* Guide Page */}
-      <Route path="/guide" element={<GuidePage />} />
-    </Routes>
+      {/* Pages */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/guide" element={<GuidePage />} />
+      </Routes>
+    </>
   );
 }
