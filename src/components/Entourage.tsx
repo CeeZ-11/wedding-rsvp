@@ -26,9 +26,14 @@ function PersonCard({ person }: { person: Person }) {
       </p>
 
       {/* Role */}
-      {person.role && (
+      {(person.role || person.relation) && (
         <p className="text-xs text-deep-olive/60 italic leading-tight">
           {person.role}
+          {person.relation && (
+            <span className="block text-[11px] text-deep-olive/50 not-italic">
+              {person.relation}
+            </span>
+          )}
         </p>
       )}
     </div>
