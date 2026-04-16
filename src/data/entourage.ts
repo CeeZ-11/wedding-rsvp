@@ -38,7 +38,7 @@ export const entourage: EntourageData = {
     ],
   },
   entourage: {
-    maidOfHonor: [{ name: 'Salve Regina Mendros', role: 'Maid of Honor', relation: 'Friend of the Bride' }],
+    maidOfHonor: [{ name: 'Salve Regina Vistal', role: 'Maid of Honor', relation: 'Friend of the Bride' }],
     bestMan: [{ name: '', role: 'Best Man' }],
     bridesmaids: [{ name: 'Krizia Belecina', role: 'Bridesmaid', relation: 'Friend of the Groom' }, { name: 'Ekklessia', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Faith Victory Villaruz', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Leizyl Resabal', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Nerilynne Briones', role: 'Bridesmaid', relation: 'Friend of the Bride' } ],
     groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Daniel Yared', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'John Rey Palacios', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'Emmanuel Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Ariel Bargat', role: 'Groomsman', relation: 'Friend of the Bride' }, { name: 'Harold Caceres', role: 'Groomsman', relation: 'Friend of the Groom' }],
