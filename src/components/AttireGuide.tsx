@@ -1,109 +1,111 @@
-import React from 'react';
 export function AttireGuide() {
   return (
-    <div className="pt-10 w-full max-w-3xl mx-auto px-4 md:px-12">
-      <div className="text-center mb-12">
-        <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
-          Attire Guide
+    <div className="space-y-16 text-center">
+
+      {/* Title */}
+      <div className="space-y-3">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-widest text-deep-olive">
+          Dress Code
         </h2>
-        <p className="font-serif text-deep-olive/80 text-lg md:text-xl font-medium">
+        <p className="text-lg md:text-xl text-deep-olive font-medium font-sans">
           Garden Wedding Attire
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {/* Bridal Party */}
+      <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+
         {/* Bridesmaids */}
-        <div className="bg-white p-6 rounded-sm border border-muted-sage/30 text-center flex flex-col items-center justify-center h-full">
-          <h3 className="font-serif text-xl text-deep-olive font-medium mb-3">
+        <div className="p-8 border border-light-sage/30 rounded-xl space-y-4">
+          <h3 className="text-xl md:text-2xl font-semibold text-deep-olive">
             Bridesmaids
           </h3>
-          <p className="font-serif text-deep-olive/70 text-sm md:text-base mb-4">
-            Soft sage green or muted green dresses. Elegant, flowy,
-            garden-style.
+
+          <p className="text-base text-deep-olive font-sans leading-relaxed">
+            Soft sage green or muted tones. Elegant, flowy, garden-style dresses.
           </p>
-          <div className="flex gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#919682] shadow-sm border border-black/5"></div>
-            <div className="w-6 h-6 rounded-full bg-[#C7CDBF] shadow-sm border border-black/5"></div>
-            <div className="w-6 h-6 rounded-full bg-[#A3B19B] shadow-sm border border-black/5"></div>
+
+          <div className="flex justify-center gap-3">
+            <div className="w-7 h-7 rounded-full bg-[#919682]" />
+            <div className="w-7 h-7 rounded-full bg-[#C7CDBF]" />
+            <div className="w-7 h-7 rounded-full bg-[#A3B19B]" />
           </div>
         </div>
 
         {/* Groomsmen */}
-        <div className="bg-white p-6 rounded-sm border border-muted-sage/30 text-center flex flex-col items-center justify-center h-full">
-          <h3 className="font-serif text-xl text-deep-olive font-medium mb-3">
+        <div className="p-8 border border-light-sage/30 rounded-xl space-y-4">
+          <h3 className="text-xl md:text-2xl font-semibold text-deep-olive">
             Groomsmen
           </h3>
-          <p className="font-serif text-deep-olive/70 text-sm md:text-base mb-4">
-            Neutral or beige suits, white shirt with green accents (tie or
-            boutonniere).
+
+          <p className="text-base text-deep-olive font-sans leading-relaxed">
+            Neutral or beige suits, paired with white shirts and subtle green accents.
           </p>
-          <div className="flex gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#E8E1D9] shadow-sm border border-black/5"></div>
-            <div className="w-6 h-6 rounded-full bg-[#D5C7B8] shadow-sm border border-black/5"></div>
-            <div className="w-6 h-6 rounded-full bg-[#FFFFFF] shadow-sm border border-black/5"></div>
+
+          <div className="flex justify-center gap-3">
+            <div className="w-7 h-7 rounded-full bg-[#E8E1D9]" />
+            <div className="w-7 h-7 rounded-full bg-[#D5C7B8]" />
+            <div className="w-7 h-7 rounded-full bg-[#FFFFFF] border border-light-sage/40" />
           </div>
         </div>
       </div>
 
-      {/* Guest Attire */}
-      <div className="bg-white p-8 rounded-sm border border-muted-sage/30 text-center">
-        <h3 className="font-serif text-2xl text-deep-olive font-medium mb-2">
-          Guest Attire
-        </h3>
-        <p className="font-serif text-deep-olive/60 tracking-widest uppercase text-xs font-medium mb-6">
-          Semi-formal garden attire
-        </p>
+      {/* Guests */}
+      <div className="max-w-3xl mx-auto p-10 border border-light-sage/30 rounded-xl space-y-8">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-left">
-          <div className="space-y-2">
-            <h4 className="font-serif text-lg text-deep-olive font-medium border-b border-light-sage/30 pb-2">
+        <div className="space-y-2">
+          <h3 className="text-2xl md:text-3xl font-bold text-deep-olive">
+            Guest Attire
+          </h3>
+          <p className="text-sm uppercase tracking-widest text-deep-olive font-medium">
+            Semi-formal garden attire
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 text-left font-sans">
+
+          {/* Women */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-semibold text-deep-olive border-b border-light-sage/30 pb-2">
               Women
             </h4>
-            <p className="font-serif text-deep-olive/80 text-sm md:text-base leading-relaxed">
+            <p className="text-deep-olive leading-relaxed">
               Flowy dresses, midi or maxi styles in soft, muted, earthy tones.
-              Light, breathable fabrics.
+              Light, breathable fabrics are recommended.
             </p>
           </div>
-          <div className="space-y-2">
-            <h4 className="font-serif text-lg text-deep-olive font-medium border-b border-light-sage/30 pb-2">
+
+          {/* Men */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-semibold text-deep-olive border-b border-light-sage/30 pb-2">
               Men
             </h4>
-            <p className="font-serif text-deep-olive/80 text-sm md:text-base leading-relaxed">
+            <p className="text-deep-olive leading-relaxed">
               Polos, button-downs, or light suits in neutral tones.
             </p>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <p className="font-serif text-deep-olive/70 text-sm italic">
+        <div className="space-y-5 text-center">
+          <p className="text-sm italic text-deep-olive font-sans">
             Please avoid overly bright or neon colors.
           </p>
-          <div className="flex justify-center gap-3">
-            <div
-              className="w-8 h-8 rounded-full bg-[#C7A491] shadow-sm border border-black/5"
-              title="Warm Beige">
-            </div>
-            <div
-              className="w-8 h-8 rounded-full bg-[#EECFCA] shadow-sm border border-black/5"
-              title="Blush Pink">
-            </div>
-            <div
-              className="w-8 h-8 rounded-full bg-[#919682] shadow-sm border border-black/5"
-              title="Muted Sage">
-            </div>
-            <div
-              className="w-8 h-8 rounded-full bg-[#EAE6DF] shadow-sm border border-black/5"
-              title="Neutral">
-            </div>
+
+          <div className="flex justify-center gap-4">
+            <div className="w-9 h-9 rounded-full bg-[#C7A491]" />
+            <div className="w-9 h-9 rounded-full bg-[#EECFCA]" />
+            <div className="w-9 h-9 rounded-full bg-[#919682]" />
+            <div className="w-9 h-9 rounded-full bg-[#EAE6DF]" />
           </div>
         </div>
       </div>
 
-      <div className="text-center mt-10">
-        <p className="font-serif text-deep-olive text-lg italic">
-          "Kindly dress in garden-inspired tones to complement the celebration."
+      {/* Footer */}
+      <div>
+        <p className="text-lg italic text-deep-olive font-medium">
+          Kindly dress in garden-inspired tones to complement the celebration.
         </p>
       </div>
-    </div>);
-
+    </div>
+  );
 }

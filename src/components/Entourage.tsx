@@ -1,157 +1,82 @@
-import { useState } from 'react';
-import { User } from 'lucide-react';
-import { entourage, Person } from '../data/entourage';
+import { User } from "lucide-react";
+import { entourage, Person } from "../data/entourage";
 
 function PersonCard({ person }: { person: Person }) {
   const hasImage = !!person.image;
 
   return (
-    <div className="flex flex-col items-center text-center space-y-2 w-[120px]">
-      {/* Image / Fallback */}
+    <div className="flex flex-col items-center text-center space-y-3">
+      {/* Image */}
       {hasImage ? (
         <img
           src={person.image}
           alt={person.name}
-          className="w-20 h-20 rounded-full object-cover border border-light-sage/40 transition-transform duration-300 hover:scale-105"
+          className="w-24 h-24 rounded-full object-cover border border-light-sage/40"
         />
       ) : (
-        <div className="w-20 h-20 rounded-full flex items-center justify-center bg-light-sage/20 border border-light-sage/40">
-          <User className="w-6 h-6 text-deep-olive/60" strokeWidth={1.5} />
+        <div className="w-24 h-24 rounded-full flex items-center justify-center bg-light-sage/20 border border-light-sage/40">
+          <User className="w-7 h-7 text-deep-olive" strokeWidth={1.5} />
         </div>
       )}
 
       {/* Name */}
-      <p className="font-serif text-deep-olive leading-tight">
+      <p className="text-base md:text-lg font-semibold text-deep-olive font-[Playfair Display]">
         {person.name}
       </p>
 
-      {/* Role */}
+      {/* Role + Relation */}
       {(person.role || person.relation) && (
-        <p className="text-xs text-deep-olive/60 italic leading-tight">
-          {person.role}
+        <div className="text-sm text-deep-olive font-sans leading-tight">
+          {person.role && <div>{person.role}</div>}
           {person.relation && (
-            <span className="block text-[11px] text-deep-olive/50 not-italic">
+            <div className="text-xs text-deep-olive/70">
               {person.relation}
-            </span>
-          )}
-        </p>
-      )}
-    </div>
-  );
-}
-
-function Section({
-  title,
-  people,
-}: {
-  title: string;
-  people: Person[];
-}) {
-  if (!people || people.length === 0) return null;
-
-  return (
-    <div className="space-y-6">
-      {/* Section Title */}
-      <h3 className="text-center font-serif text-xl text-deep-olive tracking-widest uppercase">
-        {title}
-      </h3>
-
-      {/* ✅ CLEAN GRID (LEFT → RIGHT, CENTERED BLOCK) */}
-      <div className="max-w-2xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-          {people.map((p, i) => (
-            <div key={i} className="flex justify-center">
-              <PersonCard person={p} />
             </div>
-          ))}
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
 export function Entourage() {
-  const [open, setOpen] = useState(false);
+  // ✅ Combine all into one array
+  const allPeople: Person[] = [
+    ...entourage.parents,
+    ...entourage.principalSponsors,
+    ...(entourage.secondarySponsors && 'veil' in entourage.secondarySponsors ? entourage.secondarySponsors.veil : []),
+    ...(entourage.secondarySponsors && 'cord' in entourage.secondarySponsors ? entourage.secondarySponsors.cord : []),
+    ...entourage.entourage.maidOfHonor,
+    ...entourage.entourage.bestMan,
+    ...entourage.entourage.bridesmaids,
+    ...entourage.entourage.groomsmen,
+    ...entourage.bearers,
+    ...entourage.entourage.flowerGirls,
+  ];
 
   return (
-    <div className="mt-12 pt-10">
-      {/* Header */}
-      <div className="text-center mb-6">
-        <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-2">
+    <div className="space-y-10 text-center">
+
+      {/* Title */}
+      <div className="space-y-2">
+        <h2 className="text-3xl md:text-4xl font-semibold tracking-widest text-deep-olive font-[Playfair Display]">
           Entourage
         </h2>
 
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="text-sm text-deep-olive/70 hover:underline transition"
-        >
-          {open ? 'Hide Entourage' : 'View Entourage'}
-        </button>
+        <p className="text-lg text-deep-olive font-medium font-sans">
+          Meet the people who will be part of our special day
+        </p>
       </div>
 
-      {/* Content */}
-      <div
-        className={`transition-all duration-500 ${
-          open
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 -translate-y-2 pointer-events-none h-0 overflow-hidden'
-        }`}
-      >
-        <div className="space-y-12">
-          <Section title="Parents" people={entourage.parents} />
-
-          <Section
-            title="Principal Sponsors"
-            people={entourage.principalSponsors}
-          />
-
-          <Section
-            title="Veil Sponsors"
-            people={
-              entourage.secondarySponsors && 'veil' in entourage.secondarySponsors
-                ? (entourage.secondarySponsors as { veil: Person[] }).veil
-                : []
-            }
-          />
-
-          <Section
-            title="Cord Sponsors"
-            people={
-              entourage.secondarySponsors && 'cord' in entourage.secondarySponsors
-                ? (entourage.secondarySponsors as { cord: Person[] }).cord
-                : []
-            }
-          />
-
-          <Section
-            title="Maid of Honor"
-            people={entourage.entourage.maidOfHonor}
-          />
-
-          <Section
-            title="Best Man"
-            people={entourage.entourage.bestMan}
-          />
-
-          <Section
-            title="Bridesmaids"
-            people={entourage.entourage.bridesmaids}
-          />
-
-          <Section
-            title="Groomsmen"
-            people={entourage.entourage.groomsmen}
-          />
-
-          <Section title="Bearers" people={entourage.bearers} />
-
-          <Section
-            title="Flower Girl"
-            people={entourage.entourage.flowerGirls}
-          />
-        </div>
+      {/* Grid */}
+      <div className="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-6">
+        {allPeople.map((person, i) => (
+          <div key={i} className="flex justify-center">
+            <PersonCard person={person} />
+          </div>
+        ))}
       </div>
+
     </div>
   );
 }

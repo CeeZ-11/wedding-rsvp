@@ -71,9 +71,9 @@ export function TransportationSection({
           }`}
         >
           <p className="font-serif text-sm text-deep-olive bg-light-sage/15 inline-block px-6 py-3 rounded-sm font-medium border border-light-sage/30">
-            Pickup location and schedule will be shared via message closer to
-            the wedding day.
+            For pickup details and schedule, please refer to the Transportation section in the Wedding Guide.
           </p>
+          
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
-
 import { motion } from 'framer-motion';
 import { Countdown } from './Countdown';
 import { CornerBranch } from
 './FloralAccent';
 import { RSVPForm } from './RSVPForm';
+
 export function InvitationCard() {
   return (
     <motion.div
