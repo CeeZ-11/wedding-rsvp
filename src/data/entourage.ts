@@ -40,7 +40,7 @@ export const entourage: EntourageData = {
   entourage: {
     maidOfHonor: [{ name: 'Salve Regina Mendros', role: 'Maid of Honor', relation: 'Friend of the Bride' }],
     bestMan: [{ name: '', role: 'Best Man' }],
-    bridesmaids: [{ name: 'Ekklessia', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Bridesmaid', relation: 'Friend of the Bride' }],
+    bridesmaids: [{ name: 'Ekklessia', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Ivy Grace Karaan', role: 'Bridesmaid', relation: 'Friend of the Bride' }, { name: 'Krizia Belecina', role: 'Bridesmaid', relation: 'Friend of the Groom' }, ],
     groomsmen: [{ name: 'Joshua Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Emmanuel Estrabon', role: 'Groomsman', relation: 'Brother of the Groom' }, { name: 'Daniel Yared', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'Allain Paul Benito', role: 'Groomsman', relation: 'Friend of the Groom' }, { name: 'John Rey Palacios', role: 'Groomsman', relation: 'Friend of the Groom' },],
     flowerGirls: [{ name: 'Diana Elie Tee', role: 'Flower Girl' }, { name: 'Eliana Faye Tee', role: 'Flower Girl' }, { name: 'Kaira Elise Tee', role: 'Flower Girl' }],
   },
