@@ -74,6 +74,7 @@ export const entourage: EntourageData = {
 
     bridesmaids: [
       { name: "Ferlita Quinimon", role: "Bridesmaid", relation: "Friend of the Groom" },
+      { name: "Patricia Villalon", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Ekklesia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Faith Victory Villaruz", role: "Bridesmaid", relation: "Friend of the Bride" },
@@ -83,6 +84,7 @@ export const entourage: EntourageData = {
 
     groomsmen: [
       { name: "Allain Paul Benito", role: "Groomsman", relation: "Friend of the Groom" },
+      { name: "Frennel Karlo Ong", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Daniel Yared", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Emmanuel Estrabon", role: "Groomsman", relation: "Brother of the Groom" },
