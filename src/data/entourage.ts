@@ -74,7 +74,7 @@ export const entourage: EntourageData = {
 
     bridesmaids: [
       { name: "Krizia Belecina", role: "Bridesmaid", relation: "Friend of the Groom" },
-      { name: "Ekklessia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Ekklesia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Faith Victory Villaruz", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
