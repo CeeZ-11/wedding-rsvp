@@ -1,14 +1,36 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { Clock } from "lucide-react";
 
 export function Schedule() {
   const [showFull, setShowFull] = useState(false);
 
   const timeline = [
-    ["2:00 PM", "Guest Arrival"],
-    ["2:30 PM", "Ceremony"],
-    ["4:00 PM", "Photos & Fellowship"],
-    ["5:30 PM", "Reception"],
-    ["9:45 PM", "Closing"],
+    {
+      time: "2:00 PM",
+      title: "Guest Arrival",
+      description: "Welcome and seating of guests"
+    },
+    {
+      time: "2:30 PM",
+      title: "Ceremony",
+      description: "Processional, vows, and declaration"
+    },
+    {
+      time: "4:00 PM",
+      title: "Photos & Fellowship",
+      description: "Group photos and light refreshments"
+    },
+    {
+      time: "5:30 PM",
+      title: "Reception",
+      description: "Dinner, program, and celebration"
+    },
+    {
+      time: "9:45 PM",
+      title: "Closing",
+      description: "Closing prayer and send-off"
+    }
   ];
 
   return (
@@ -23,29 +45,38 @@ export function Schedule() {
       </div>
 
       {/* ✅ SIMPLE TIMELINE (MAIN FOR GUESTS) */}
-      <div className="max-w-xl mx-auto relative">
+      <div className="w-full">
 
-        {/* Center Line */}
-        <div className="absolute left-1/2 top-2 bottom-2 w-[1px] bg-light-sage/40 -translate-x-1/2"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {timeline.map((event, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-light-sage/10 p-8 rounded-3xl text-center hover:shadow-lg transition border border-light-sage/20"
+            >
+              {/* Icon */}
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-light-sage shadow-sm">
+                <Clock size={20} />
+              </div>
 
-        <div className="space-y-10">
-          {timeline.map(([time, event], i) => (
-            <div key={i} className="flex items-center relative">
+              {/* Title */}
+              <h3 className="text-lg md:text-xl font-semibold text-deep-olive mb-2">
+                {event.title}
+              </h3>
 
               {/* Time */}
-              <div className="w-1/2 text-right pr-6 text-deep-olive font-medium font-sans">
-                {time}
-              </div>
+              <p className="text-sm italic text-deep-olive/70 mb-4">
+                {event.time}
+              </p>
 
-              {/* Dot */}
-              <div className="absolute left-1/2 w-2 h-2 rounded-full bg-light-sage -translate-x-1/2"></div>
-
-              {/* Event */}
-              <div className="w-1/2 pl-6 text-base md:text-lg text-deep-olive font-sans">
-                {event}
-              </div>
-
-            </div>
+              {/* Description */}
+              <p className="text-sm text-deep-olive/70 leading-relaxed">
+                {event.description}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -70,70 +101,80 @@ export function Schedule() {
   <div className="max-w-3xl mx-auto space-y-10 text-center">
 
     {/* Container Card */}
-    <div className="bg-light-sage/10 border border-light-sage/20 rounded-2xl p-6 md:p-10 space-y-10">
+      <div className="max-w-4xl mx-auto">
 
-      {/* Preparation */}
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-deep-olive">
-          🌅 Preparation
-        </h3>
-        <div className="text-sm md:text-base text-deep-olive/80 space-y-1">
-          <p><strong>8:00 AM – 12:00 NN</strong></p>
-          <p>Bride & groom prep, photo & video coverage</p>
+        <div className="bg-white/60 backdrop-blur-sm border border-light-sage/20 rounded-[32px] p-8 md:p-12 space-y-14 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
 
-          <p className="mt-2"><strong>12:00 – 1:30 PM</strong></p>
-          <p>Travel to venue, rest & final touch-ups</p>
+          {/* Preparation */}
+          <div className="space-y-4">
+            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+              Preparation
+            </p>
+
+            <div className="space-y-3 text-deep-olive/80 text-sm md:text-base leading-relaxed">
+              <p>
+                <span className="font-medium text-deep-olive">8:00 AM – 12:00 NN</span><br />
+                Bride & groom preparation, photo & video coverage
+              </p>
+
+              <p>
+                <span className="font-medium text-deep-olive">12:00 – 1:30 PM</span><br />
+                Travel to venue, rest & final touch-ups
+              </p>
+            </div>
+          </div>
+
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+
+          {/* Ceremony */}
+          <div className="space-y-4">
+            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+              Ceremony
+            </p>
+
+            <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
+              <p><span className="font-medium text-deep-olive">2:00 PM</span> — Arrival & worship music</p>
+              <p><span className="font-medium text-deep-olive">2:30 PM</span> — Processional</p>
+              <p><span className="font-medium text-deep-olive">2:45 PM</span> — Worship & Scripture</p>
+              <p><span className="font-medium text-deep-olive">3:00 PM</span> — Message</p>
+              <p><span className="font-medium text-deep-olive">3:30 PM</span> — Vows & Rings</p>
+              <p><span className="font-medium text-deep-olive">3:50 PM</span> — Declaration</p>
+            </div>
+          </div>
+
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+
+          {/* Fellowship */}
+          <div className="space-y-4">
+            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+              Fellowship
+            </p>
+
+            <p className="text-deep-olive/80 text-sm md:text-base leading-relaxed">
+              <span className="font-medium text-deep-olive">4:00 – 5:30 PM</span><br />
+              Photos, refreshments, and golden hour
+            </p>
+          </div>
+
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+
+          {/* Reception */}
+          <div className="space-y-4">
+            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+              Reception
+            </p>
+
+            <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
+              <p><span className="font-medium text-deep-olive">5:30 PM</span> — Dinner</p>
+              <p><span className="font-medium text-deep-olive">7:00 PM</span> — Testimonies & sharing</p>
+              <p><span className="font-medium text-deep-olive">8:00 PM</span> — Same Day Edit</p>
+              <p><span className="font-medium text-deep-olive">8:30 PM</span> — Key moments</p>
+              <p><span className="font-medium text-deep-olive">9:45 PM</span> — Closing prayer</p>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <div className="border-t border-light-sage/20" />
-
-      {/* Ceremony */}
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-deep-olive">
-          ⛪ Ceremony
-        </h3>
-
-        <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
-          <p><strong>2:00 PM</strong> — Arrival & worship music</p>
-          <p><strong>2:30 PM</strong> — Processional</p>
-          <p><strong>2:45 PM</strong> — Worship & Scripture</p>
-          <p><strong>3:00 PM</strong> — Message</p>
-          <p><strong>3:30 PM</strong> — Vows & Rings</p>
-          <p><strong>3:50 PM</strong> — Declaration</p>
-        </div>
-      </div>
-
-      <div className="border-t border-light-sage/20" />
-
-      {/* Fellowship */}
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-deep-olive">
-          📸 Fellowship
-        </h3>
-        <p className="text-deep-olive/80 text-sm md:text-base">
-          <strong>4:00 – 5:30 PM</strong> — Photos, refreshments, and golden hour
-        </p>
-      </div>
-
-      <div className="border-t border-light-sage/20" />
-
-      {/* Reception */}
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-deep-olive">
-          🎉 Reception
-        </h3>
-
-        <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
-          <p><strong>5:30 PM</strong> — Dinner</p>
-          <p><strong>7:00 PM</strong> — Testimonies & sharing</p>
-          <p><strong>8:00 PM</strong> — AVP / Same Day Edit</p>
-          <p><strong>8:30 PM</strong> — Key moments</p>
-          <p><strong>9:45 PM</strong> — Closing prayer</p>
-        </div>
-      </div>
-
-    </div>
   </div>
 )}
 

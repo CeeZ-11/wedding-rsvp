@@ -14,18 +14,19 @@ html {
 }
 
 body {
-  background-color: #FBFBF9;
-  color: #2F3327; /* darker for readability */
-  font-family: 'Inter', sans-serif; /* 🔥 readable */
-  line-height: 1.6;
+  background-color: #FDFBF7; /* warmer ivory */
+  color: #2A2E22; /* deeper olive-charcoal */
+  font-family: 'Inter', sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Headings */
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #2F3327;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #1F2419; /* richer, more contrast */
 }
 
 /* Script (names only) */
@@ -36,30 +37,30 @@ h1, h2, h3, h4 {
 /* Paragraph readability */
 p {
   font-size: 1rem;
-  color: #4A4F3D;
+  color: #4C5242; /* softer but still readable */
 }
 
-/* Improve small text clarity */
+/* Muted text */
 .text-muted {
-  color: rgba(74, 79, 61, 0.7);
+  color: rgba(76, 82, 66, 0.6);
 }
 
-/* SCROLLBAR (keep elegant) */
+/* SCROLLBAR — more refined */
 ::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C7CDBF;
+  background: linear-gradient(
+    to bottom,
+    #D6DCCF,
+    #B8C1AE
+  );
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #919682;
+  background: #9FA88F;
 }
 
 /* FORM AUTOFILL FIX */
@@ -67,59 +68,73 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #FDFAF6 inset !important;
-  -webkit-text-fill-color: #3F4335 !important;
+  -webkit-box-shadow: 0 0 0 30px #FDFBF7 inset !important;
+  -webkit-text-fill-color: #2A2E22 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* UTILITY ENHANCEMENTS */
-
-/* Better readability for sections */
+/* SECTION SPACING */
 .section-spacing {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
-/* Elegant divider */
+/* DIVIDER — more elegant */
 .divider {
-  border-top: 1px solid rgba(199, 205, 191, 0.3);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(200, 206, 190, 0.4),
+    transparent
+  );
 }
 
-/* Subtle card style */
+/* CARD — luxury soft glass */
 .card-soft {
-  background: rgba(199, 205, 191, 0.08);
-  border: 1px solid rgba(199, 205, 191, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 206, 190, 0.25);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
 }
 
-/* Button refinement */
+/* BUTTON — champagne accent */
 .btn-outline {
-  border: 1px solid #4A4F3D;
-  color: #4A4F3D;
-  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(74, 79, 61, 0.6);
+  color: #3E4434;
+  padding: 0.55rem 1.4rem;
   border-radius: 999px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
   transition: all 0.3s ease;
+  background: transparent;
 }
 
 .btn-outline:hover {
-  background: #4A4F3D;
-  color: #fff;
+  background: #3E4434;
+  color: #FDFBF7;
+  box-shadow: 0 6px 20px rgba(62, 68, 52, 0.2);
 }
 
-/* Timeline line (for guide page) */
+/* TIMELINE LINE */
 .timeline-line {
-  background: rgba(199, 205, 191, 0.4);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(200, 206, 190, 0.5),
+    transparent
+  );
   width: 1px;
 }
 
-/* Timeline dot */
+/* TIMELINE DOT — softer */
 .timeline-dot {
-  background: #C7CDBF;
+  background: #C8CEBE;
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(200, 206, 190, 0.15);
 }
