@@ -26,14 +26,16 @@ export function TransportationSection({
           Will you need transportation?
         </label>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-4" role="radiogroup" aria-labelledby="transportation-label">
           <button
+            id="transport-yes"
             type="button"
-            onClick={() =>
-              setNeedsTransport('Yes, needs transportation')
-            }
-            className={`
-              px-6 py-3 rounded-full font-serif text-base transition-all duration-300 border
+            role="radio"
+            aria-checked={needsTransport === 'Yes, needs transportation'}
+            onClick={() => setNeedsTransport('Yes, needs transportation')}
+            className={
+              `
+              px-6 py-3 rounded-full font-serif text-base transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
               ${
                 needsTransport === 'Yes, needs transportation'
                   ? 'bg-deep-olive text-white border-deep-olive shadow-md'
@@ -45,12 +47,14 @@ export function TransportationSection({
           </button>
 
           <button
+            id="transport-no"
             type="button"
-            onClick={() =>
-              setNeedsTransport('No, has own transportation')
-            }
-            className={`
-              px-6 py-3 rounded-full font-serif text-base transition-all duration-300 border
+            role="radio"
+            aria-checked={needsTransport === 'No, has own transportation'}
+            onClick={() => setNeedsTransport('No, has own transportation')}
+            className={
+              `
+              px-6 py-3 rounded-full font-serif text-base transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
               ${
                 needsTransport === 'No, has own transportation'
                   ? 'bg-warm-beige text-white border-warm-beige shadow-md'
@@ -69,6 +73,7 @@ export function TransportationSection({
               ? 'max-h-20 opacity-100 mt-6'
               : 'max-h-0 opacity-0 mt-0'
           }`}
+          aria-hidden={needsTransport !== 'Yes, needs transportation'}
         >
           <p className="font-serif text-sm text-deep-olive bg-light-sage/15 inline-block px-6 py-3 rounded-sm font-medium border border-light-sage/30">
             For pickup details and schedule, please refer to the Transportation section in the Wedding Guide.

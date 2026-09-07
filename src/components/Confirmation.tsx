@@ -20,7 +20,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
   const GiftIcon = selectedGift?.icon;
 
   return (
-    <div className="text-center space-y-6 animate-in fade-in zoom-in duration-700">
+    <div className="text-center space-y-6 animate-in fade-in zoom-in duration-700" role="status" aria-live="polite">
       {/* Icon */}
       <div className="inline-block p-4 rounded-full bg-light-sage/30 mb-4 mt-4">
         <svg

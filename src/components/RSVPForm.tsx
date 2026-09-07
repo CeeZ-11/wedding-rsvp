@@ -8,6 +8,8 @@ export function RSVPForm() {
   const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [transportation, setTransportation] = useState('');
+  const [dietary, setDietary] = useState('');
+  const [message, setMessage] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,11 +67,8 @@ export function RSVPForm() {
       name: fullName,
       attendance,
       gift: selectedGiftName,
-      dietary:
-        (document.getElementById('dietary') as HTMLInputElement)?.value || '',
-      message:
-        (document.getElementById('message') as HTMLTextAreaElement)?.value ||
-        '',
+      dietary: dietary || '',
+      message: message || '',
       transportation,
     };
 
@@ -165,15 +164,18 @@ export function RSVPForm() {
             Will you attend?
           </label>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4" role="radiogroup" aria-labelledby="attendance-label">
             <button
+              id="attendance-yes"
               type="button"
+              role="radio"
+              aria-checked={attendance === 'yes'}
               onClick={() => {
                 setAttendance('yes');
                 setErrors((prev) => ({ ...prev, attendance: undefined }));
               }}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
                 ${
                   attendance === 'yes'
                     ? 'bg-deep-olive text-white border-deep-olive shadow-md'
@@ -185,13 +187,16 @@ export function RSVPForm() {
             </button>
 
             <button
+              id="attendance-no"
               type="button"
+              role="radio"
+              aria-checked={attendance === 'no'}
               onClick={() => {
                 setAttendance('no');
                 setErrors((prev) => ({ ...prev, attendance: undefined }));
               }}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
                 ${
                   attendance === 'no'
                     ? 'bg-warm-beige text-white border-warm-beige shadow-md'
@@ -211,24 +216,23 @@ export function RSVPForm() {
         </div>
 
         {/* CONDITIONAL */}
-        <div
-          className={`space-y-8 pt-4 transition-all duration-500 ${
-            attendance === 'yes'
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 -translate-y-2 pointer-events-none absolute'
-          }`}
-        >
-          <input
-            id="dietary"
-            placeholder="Dietary restrictions"
-            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center"
-          />
+        {attendance === 'yes' && (
+          <div className="space-y-8 pt-4">
+            <input
+              id="dietary"
+              placeholder="Dietary restrictions"
+              value={dietary}
+              onChange={(e) => setDietary(e.target.value)}
+              className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
+            />
 
-          <textarea
-            id="message"
-            placeholder="Message..."
-            className="w-full border px-4 py-3 text-center"
-          />
+            <textarea
+              id="message"
+              placeholder="Message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full border px-4 py-3 text-center focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
+            />
 
           <GiftRegistry
             selectedGiftId={selectedGiftId}

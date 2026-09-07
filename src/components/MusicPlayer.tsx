@@ -10,22 +10,7 @@ export function MusicPlayer() {
   audioRef.current.loop = true;
   audioRef.current.volume = 0.3;
 
-  const enableAudio = () => {
-    if (!audioRef.current) return;
-
-    audioRef.current
-      .play()
-      .then(() => {
-        setIsPlaying(true);
-      })
-      .catch((e) => {
-        console.log('Autoplay blocked:', e);
-      });
-  };
-
-  document.addEventListener('click', enableAudio, { once: true });
-  document.addEventListener('touchstart', enableAudio, { once: true });
-
+  // Start paused by default; require explicit user action to play.
   return () => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -51,8 +36,9 @@ export function MusicPlayer() {
   return (
     <button
       onClick={togglePlay}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-card-bg border border-light-sage/50 shadow-sm text-deep-olive hover:bg-light-sage/10 transition-all duration-300 group"
+      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-card-bg border border-light-sage/50 shadow-sm text-deep-olive hover:bg-light-sage/10 transition-all duration-300 group focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
       aria-label={isPlaying ? 'Pause music' : 'Play music'}
+      aria-pressed={isPlaying}
     >
       {isPlaying ? (
         <Pause className="w-4 h-4" strokeWidth={1.5} />

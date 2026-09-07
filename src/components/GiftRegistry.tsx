@@ -37,10 +37,12 @@ export const GiftRegistry: React.FC<Props> = ({
             <button
               key={gift.id}
               type="button"
-              disabled={isTaken}
-              onClick={() =>
-                !isTaken && onSelectGift(isSelected ? '' : gift.id)
-              }
+                disabled={isTaken}
+                aria-disabled={isTaken}
+                title={isTaken ? 'Reserved' : gift.name}
+                onClick={() =>
+                  !isTaken && onSelectGift(isSelected ? '' : gift.id)
+                }
               className={`
                 relative p-4 rounded-sm border transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] text-center
                 ${
@@ -68,9 +70,12 @@ export const GiftRegistry: React.FC<Props> = ({
 
               {/* Taken Label */}
               {isTaken && (
-                <span className="text-[10px] uppercase tracking-widest mt-2 text-warm-beige font-medium">
-                  Taken
-                </span>
+                <>
+                  <span className="text-[10px] uppercase tracking-widest mt-2 text-warm-beige font-medium">
+                    Taken
+                  </span>
+                  <span className="sr-only">Reserved</span>
+                </>
               )}
 
               {/* Selected Check */}
