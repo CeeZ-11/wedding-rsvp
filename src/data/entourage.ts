@@ -36,6 +36,8 @@ export const entourage: EntourageData = {
     { name: "Mechiel Tee", role: "Principal Sponsor" },
     { name: "Roland Tejada", role: "Principal Sponsor" },
     { name: "Mariel Tejada", role: "Principal Sponsor" },
+    { name: "Faith Victory Villaruz", role: "Principal Sponsor" },
+    { name: "Carl Emmanuel Villaruz", role: "Principal Sponsor" },
   ],
 
   secondarySponsors: {
@@ -77,7 +79,6 @@ export const entourage: EntourageData = {
       { name: "Patricia Villalon", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Ekklesia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
-      { name: "Faith Victory Villaruz", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
     ],
@@ -87,7 +88,6 @@ export const entourage: EntourageData = {
       { name: "Frennel Karlo Ong", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Daniel Yared", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
-      { name: "Emmanuel Estrabon", role: "Groomsman", relation: "Brother of the Groom" },
       { name: "Ariel Bargat", role: "Groomsman", relation: "Friend of the Bride" },
       { name: "Harold Caceres", role: "Groomsman", relation: "Friend of the Groom" },
     ],
