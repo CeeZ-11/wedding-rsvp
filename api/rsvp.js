@@ -23,7 +23,6 @@ module.exports = async function handler(req, res) {
       gift: body.gift || '', // ✅ GUARANTEED
       dietary: body.dietary || '',
       message: body.message || '',
-      transportation: body.transportation || '',
     };
 
     console.log('FORWARDING TO GOOGLE:', payload); // 🔍 DEBUG

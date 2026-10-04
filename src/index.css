@@ -9,13 +9,24 @@
 
 /* GLOBAL SETTINGS */
 
+:root {
+  --page-background: #FBFBF9;
+  --card-background: #FDFAF6;
+  --text-primary: #595E48;
+  --text-secondary: #626750;
+  --ui-border: #858B75;
+  --accent-beige: #C7A491;
+  --accent-beige-strong: #80614F;
+  --error-text: #B91C1C;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #FDFBF7; /* warmer ivory */
-  color: #2A2E22; /* deeper olive-charcoal */
+  background-color: var(--page-background);
+  color: #2A2E22;
   font-family: 'Inter', sans-serif;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -26,7 +37,7 @@ h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 500;
   letter-spacing: 0.03em;
-  color: #1F2419; /* richer, more contrast */
+  color: #1F2419;
 }
 
 /* Script (names only) */
@@ -42,7 +53,7 @@ p {
 
 /* Muted text */
 .text-muted {
-  color: rgba(76, 82, 66, 0.6);
+  color: var(--text-secondary);
 }
 
 /* SCROLLBAR — more refined */
@@ -85,7 +96,7 @@ input:-webkit-autofill:active {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(200, 206, 190, 0.4),
+    var(--ui-border),
     transparent
   );
 }
@@ -94,7 +105,7 @@ input:-webkit-autofill:active {
 .card-soft {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(200, 206, 190, 0.25);
+  border: 1px solid var(--ui-border);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
@@ -102,7 +113,7 @@ input:-webkit-autofill:active {
 
 /* BUTTON — champagne accent */
 .btn-outline {
-  border: 1px solid rgba(74, 79, 61, 0.6);
+  border: 1px solid var(--text-primary);
   color: #3E4434;
   padding: 0.55rem 1.4rem;
   border-radius: 999px;
@@ -124,7 +135,7 @@ input:-webkit-autofill:active {
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(200, 206, 190, 0.5),
+    var(--ui-border),
     transparent
   );
   width: 1px;
@@ -132,9 +143,9 @@ input:-webkit-autofill:active {
 
 /* TIMELINE DOT — softer */
 .timeline-dot {
-  background: #C8CEBE;
+  background: var(--ui-border);
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(200, 206, 190, 0.15);
+  box-shadow: 0 0 0 4px rgba(133, 139, 117, 0.2);
 }

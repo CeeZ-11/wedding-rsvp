@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import { Entourage } from "../components/Entourage";
 import { EventLocation } from "../components/EventLocation";
-import { Transportation } from "../components/Transportation";
 import { AttireGuide } from "../components/AttireGuide";
 import { Schedule } from "../components/Schedule";
 import { Seating } from "../components/Seating";
@@ -17,7 +16,6 @@ const navItems = [
   { id: "dress", label: "Dress" },
   { id: "seating", label: "Seating" },
   { id: "entourage", label: "Entourage" },
-  { id: "transport", label: "Transport" },
   { id: "explore", label: "Explore" },
 ];
 
@@ -63,7 +61,7 @@ export function GuidePage() {
       <nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur border-b border-light-sage/20 py-3 shadow-sm"
+            ? "bg-white/95 backdrop-blur border-b border-readable-border py-3 shadow-sm"
             : "bg-transparent py-5"
         }`}
       >
@@ -73,7 +71,7 @@ export function GuidePage() {
           <div className="flex items-center justify-between mb-2">
             <Link
               to="/"
-              className="text-xs uppercase tracking-widest text-deep-olive/60 hover:text-deep-olive transition"
+              className="text-xs uppercase tracking-widest text-olive-secondary hover:text-deep-olive transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
             >
               ← Back
             </Link>
@@ -81,16 +79,16 @@ export function GuidePage() {
           </div>
 
           {/* Nav */}
-          <ul className="flex justify-center gap-5 md:gap-8 text-xs md:text-sm uppercase tracking-widest font-medium">
+          <ul className="mx-auto flex max-w-5xl flex-wrap justify-center gap-x-4 gap-y-2 text-[0.7rem] leading-5 uppercase tracking-[0.08em] font-medium sm:text-xs sm:tracking-widest md:gap-x-8 md:text-sm">
 
             {navItems.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={`relative transition ${
+                  className={`relative transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive ${
                     active === item.id
                       ? "text-deep-olive"
-                      : "text-deep-olive/60 hover:text-deep-olive"
+                      : "text-olive-secondary hover:text-deep-olive"
                   }`}
                 >
                   {item.label}
@@ -121,7 +119,7 @@ export function GuidePage() {
           <h1 className="text-5xl md:text-7xl mb-6 font-semibold">
             Wedding Guide
           </h1>
-          <p className="text-lg md:text-xl text-deep-olive/70 font-sans">
+          <p className="text-lg md:text-xl text-olive-secondary font-sans">
             Everything you need to know for our special day
           </p>
         </motion.section>
@@ -131,37 +129,31 @@ export function GuidePage() {
           <Schedule />
         </section>
 
-        <div className="border-t border-light-sage/20" />
+        <div className="border-t border-readable-border" />
 
         <section id="location" className="scroll-mt-32">
           <EventLocation />
         </section>
 
-        <div className="border-t border-light-sage/20" />
+        <div className="border-t border-readable-border" />
 
         <section id="dress" className="scroll-mt-32">
           <AttireGuide />
         </section>
 
-        <div className="border-t border-light-sage/20" />
+        <div className="border-t border-readable-border" />
 
         <section id="seating" className="scroll-mt-32">
           <Seating />
         </section>
 
-        <div className="border-t border-light-sage/20" />
+        <div className="border-t border-readable-border" />
 
         <section id="entourage" className="scroll-mt-32">
           <Entourage />
         </section>
 
-        <div className="border-t border-light-sage/20" />
-
-        <section id="transport" className="scroll-mt-32">
-          <Transportation />
-        </section>
-
-        <div className="border-t border-light-sage/20" />
+        <div className="border-t border-readable-border" />
 
         <section id="explore" className="scroll-mt-32">
           <Explore />

@@ -13,10 +13,10 @@ function PersonCard({ person }: { person: Person }) {
         <img
           src={person.image}
           alt={person.name}
-          className="w-24 h-24 rounded-full object-cover border border-light-sage/40"
+          className="w-24 h-24 rounded-full object-cover border border-readable-border"
         />
       ) : (
-        <div className="w-24 h-24 rounded-full flex items-center justify-center bg-light-sage/20 border border-light-sage/40">
+        <div className="w-24 h-24 rounded-full flex items-center justify-center bg-light-sage/30 border border-readable-border">
           <User className="w-7 h-7 text-deep-olive" strokeWidth={1.5} />
         </div>
       )}
@@ -29,35 +29,12 @@ function PersonCard({ person }: { person: Person }) {
         <div className="text-sm text-deep-olive font-sans leading-tight">
           {person.role && <div>{person.role}</div>}
           {person.relation && (
-            <div className="text-xs text-deep-olive/70">
+            <div className="text-xs text-olive-secondary">
               {person.relation}
             </div>
           )}
         </div>
       )}
-    </div>
-  );
-}
-
-/* =========================
-   Pair Card
-========================= */
-function PairCard({
-  left,
-  right,
-}: {
-  left?: Person;
-  right?: Person;
-}) {
-  return (
-    <div className="flex items-center justify-center gap-6">
-      {left && <PersonCard person={left} />}
-
-      {left && right && (
-        <span className="text-deep-olive/50 font-serif text-lg">&</span>
-      )}
-
-      {right && <PersonCard person={right} />}
     </div>
   );
 }
@@ -78,7 +55,7 @@ function Section({
         <h3 className="text-xl md:text-2xl font-semibold text-deep-olive font-[Playfair Display] mb-2">
           {title}
         </h3>
-        <div className="w-12 h-[1px] bg-light-sage"></div>
+        <div className="w-12 h-px bg-readable-border"></div>
       </div>
 
       {children}
@@ -90,40 +67,10 @@ function Section({
    Entourage
 ========================= */
 export function Entourage() {
-  const pair = (arr1: Person[], arr2: Person[]) =>
-    arr1.map((p, i) => [p, arr2[i]]);
-
-  /* Sponsors pairing */
-  const sponsorPairs = [];
-  for (let i = 0; i < entourage.principalSponsors.length; i += 2) {
-    sponsorPairs.push([
-      entourage.principalSponsors[i],
-      entourage.principalSponsors[i + 1],
-    ]);
-  }
-
-  /* Secondary Sponsors */
-  const veilPairs =
-    entourage.secondarySponsors && "veil" in entourage.secondarySponsors
-      ? pair(
-          entourage.secondarySponsors.veil,
-          entourage.secondarySponsors.veil.slice(1)
-        ).filter((_, i) => i % 2 === 0)
-      : [];
-
-  const cordPairs =
-    entourage.secondarySponsors && "cord" in entourage.secondarySponsors
-      ? pair(
-          entourage.secondarySponsors.cord,
-          entourage.secondarySponsors.cord.slice(1)
-        ).filter((_, i) => i % 2 === 0)
-      : [];
-
-  /* Bridesmaids ↔ Groomsmen */
-  const entouragePairs = pair(
-    entourage.entourage.bridesmaids,
-    entourage.entourage.groomsmen
-  );
+  const secondarySponsorGroups = [
+    { title: "Veil Sponsors", people: entourage.secondarySponsors.veil },
+    { title: "Cord Sponsors", people: entourage.secondarySponsors.cord },
+  ].filter((group) => group.people.some((person) => person.name));
 
   return (
     <div className="space-y-20 text-center">
@@ -149,79 +96,67 @@ export function Entourage() {
 
       {/* Principal Sponsors */}
       <Section title="Principal Sponsors">
-        <div className="space-y-6">
-          {sponsorPairs.map(([a, b], i) => (
-            <PairCard key={i} left={a} right={b} />
+        <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-4 sm:gap-8 max-w-3xl mx-auto">
+          {entourage.principalSponsors.map((person) => (
+            <PersonCard key={person.name} person={person} />
           ))}
         </div>
       </Section>
 
-      {/* Veil Sponsors */}
-      {veilPairs.length > 0 && (
-        <Section title="Veil Sponsors">
-          {veilPairs.map(([a, b], i) => (
-            <PairCard key={i} left={a} right={b} />
-          ))}
+      {/* Secondary Sponsors */}
+      {secondarySponsorGroups.length > 0 && (
+        <Section title="Secondary Sponsors">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+            {secondarySponsorGroups.map((group) => (
+              <div key={group.title} className="space-y-6">
+                <h4 className="text-sm uppercase tracking-widest text-olive-secondary">
+                  {group.title}
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  {group.people.filter((person) => person.name).map((person) => (
+                    <PersonCard key={person.name} person={person} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </Section>
       )}
 
-      {/* Cord Sponsors */}
-      {cordPairs.length > 0 && (
-        <Section title="Cord Sponsors">
-          {cordPairs.map(([a, b], i) => (
-            <PairCard key={i} left={a} right={b} />
-          ))}
-        </Section>
-      )}
-
-      {/* Maid of Honor & Best Man */}
-      <Section title="Maid of Honor & Best Man">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-xl mx-auto">
-
-          <div className="space-y-3">
-            <p className="text-xs uppercase tracking-widest text-deep-olive/60">
-              Maid of Honor
-            </p>
-            <div className="flex justify-center">
-              <PersonCard person={entourage.entourage.maidOfHonor[0]} />
+      {/* Wedding Party */}
+      <Section title="Wedding Party">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 md:gap-10">
+          <div className="space-y-8">
+            <h4 className="text-sm uppercase tracking-[0.18em] text-olive-secondary">
+              Groom&apos;s Side · Men
+            </h4>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+              <PersonCard person={entourage.groomSide.bestMan} />
+              {entourage.groomSide.groomsmen.map((person) => (
+                <PersonCard key={person.name} person={person} />
+              ))}
             </div>
           </div>
 
-          <div className="space-y-3">
-            <p className="text-xs uppercase tracking-widest text-deep-olive/60">
-              Best Man
-            </p>
-            <div className="flex justify-center">
-              <PersonCard person={entourage.entourage.bestMan[0]} />
+          <div className="space-y-8">
+            <h4 className="text-sm uppercase tracking-[0.18em] text-olive-secondary">
+              Bride&apos;s Side · Women
+            </h4>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+              <PersonCard person={entourage.brideSide.maidOfHonor} />
+              {entourage.brideSide.bridesmaids.map((person) => (
+                <PersonCard key={person.name} person={person} />
+              ))}
             </div>
           </div>
-
         </div>
       </Section>
 
-      {/* Bridesmaids & Groomsmen */}
-      <Section title="Bridesmaids & Groomsmen">
-        <div className="space-y-6">
-          {entouragePairs.map(([b, g], i) => (
-            <PairCard key={i} left={b} right={g} />
-          ))}
-        </div>
-      </Section>
-
-      {/* Bearers */}
-      <Section title="Bearers">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-          {entourage.bearers.map((p, i) => (
-            <PersonCard key={i} person={p} />
-          ))}
-        </div>
-      </Section>
-
-      {/* Flower Girls */}
-      <Section title="Flower Girls">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-          {entourage.entourage.flowerGirls.map((p, i) => (
-            <PersonCard key={i} person={p} />
+      {/* Ceremony Roles */}
+      <Section title="Ceremony Roles">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+          {entourage.ceremonyRoles.map((person) => (
+            <PersonCard key={person.name} person={person} />
           ))}
         </div>
       </Section>

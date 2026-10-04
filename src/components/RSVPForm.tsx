@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { GiftRegistry } from './GiftRegistry';
-import { TransportationSection } from './TransportationSection';
 import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
   const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
-  const [transportation, setTransportation] = useState('');
   const [dietary, setDietary] = useState('');
   const [message, setMessage] = useState('');
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
@@ -69,7 +67,6 @@ export function RSVPForm() {
       gift: selectedGiftName,
       dietary: dietary || '',
       message: message || '',
-      transportation,
     };
 
     console.log('SUBMIT DATA:', data);
@@ -108,20 +105,19 @@ export function RSVPForm() {
           setFullName('');
           setAttendance(null);
           setSelectedGiftId(null);
-          setTransportation('');
         }}
       />
     );
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-12 px-4 md:px-12">
+    <div id="rsvp" className="w-full max-w-2xl mx-auto mt-12 px-4 md:px-12 scroll-mt-8">
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
           Kindly Respond
         </h2>
-        <p className="font-serif text-deep-olive/60 tracking-widest uppercase text-sm font-medium">
+        <p className="font-serif text-olive-secondary tracking-widest uppercase text-sm font-medium">
           Please reply by November 1st, 2026
         </p>
       </div>
@@ -135,7 +131,7 @@ export function RSVPForm() {
           >
             Full Name
           </label>
-          <p className="font-serif text-deep-olive/60 text-xs italic text-center">
+          <p className="font-serif text-olive-secondary text-sm italic text-center">
             Please enter your full name (RSVP is for one person)
           </p>
 
@@ -148,11 +144,11 @@ export function RSVPForm() {
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
             placeholder="Your full name"
-            className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-muted-sage/60 focus:outline-none focus:border-deep-olive transition-colors"
+            className="w-full rounded-sm border border-readable-border bg-white/80 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
           />
 
           {errors.name && (
-            <p className="text-red-500 text-xs text-center mt-1">
+            <p className="text-error-strong text-sm text-center mt-1 font-medium">
               {errors.name}
             </p>
           )}
@@ -160,7 +156,7 @@ export function RSVPForm() {
 
         {/* Attendance */}
         <div className="pt-4 space-y-4">
-          <label className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium">
+          <label id="attendance-label" className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium">
             Will you attend?
           </label>
 
@@ -175,11 +171,11 @@ export function RSVPForm() {
                 setErrors((prev) => ({ ...prev, attendance: undefined }));
               }}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
                   attendance === 'yes'
                     ? 'bg-deep-olive text-white border-deep-olive shadow-md'
-                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
+                    : 'bg-white/70 text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
                 }
               `}
             >
@@ -196,11 +192,11 @@ export function RSVPForm() {
                 setErrors((prev) => ({ ...prev, attendance: undefined }));
               }}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none
+                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
                   attendance === 'no'
-                    ? 'bg-warm-beige text-white border-warm-beige shadow-md'
-                    : 'bg-transparent text-deep-olive border-light-sage hover:border-muted-sage hover:bg-light-sage/10'
+                    ? 'bg-warm-beige-strong text-white border-warm-beige-strong shadow-md'
+                    : 'bg-white/70 text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
                 }
               `}
             >
@@ -209,7 +205,7 @@ export function RSVPForm() {
           </div>
 
           {errors.attendance && (
-            <p className="text-red-500 text-xs text-center mt-2">
+            <p className="text-error-strong text-sm text-center mt-2 font-medium">
               {errors.attendance}
             </p>
           )}
@@ -218,33 +214,38 @@ export function RSVPForm() {
         {/* CONDITIONAL */}
         {attendance === 'yes' && (
           <div className="space-y-8 pt-4">
-            <input
-              id="dietary"
-              placeholder="Dietary restrictions"
-              value={dietary}
-              onChange={(e) => setDietary(e.target.value)}
-              className="w-full bg-transparent border-b border-muted-sage/50 px-4 py-3 text-center focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
+            <div className="space-y-2">
+              <label htmlFor="dietary" className="block text-left font-serif text-sm font-medium text-deep-olive">
+                Dietary restrictions (optional)
+              </label>
+              <input
+                id="dietary"
+                value={dietary}
+                onChange={(e) => setDietary(e.target.value)}
+                className="w-full rounded-sm border border-readable-border bg-white/80 px-4 py-3 text-deep-olive focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="message" className="block text-left font-serif text-sm font-medium text-deep-olive">
+                Message for the couple (optional)
+              </label>
+              <textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full rounded-sm border border-readable-border bg-white/80 px-4 py-3 text-deep-olive focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none"
+              />
+            </div>
+
+            <GiftRegistry
+              selectedGiftId={selectedGiftId}
+              onSelectGift={setSelectedGiftId}
+              takenGifts={takenGifts}
             />
 
-            <textarea
-              id="message"
-              placeholder="Message..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full border px-4 py-3 text-center focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
-            />
-
-          <GiftRegistry
-            selectedGiftId={selectedGiftId}
-            onSelectGift={setSelectedGiftId}
-            takenGifts={takenGifts}
-          />
-
-          <TransportationSection
-            needsTransport={transportation}
-            setNeedsTransport={setTransportation}
-          />
-        </div>
+          </div>
+        )}
 
         {/* Submit */}
         <div className="pt-10 pb-6 flex justify-center">
@@ -252,10 +253,10 @@ export function RSVPForm() {
             type="submit"
             disabled={isSubmitting}
             className={`
-              group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all
+              group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive
               ${
                 isSubmitting
-                  ? 'opacity-70 cursor-not-allowed'
+                  ? 'bg-[#4a4e3c] cursor-wait'
                   : 'hover:shadow-lg hover:bg-[#4a4e3c]'
               }
             `}

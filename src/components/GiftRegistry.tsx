@@ -17,9 +17,9 @@ export const GiftRegistry: React.FC<Props> = ({
       <div className="text-center mb-8">
         <h3 className="font-serif text-2xl text-deep-olive mb-2">
           Gift Registry{' '}
-          <span className="text-lg italic text-deep-olive/50">(Optional)</span>
+          <span className="text-lg italic text-olive-secondary">(Optional)</span>
         </h3>
-        <p className="font-serif text-deep-olive/60 text-sm tracking-wide font-medium">
+        <p className="font-serif text-olive-secondary text-sm tracking-wide font-medium">
           If you wish to give a gift, you may select one item below
         </p>
       </div>
@@ -44,13 +44,13 @@ export const GiftRegistry: React.FC<Props> = ({
                   !isTaken && onSelectGift(isSelected ? '' : gift.id)
                 }
               className={`
-                relative p-4 rounded-sm border transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] text-center
+                relative p-4 rounded-sm border transition-all duration-300 flex flex-col items-center justify-center min-h-[100px] text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2
                 ${
                   isTaken
-                    ? 'border-gray-200 bg-gray-50/50 text-gray-400 cursor-not-allowed'
+                    ? 'border-gray-400 bg-gray-100 text-gray-700 cursor-not-allowed'
                     : isSelected
                     ? 'border-deep-olive bg-deep-olive/5 text-deep-olive shadow-sm'
-                    : 'border-muted-sage/30 hover:border-muted-sage/60 bg-white text-deep-olive hover:bg-card-bg'
+                    : 'border-readable-border bg-white text-deep-olive hover:border-deep-olive hover:bg-card-bg'
                 }
               `}
             >
@@ -61,8 +61,8 @@ export const GiftRegistry: React.FC<Props> = ({
 
               {/* Name */}
               <span
-                className={`font-serif text-sm md:text-base ${
-                  isTaken ? 'line-through opacity-60' : ''
+                  className={`font-serif text-sm md:text-base ${
+                  isTaken ? 'line-through' : ''
                 }`}
               >
                 {gift.name}
@@ -71,7 +71,7 @@ export const GiftRegistry: React.FC<Props> = ({
               {/* Taken Label */}
               {isTaken && (
                 <>
-                  <span className="text-[10px] uppercase tracking-widest mt-2 text-warm-beige font-medium">
+                  <span className="text-xs uppercase tracking-widest mt-2 text-gray-700 font-semibold">
                     Taken
                   </span>
                   <span className="sr-only">Reserved</span>

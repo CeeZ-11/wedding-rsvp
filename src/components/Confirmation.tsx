@@ -44,7 +44,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
       </h2>
 
       {/* Message */}
-      <div className="font-serif text-lg text-deep-olive/80 space-y-2">
+      <div className="font-serif text-lg text-olive-secondary space-y-2">
         <p>Your response has been beautifully received.</p>
         <p className="text-2xl text-deep-olive mt-4">{name}</p>
         <p className="italic">
@@ -56,7 +56,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
 
       {/* Gift */}
       {selectedGift && attending === 'yes' && (
-        <div className="mt-8 p-6 bg-white border border-muted-sage/30 rounded-2xl shadow-sm max-w-sm mx-auto">
+        <div className="mt-8 p-6 bg-white border border-readable-border rounded-sm shadow-sm max-w-sm mx-auto">
           <p className="font-serif text-lg text-deep-olive mb-4">
             You have selected:
           </p>
@@ -68,7 +68,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
             </span>
           </div>
 
-          <p className="text-sm text-deep-olive/60 mt-4">
+          <p className="text-sm text-olive-secondary mt-4">
             This item will be marked as reserved.
           </p>
         </div>
@@ -77,7 +77,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
       {/* Reset */}
       <button
         onClick={onReset}
-        className="text-sm text-deep-olive hover:underline transition"
+        className="text-sm text-deep-olive underline underline-offset-4 hover:text-olive-secondary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
       >
         Submit another response
       </button>

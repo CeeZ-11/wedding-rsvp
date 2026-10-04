@@ -41,13 +41,13 @@ export function Schedule() {
         <h2 className="text-3xl md:text-4xl font-semibold text-deep-olive font-[Playfair Display] mb-3">
           Schedule
         </h2>
-        <div className="w-16 h-[1px] bg-light-sage"></div>
+        <div className="w-16 h-px bg-readable-border"></div>
       </div>
 
       {/* ✅ SIMPLE TIMELINE (MAIN FOR GUESTS) */}
       <div className="w-full">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto md:grid-cols-6">
           {timeline.map((event, index) => (
             <motion.div
               key={index}
@@ -55,10 +55,16 @@ export function Schedule() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-light-sage/10 p-8 rounded-3xl text-center hover:shadow-lg transition border border-light-sage/20"
+              className={`bg-light-sage/10 p-8 rounded-3xl text-center hover:shadow-lg transition border border-readable-border md:col-span-3 lg:col-span-2 ${
+                index === 3
+                  ? 'lg:col-start-2'
+                  : index === 4
+                  ? 'md:col-start-3 lg:col-start-4'
+                  : ''
+              }`}
             >
               {/* Icon */}
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-light-sage shadow-sm">
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-olive-secondary shadow-sm border border-readable-border">
                 <Clock size={20} />
               </div>
 
@@ -68,12 +74,12 @@ export function Schedule() {
               </h3>
 
               {/* Time */}
-              <p className="text-sm italic text-deep-olive/70 mb-4">
+              <p className="text-sm italic text-olive-secondary mb-4">
                 {event.time}
               </p>
 
               {/* Description */}
-              <p className="text-sm text-deep-olive/70 leading-relaxed">
+              <p className="text-sm text-olive-secondary leading-relaxed">
                 {event.description}
               </p>
             </motion.div>
@@ -82,7 +88,7 @@ export function Schedule() {
       </div>
 
       {/* Small Note */}
-      <p className="text-center text-sm text-deep-olive/60 font-sans">
+      <p className="text-center text-sm text-olive-secondary font-sans">
         Ceremony starts promptly at 2:30 PM.
       </p>
 
@@ -90,7 +96,7 @@ export function Schedule() {
       <div className="text-center">
         <button
           onClick={() => setShowFull(!showFull)}
-          className="text-xs uppercase tracking-widest underline text-deep-olive hover:text-deep-olive/70 transition"
+          className="text-xs uppercase tracking-widest underline underline-offset-4 text-deep-olive hover:decoration-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
         >
           {showFull ? "Hide Full Program" : "View Full Program"}
         </button>
@@ -103,15 +109,15 @@ export function Schedule() {
     {/* Container Card */}
       <div className="max-w-4xl mx-auto">
 
-        <div className="bg-white/60 backdrop-blur-sm border border-light-sage/20 rounded-[32px] p-8 md:p-12 space-y-14 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+        <div className="bg-white/80 backdrop-blur-sm border border-readable-border rounded-[32px] p-8 md:p-12 space-y-14 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
 
           {/* Preparation */}
           <div className="space-y-4">
-            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+            <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
               Preparation
             </p>
 
-            <div className="space-y-3 text-deep-olive/80 text-sm md:text-base leading-relaxed">
+            <div className="space-y-3 text-olive-secondary text-sm md:text-base leading-relaxed">
               <p>
                 <span className="font-medium text-deep-olive">8:00 AM – 12:00 NN</span><br />
                 Bride & groom preparation, photo & video coverage
@@ -124,15 +130,15 @@ export function Schedule() {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
 
           {/* Ceremony */}
           <div className="space-y-4">
-            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+            <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
               Ceremony
             </p>
 
-            <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
+            <div className="space-y-2 text-olive-secondary text-sm md:text-base">
               <p><span className="font-medium text-deep-olive">2:00 PM</span> — Arrival & worship music</p>
               <p><span className="font-medium text-deep-olive">2:30 PM</span> — Processional</p>
               <p><span className="font-medium text-deep-olive">2:45 PM</span> — Worship & Scripture</p>
@@ -142,29 +148,29 @@ export function Schedule() {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
 
           {/* Fellowship */}
           <div className="space-y-4">
-            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+            <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
               Fellowship
             </p>
 
-            <p className="text-deep-olive/80 text-sm md:text-base leading-relaxed">
+            <p className="text-olive-secondary text-sm md:text-base leading-relaxed">
               <span className="font-medium text-deep-olive">4:00 – 5:30 PM</span><br />
               Photos, refreshments, and golden hour
             </p>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-light-sage/30 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
 
           {/* Reception */}
           <div className="space-y-4">
-            <p className="text-xs tracking-[0.2em] uppercase text-deep-olive/50">
+            <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
               Reception
             </p>
 
-            <div className="space-y-2 text-deep-olive/80 text-sm md:text-base">
+            <div className="space-y-2 text-olive-secondary text-sm md:text-base">
               <p><span className="font-medium text-deep-olive">5:30 PM</span> — Dinner</p>
               <p><span className="font-medium text-deep-olive">7:00 PM</span> — Testimonies & sharing</p>
               <p><span className="font-medium text-deep-olive">8:00 PM</span> — Same Day Edit</p>

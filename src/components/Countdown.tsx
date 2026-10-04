@@ -61,7 +61,7 @@ export function Countdown() {
             {format(value)}
             </motion.p>
 
-            <p className="text-xs uppercase tracking-widest text-deep-olive/60">
+            <p className="text-xs uppercase tracking-widest text-olive-secondary">
             {label}
             </p>
         </div>

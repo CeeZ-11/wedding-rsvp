@@ -11,11 +11,11 @@ export function EventLocation() {
         <h2 className="text-3xl md:text-4xl font-semibold text-deep-olive font-[Playfair Display] mb-3">
           Location
         </h2>
-        <div className="w-16 h-[1px] bg-light-sage"></div>
+        <div className="w-16 h-px bg-readable-border"></div>
       </div>
 
       {/* Card */}
-      <div className="bg-light-sage/10 p-8 md:p-12 rounded-2xl border border-light-sage/30 max-w-2xl mx-auto space-y-8">
+      <div className="bg-light-sage/10 p-8 md:p-12 rounded-2xl border border-readable-border max-w-2xl mx-auto space-y-8">
 
         {/* Venue */}
         <div className="space-y-2">
@@ -29,9 +29,10 @@ export function EventLocation() {
         </div>
 
         {/* Map */}
-        <div className="rounded-xl overflow-hidden border border-light-sage/30">
+        <div className="rounded-xl overflow-hidden border border-readable-border">
           <iframe
             src="https://www.google.com/maps?q=H67H+WJM+Salvador+Benedicto+Negros+Occidental&z=15&output=embed"
+            title="Map showing Balai Ramirez DSB"
             className="w-full h-[260px] md:h-[320px] border-0"
             loading="lazy"
           ></iframe>
@@ -42,7 +43,7 @@ export function EventLocation() {
           href={mapLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-deep-olive text-deep-olive hover:bg-deep-olive hover:text-white transition uppercase tracking-wider text-sm font-medium"
+          className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-deep-olive text-deep-olive hover:bg-deep-olive hover:text-white transition uppercase tracking-wider text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
         >
           <MapPin className="w-4 h-4" />
           <span>View on Google Maps</span>
@@ -59,7 +60,7 @@ export function EventLocation() {
             </p>
           </div>
 
-          <ul className="space-y-2 text-sm text-deep-olive list-disc pl-5 marker:text-light-sage">
+          <ul className="space-y-2 text-sm text-deep-olive list-disc pl-5 marker:text-olive-secondary">
             <li>Head towards Don Salvador Benedicto from Bacolod City.</li>
             <li>Follow the scenic mountain highway.</li>
             <li>Look for the Balai Ramirez signage.</li>

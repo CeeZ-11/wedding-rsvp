@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="bg-light-sage/10 py-12 text-center border-t border-light-sage/30 mt-20">
+    <footer className="bg-light-sage/20 py-12 text-center border-t border-readable-border mt-20">
 
       <p className="text-2xl md:text-3xl text-deep-olive font-[Playfair Display] mb-3">
         We can’t wait to celebrate with you!

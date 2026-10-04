@@ -11,16 +11,16 @@ export interface EntourageData {
   secondarySponsors: {
     veil: Person[];
     cord: Person[];
-    candle: Person[];
   };
-  entourage: {
-    maidOfHonor: Person[];
-    bestMan: Person[];
-    bridesmaids: Person[];
+  groomSide: {
+    bestMan: Person;
     groomsmen: Person[];
-    flowerGirls: Person[];
   };
-  bearers: Person[];
+  brideSide: {
+    maidOfHonor: Person;
+    bridesmaids: Person[];
+  };
+  ceremonyRoles: Person[];
 }
 
 export const entourage: EntourageData = {
@@ -34,8 +34,6 @@ export const entourage: EntourageData = {
   principalSponsors: [
     { name: "Harvey Tee", role: "Principal Sponsor" },
     { name: "Mechiel Tee", role: "Principal Sponsor" },
-    { name: "Roland Tejada", role: "Principal Sponsor" },
-    { name: "Mariel Tejada", role: "Principal Sponsor" },
     { name: "Faith Victory Villaruz", role: "Principal Sponsor" },
     { name: "Carl Emmanuel Villaruz", role: "Principal Sponsor" },
   ],
@@ -51,57 +49,46 @@ export const entourage: EntourageData = {
       { name: "Romarco Garidan", role: "Cord Sponsor" },
     ],
 
-    candle: [
-      { name: "", role: "Candle Sponsor" },
-      { name: "", role: "Candle Sponsor" },
-    ],
   },
 
-  entourage: {
-    maidOfHonor: [
-      {
-        name: "Salve Regina Vistal",
-        role: "Maid of Honor",
-        relation: "Friend of the Bride",
-      },
-    ],
-
-    bestMan: [
-      {
-        name: "Joshua Estrabon",
-        role: "Best Man",
-        relation: "Brother of the Groom",
-      },
-    ],
-
-    bridesmaids: [
-      { name: "Ferlita Quinimon", role: "Bridesmaid", relation: "Friend of the Groom" },
-      { name: "Patricia Villalon", role: "Bridesmaid", relation: "Friend of the Bride" },
-      { name: "Ekklesia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
-      { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
-      { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
-      { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
-    ],
-
+  groomSide: {
+    bestMan: {
+      name: "Joshua Estrabon",
+      role: "Best Man",
+      relation: "Brother of the Groom",
+    },
     groomsmen: [
       { name: "Allain Paul Benito", role: "Groomsman", relation: "Friend of the Groom" },
-      { name: "Frennel Karlo Ong", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Daniel Yared", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Ariel Bargat", role: "Groomsman", relation: "Friend of the Bride" },
       { name: "Harold Caceres", role: "Groomsman", relation: "Friend of the Groom" },
     ],
+  },
 
-    flowerGirls: [
-      { name: "Diana Elie Tee", role: "Flower Girl" },
-      { name: "Eliana Faye Tee", role: "Flower Girl" },
-      { name: "Kaira Elise Tee", role: "Flower Girl" },
-      { name: "Amy Rose Alcala", role: "Flower Girl" },
-      { name: "Allie Benito", role: "Flower Girl" },
+  brideSide: {
+    maidOfHonor: {
+      name: "Salve Regina Vistal",
+      role: "Maid of Honor",
+      relation: "Friend of the Bride",
+    },
+    bridesmaids: [
+      { name: "Ferlita Quinimon", role: "Bridesmaid", relation: "Friend of the Groom" },
+      { name: "Ekklesia Mission", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
     ],
   },
 
-  bearers: [
+  ceremonyRoles: [
     { name: "Bryle Acruz", role: "Ring Bearer" },
+    { name: "Trey Escalante", role: "Bible Bearer" },
+    { name: "Axl Lopez", role: "Pillow Bearer" },
+    { name: "Diana Elie Tee", role: "Flower Girl" },
+    { name: "Eliana Faye Tee", role: "Flower Girl" },
+    { name: "Kaira Elise Tee", role: "Flower Girl" },
+    { name: "Amy Rose Alcala", role: "Flower Girl" },
+    { name: "Allie Benito", role: "Flower Girl" },
   ],
 };

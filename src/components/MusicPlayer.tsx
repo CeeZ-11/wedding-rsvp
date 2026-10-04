@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { Play, Pause, Music } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 export function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const isHomePage = useLocation().pathname === '/';
 
   useEffect(() => {
   audioRef.current = new Audio('/music/wedding.mp3');
@@ -36,7 +38,11 @@ export function MusicPlayer() {
   return (
     <button
       onClick={togglePlay}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-card-bg border border-light-sage/50 shadow-sm text-deep-olive hover:bg-light-sage/10 transition-all duration-300 group focus-visible:ring-2 focus-visible:ring-deep-olive/60 focus-visible:outline-none"
+      className={`fixed z-50 flex items-center justify-center w-12 h-12 rounded-full bg-card-bg border border-readable-border shadow-sm text-deep-olive hover:bg-light-sage/30 transition-all duration-300 group focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none ${
+        isHomePage
+          ? 'left-4 top-6 md:left-auto md:top-auto md:bottom-6 md:right-6'
+          : 'bottom-6 right-6'
+      }`}
       aria-label={isPlaying ? 'Pause music' : 'Play music'}
       aria-pressed={isPlaying}
     >

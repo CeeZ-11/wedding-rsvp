@@ -18,7 +18,10 @@ export function FloatingGuideButton() {
     <div className="fixed top-6 right-4 z-50 flex flex-col items-end gap-3">
 
       {/* 📖 Wedding Guide */}
-      <Link to="/guide">
+      <Link
+        to="/guide"
+        className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+      >
         <div
           className={`flex items-center gap-2 px-5 py-2.5 
           rounded-full backdrop-blur
@@ -26,8 +29,8 @@ export function FloatingGuideButton() {
           transition-all duration-300
           ${
             tick
-              ? "border border-deep-olive/60 bg-white shadow-md scale-[1.02] opacity-100"
-              : "border border-light-sage/40 bg-white/90 shadow-sm scale-100 opacity-95"
+              ? "border border-deep-olive bg-white shadow-md scale-[1.02] opacity-100"
+              : "border border-readable-border bg-white/95 shadow-sm scale-100 opacity-100"
           }
           text-deep-olive
           hover:-translate-y-0.5 hover:shadow-md hover:bg-deep-olive hover:text-white`}
@@ -42,6 +45,7 @@ export function FloatingGuideButton() {
         href="https://wed-snap-nine.vercel.app/" // 🔥 replace this
         target="_blank"
         rel="noopener noreferrer"
+        className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
       >
         <div
           className={`flex items-center gap-2 px-5 py-2.5 
@@ -50,8 +54,8 @@ export function FloatingGuideButton() {
           transition-all duration-300
           ${
             tick
-              ? "border border-deep-olive/40 bg-light-sage/30 shadow-md scale-[1.015] opacity-100"
-              : "border border-light-sage/30 bg-light-sage/20 shadow-sm scale-100 opacity-90"
+              ? "border border-deep-olive bg-light-sage/60 shadow-md scale-[1.015] opacity-100"
+              : "border border-readable-border bg-light-sage/50 shadow-sm scale-100 opacity-100"
           }
           text-deep-olive
           hover:-translate-y-0.5 hover:shadow-md hover:bg-deep-olive hover:text-white`}

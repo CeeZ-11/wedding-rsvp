@@ -7,13 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'warm-beige': '#C7A491',
+        'warm-beige': 'var(--accent-beige)',
+        'warm-beige-strong': 'var(--accent-beige-strong)',
         'blush-pink': '#EECFCA',
         'muted-sage': '#919682',
         'light-sage': '#C7CDBF',
-        'deep-olive': '#595E48',
+        'deep-olive': 'var(--text-primary)',
+        'olive-secondary': 'var(--text-secondary)',
+        'readable-border': 'var(--ui-border)',
+        'error-strong': 'var(--error-text)',
         'cream-bg': '#FBFBF9',
-        'card-bg': '#FDFAF6',
+        'card-bg': 'var(--card-background)',
       },
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'serif'],

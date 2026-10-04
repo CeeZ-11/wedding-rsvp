@@ -30,7 +30,7 @@ export function LocationMap() {
           Salvador Benedicto Venue
         </p>
 
-        <p className="font-serif text-deep-olive/70 text-sm md:text-base">
+        <p className="font-serif text-olive-secondary text-sm md:text-base">
           H67H+WJM, Unnamed Road, Salvador Benedicto, Negros Occidental
         </p>
 
