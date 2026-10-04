@@ -27,8 +27,8 @@ export const prenupPhotos: PrenupPhoto[] = [
     height: 933,
     galleryShape: 'portrait',
     caption: 'The little details',
-  },
     galleryShape: 'landscape',
+  },
   {
     src: '/images/prenup/placeholder-03.jpg',
     galleryShape: 'square',
