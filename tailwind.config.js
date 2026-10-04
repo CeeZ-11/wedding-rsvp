@@ -22,7 +22,7 @@ export default {
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'serif'],
         script: ['"Great Vibes"', 'cursive'],
-        sans: ['"Cormorant Garamond"', 'serif'], // Defaulting sans to serif for this elegant theme
+        sans: ['Inter', 'sans-serif'],
       },
       boxShadow: {
         'card': '0 10px 40px -10px rgba(89, 94, 72, 0.08)',

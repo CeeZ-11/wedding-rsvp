@@ -39,7 +39,7 @@ export function Explore() {
 
       {/* Header */}
       <div className="flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-semibold text-deep-olive font-[Playfair Display] mb-3">
+        <h2 className="font-serif text-4xl font-medium text-deep-olive sm:text-5xl mb-3">
           Explore Bacolod
         </h2>
         <div className="w-16 h-px bg-readable-border"></div>
@@ -72,7 +72,7 @@ export function Explore() {
 
             {/* Content */}
             <div className="p-5 space-y-2">
-              <h3 className="text-lg font-semibold text-deep-olive font-[Playfair Display]">
+              <h3 className="font-serif text-2xl font-medium text-deep-olive">
                 {place.name}
               </h3>
 

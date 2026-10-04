@@ -111,7 +111,7 @@ export function RSVPForm() {
   }
 
   return (
-    <div id="rsvp" className="w-full max-w-2xl mx-auto mt-12 px-4 md:px-12 scroll-mt-8">
+    <div id="rsvp" className="w-full max-w-2xl mx-auto px-4 md:px-12 scroll-mt-8">
       {/* Header */}
       <div className="text-center mb-10">
         <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">

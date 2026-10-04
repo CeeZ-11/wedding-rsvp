@@ -4,7 +4,7 @@ export function Seating() {
   return (
     <div className="space-y-10 text-center">
       <div className="flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-semibold text-deep-olive font-[Playfair Display] mb-3">
+        <h2 className="font-serif text-4xl font-medium text-deep-olive sm:text-5xl mb-3">
           Seating
         </h2>
         <div className="w-16 h-px bg-readable-border"></div>
@@ -20,7 +20,7 @@ export function Seating() {
             Ceremony
           </p>
           <Armchair aria-hidden="true" className="mb-4 h-8 w-8 text-deep-olive" strokeWidth={1.5} />
-          <h3 className="mb-2 text-xl font-semibold text-deep-olive font-[Playfair Display]">
+          <h3 className="mb-2 font-serif text-2xl font-medium text-deep-olive">
             Ceremony Seating
           </h3>
           <p className="max-w-xs font-sans text-base leading-relaxed text-olive-secondary">
@@ -33,7 +33,7 @@ export function Seating() {
             Reception
           </p>
           <Table2 aria-hidden="true" className="mb-4 h-8 w-8 text-deep-olive" strokeWidth={1.5} />
-          <h3 className="mb-2 text-xl font-semibold text-deep-olive font-[Playfair Display]">
+          <h3 className="mb-2 font-serif text-2xl font-medium text-deep-olive">
             Reception Seating
           </h3>
           <p className="max-w-xs font-sans text-base leading-relaxed text-olive-secondary">

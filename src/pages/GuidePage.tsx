@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import { Entourage } from "../components/Entourage";
@@ -22,10 +22,14 @@ const navItems = [
 export function GuidePage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [active, setActive] = useState("");
+  const reduceMotion = useReducedMotion();
 
   // ✅ Always scroll to top
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
     window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
   }, []);
 
   // ✅ Scroll detection (nav style + active section)
@@ -75,7 +79,12 @@ export function GuidePage() {
             >
               ← Back
             </Link>
-            <div className="w-[60px]" />
+            <Link
+              to="/#rsvp"
+              className="rounded-full border border-deep-olive bg-deep-olive px-4 py-2 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a4e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+            >
+              RSVP
+            </Link>
           </div>
 
           {/* Nav */}
@@ -108,15 +117,16 @@ export function GuidePage() {
       </nav>
 
       {/* 📄 CONTENT */}
-      <main className="max-w-3xl mx-auto px-6 pt-36 pb-24 space-y-24">
+      <main className="max-w-6xl mx-auto px-6 pt-36 pb-24 space-y-24">
 
         {/* HERO */}
         <motion.section
           className="text-center"
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5 }}
         >
-          <h1 className="text-5xl md:text-7xl mb-6 font-semibold">
+          <h1 className="font-serif text-5xl md:text-7xl mb-6 font-medium">
             Wedding Guide
           </h1>
           <p className="text-lg md:text-xl text-olive-secondary font-sans">

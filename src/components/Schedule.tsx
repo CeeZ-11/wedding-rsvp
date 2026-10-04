@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function Schedule() {
   const [showFull, setShowFull] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   const timeline = [
     {
@@ -34,63 +34,40 @@ export function Schedule() {
   ];
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-12 sm:space-y-16">
 
       {/* Header */}
       <div className="flex flex-col items-center text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold text-deep-olive font-[Playfair Display] mb-3">
+        <h2 className="font-serif text-4xl font-medium text-deep-olive sm:text-5xl mb-3">
           Schedule
         </h2>
         <div className="w-16 h-px bg-readable-border"></div>
       </div>
 
-      {/* ✅ SIMPLE TIMELINE (MAIN FOR GUESTS) */}
-      <div className="w-full">
-
-        <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto md:grid-cols-6">
-          {timeline.map((event, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`bg-light-sage/10 p-8 rounded-3xl text-center hover:shadow-lg transition border border-readable-border md:col-span-3 lg:col-span-2 ${
-                index === 3
-                  ? 'lg:col-start-2'
-                  : index === 4
-                  ? 'md:col-start-3 lg:col-start-4'
-                  : ''
-              }`}
-            >
-              {/* Icon */}
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-olive-secondary shadow-sm border border-readable-border">
-                <Clock size={20} />
-              </div>
-
-              {/* Title */}
-              <h3 className="text-lg md:text-xl font-semibold text-deep-olive mb-2">
-                {event.title}
-              </h3>
-
-              {/* Time */}
-              <p className="text-sm italic text-olive-secondary mb-4">
-                {event.time}
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-olive-secondary leading-relaxed">
-                {event.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+      <div className="mx-auto max-w-5xl border-y border-readable-border">
+        {timeline.map((event, index) => (
+          <motion.div
+            key={event.title}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : index * 0.04 }}
+            className={`grid grid-cols-[6.5rem_1fr] items-baseline gap-x-4 py-5 text-left sm:grid-cols-[8rem_1fr_1.2fr] sm:gap-x-8 sm:py-6 ${
+              index < timeline.length - 1 ? 'border-b border-readable-border/70' : ''
+            }`}
+          >
+            <p className="font-serif text-xl font-medium tabular-nums text-deep-olive sm:text-2xl">
+              {event.time.replace(' ', '\u00a0')}
+            </p>
+            <h3 className="font-serif text-xl font-semibold text-deep-olive sm:text-2xl">
+              {event.title}
+            </h3>
+            <p className="col-start-2 mt-1 font-sans text-sm leading-relaxed text-olive-secondary sm:col-start-auto sm:mt-0 sm:text-base">
+              {event.description}
+            </p>
+          </motion.div>
+        ))}
       </div>
-
-      {/* Small Note */}
-      <p className="text-center text-sm text-olive-secondary font-sans">
-        Ceremony starts promptly at 2:30 PM.
-      </p>
 
       {/* 🔽 TOGGLE FULL PROGRAM */}
       <div className="text-center">
@@ -109,7 +86,7 @@ export function Schedule() {
     {/* Container Card */}
       <div className="max-w-4xl mx-auto">
 
-        <div className="bg-white/80 backdrop-blur-sm border border-readable-border rounded-[32px] p-8 md:p-12 space-y-14 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+        <div className="border-y border-readable-border bg-[#F4F2EB] px-6 py-8 sm:px-10 sm:py-12 space-y-10 sm:space-y-12">
 
           {/* Preparation */}
           <div className="space-y-4">

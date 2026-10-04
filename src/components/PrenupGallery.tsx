@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
 import { prenupPhotos } from '../data/prenupPhotos';
 
@@ -9,8 +9,12 @@ export function PrenupGallery() {
   const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
   const isOpen = activeIndex !== null;
   const activePhoto = activeIndex === null ? null : prenupPhotos[activeIndex];
+  const indexedPhotos = prenupPhotos.map((photo, index) => ({ photo, index }));
+  const featuredPhoto = indexedPhotos.find(({ photo }) => photo.feature);
+  const remainingPhotos = indexedPhotos.filter(({ photo }) => !photo.feature);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -92,22 +96,84 @@ export function PrenupGallery() {
     else showNext();
   };
 
+  const renderPhoto = (
+    photo: (typeof prenupPhotos)[number],
+    index: number,
+    className: string,
+  ) => (
+    <motion.figure
+      key={photo.src}
+      initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.55,
+        delay: reduceMotion ? 0 : (index % 3) * 0.07,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className={`break-inside-avoid ${className}`}
+    >
+      <button
+        ref={(element) => {
+          if (activeIndex === index && element) {
+            triggerButtonRef.current = element;
+          }
+        }}
+        type="button"
+        onClick={(event) => {
+          triggerButtonRef.current = event.currentTarget;
+          setActiveIndex(index);
+        }}
+        aria-label={`View photo ${index + 1}: ${photo.alt}`}
+        className={`group relative block w-full overflow-hidden bg-light-sage/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-4 ${
+          photo.feature
+            ? ''
+            : photo.galleryShape === 'portrait'
+            ? 'aspect-[4/5]'
+            : photo.galleryShape === 'square'
+            ? 'aspect-square'
+            : 'aspect-[4/3]'
+        }`}
+      >
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="lazy"
+          decoding="async"
+          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 42vw"
+          className={`block w-full transition-transform duration-700 ease-out group-hover:scale-[1.025] group-focus-visible:scale-[1.025] ${
+            photo.feature ? 'h-auto' : 'h-full object-cover'
+          }`}
+        />
+        <span className="absolute inset-0 bg-deep-olive/0 transition-colors duration-300 group-hover:bg-deep-olive/10 group-focus-visible:bg-deep-olive/10" />
+        <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center border border-white/70 bg-deep-olive/50 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+          <Expand aria-hidden="true" size={16} strokeWidth={1.5} />
+        </span>
+      </button>
+      <figcaption className={`pt-2 font-serif text-sm text-olive-secondary ${photo.feature ? 'sm:text-base' : ''}`}>
+        {photo.caption}
+      </figcaption>
+    </motion.figure>
+  );
+
   return (
     <>
       <section
         id="our-prenup"
         aria-labelledby="prenup-heading"
-        className="mx-auto mt-20 max-w-6xl px-1 pb-10 sm:mt-28 sm:px-4"
+        className="mx-auto mt-20 max-w-7xl px-4 pb-16 sm:mt-28 sm:px-8 lg:px-12"
       >
         <motion.header
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-9 pt-36 text-center sm:mb-12 sm:pt-0"
+          transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 pt-16 text-left sm:mb-14 sm:pt-0 md:text-center"
         >
-          <p className="mb-2 font-sans text-xs uppercase tracking-[0.2em] text-olive-secondary sm:text-xs sm:tracking-[0.28em]">
-            Seamor &amp; Lady Stephanie
+          <p className="mb-3 font-sans text-xs uppercase tracking-[0.24em] text-olive-secondary sm:tracking-[0.3em]">
+            Before the day
           </p>
           <h2
             id="prenup-heading"
@@ -120,54 +186,29 @@ export function PrenupGallery() {
           </p>
         </motion.header>
 
-        <div className="columns-1 gap-x-4 sm:columns-2 sm:gap-x-5 lg:columns-3">
-          {prenupPhotos.map((photo, index) => (
-            <motion.figure
-              key={photo.src}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{
-                duration: 0.55,
-                delay: (index % 3) * 0.07,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="mb-5 break-inside-avoid sm:mb-6"
-            >
-              <button
-                ref={(element) => {
-                  if (activeIndex === index && element) {
-                    triggerButtonRef.current = element;
-                  }
-                }}
-                type="button"
-                onClick={(event) => {
-                  triggerButtonRef.current = event.currentTarget;
-                  setActiveIndex(index);
-                }}
-                aria-label={`View photo ${index + 1}: ${photo.alt}`}
-                className="group relative block w-full overflow-hidden bg-light-sage/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-4"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  loading="lazy"
-                  decoding="async"
-                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                  className="block h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.025] group-focus-visible:scale-[1.025]"
-                />
-                <span className="absolute inset-0 bg-deep-olive/0 transition-colors duration-300 group-hover:bg-deep-olive/10 group-focus-visible:bg-deep-olive/10" />
-                <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center border border-white/70 bg-deep-olive/50 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                  <Expand aria-hidden="true" size={16} strokeWidth={1.5} />
-                </span>
-              </button>
-              <figcaption className="pt-2 font-serif text-sm text-olive-secondary">
-                {photo.caption}
-              </figcaption>
-            </motion.figure>
-          ))}
+        {featuredPhoto && (
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-8 md:grid-cols-12 lg:gap-x-12">
+            {renderPhoto(
+              featuredPhoto.photo,
+              featuredPhoto.index,
+              'md:col-span-7',
+            )}
+            {remainingPhotos[0] && renderPhoto(
+              remainingPhotos[0].photo,
+              remainingPhotos[0].index,
+              'md:col-span-5 md:mt-16',
+            )}
+          </div>
+        )}
+
+        <div className="mt-10 grid grid-cols-2 items-start gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 lg:grid-cols-3 lg:gap-x-8">
+          {remainingPhotos.slice(1).map(({ photo, index }, itemIndex) =>
+            renderPhoto(
+              photo,
+              index,
+              itemIndex === 3 ? 'lg:mt-16' : itemIndex === 5 ? 'lg:mt-8' : '',
+            ),
+          )}
         </div>
       </section>
 
@@ -186,7 +227,7 @@ export function PrenupGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-[#171915]/95 px-4 py-16 text-white sm:px-8"
           >
             <button
@@ -229,10 +270,10 @@ export function PrenupGallery() {
                   width={activePhoto.width}
                   height={activePhoto.height}
                   draggable={false}
-                  initial={{ opacity: 0, scale: 0.985 }}
+                  initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.985 }}
-                  transition={{ duration: 0.2 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, scale: 0.985 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2 }}
                   className="max-h-[70vh] w-auto max-w-full select-none object-contain sm:max-h-[76vh]"
                 />
               </AnimatePresence>

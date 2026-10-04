@@ -4,6 +4,8 @@ export interface PrenupPhoto {
   width: number;
   height: number;
   caption: string;
+  feature?: boolean;
+  galleryShape?: 'portrait' | 'square' | 'landscape';
 }
 
 // Replace the placeholder files with your photos, or update filenames and alt text here.
@@ -14,20 +16,27 @@ export const prenupPhotos: PrenupPhoto[] = [
     width: 1400,
     height: 2100,
     caption: 'A quiet moment together',
+    galleryShape: 'portrait',
   },
   {
+    galleryShape: 'landscape',
     src: '/images/prenup/placeholder-02.jpg',
     alt: 'A wedding bouquet held close between a couple',
+    galleryShape: 'square',
     width: 1400,
     height: 933,
+    galleryShape: 'portrait',
     caption: 'The little details',
   },
+    galleryShape: 'landscape',
   {
     src: '/images/prenup/placeholder-03.jpg',
+    galleryShape: 'square',
     alt: 'A couple walking hand in hand across a mountain landscape',
     width: 1400,
     height: 933,
     caption: 'Side by side',
+    feature: true,
   },
   {
     src: '/images/prenup/placeholder-04.jpg',

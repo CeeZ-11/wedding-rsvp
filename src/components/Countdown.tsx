@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 
 const weddingDate = new Date("2026-12-27T00:00:00+08:00").getTime();
 
@@ -21,6 +21,7 @@ function getTimeRemaining() {
 
 export function Countdown() {
   const [timeLeft, setTimeLeft] = useState(() => getTimeRemaining());
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -38,8 +39,6 @@ export function Countdown() {
     );
   }
 
-  const format = (num: number) => String(num).padStart(2, "0");
-
   const units = [
     { label: "days", value: timeLeft.days },
     { label: "hours", value: timeLeft.hours },
@@ -48,24 +47,31 @@ export function Countdown() {
   ];
 
   return (
-    <div className="flex justify-center gap-6 text-center">
-      {units.map(({ label, value }) => (
-        <div key={label}>
-            <motion.p
-            key={value}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-2xl md:text-3xl font-semibold text-deep-olive"
-            >
-            {format(value)}
-            </motion.p>
-
-            <p className="text-xs uppercase tracking-widest text-olive-secondary">
+    <div
+      role="timer"
+      aria-live="off"
+      aria-label={`${timeLeft.days} days, ${timeLeft.hours} hours, ${timeLeft.minutes} minutes, ${timeLeft.seconds} seconds until the wedding`}
+      className="mx-auto grid max-w-3xl grid-cols-[1.45fr_repeat(3,minmax(0,1fr))] items-center text-center"
+    >
+      {units.map(({ label, value }, index) => (
+        <div
+          key={label}
+          className={`${index ? 'border-l border-readable-border/70' : ''} px-2 sm:px-6`}
+        >
+          <p
+            className={`font-serif font-medium leading-none tabular-nums text-deep-olive ${
+              index === 0
+                ? 'text-6xl sm:text-7xl md:text-8xl'
+                : 'text-3xl sm:text-4xl md:text-5xl'
+            } ${reduceMotion ? '' : 'transition-[opacity] duration-300'}`}
+          >
+            {index === 0 ? value : String(value).padStart(2, '0')}
+          </p>
+          <p className="mt-3 text-[0.6rem] uppercase tracking-[0.14em] text-olive-secondary sm:text-xs sm:tracking-[0.2em]">
             {label}
-            </p>
+          </p>
         </div>
-        ))}
+      ))}
     </div>
   );
 }
