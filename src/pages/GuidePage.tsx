@@ -25,11 +25,19 @@ export function GuidePage() {
   const [active, setActive] = useState("");
   const reduceMotion = useReducedMotion();
 
-  // ✅ Always scroll to top
+  // Honor section links on entry; otherwise start at the top.
   useLayoutEffect(() => {
     const previousScrollBehavior = document.documentElement.style.scrollBehavior;
     document.documentElement.style.scrollBehavior = "auto";
-    window.scrollTo(0, 0);
+    const targetId = window.location.hash.slice(1);
+    const target = targetId ? document.getElementById(decodeURIComponent(targetId)) : null;
+
+    if (target) {
+      target.scrollIntoView({ block: "start" });
+    } else {
+      window.scrollTo(0, 0);
+    }
+
     document.documentElement.style.scrollBehavior = previousScrollBehavior;
   }, []);
 

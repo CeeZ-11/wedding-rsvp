@@ -13,13 +13,22 @@ export function WeddingHome() {
         aria-labelledby="wedding-title"
         className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden"
       >
+        <div aria-hidden="true" className="absolute inset-0 hidden overflow-hidden lg:block">
+          <img
+            src="/images/prenup/placeholder-03.jpg"
+            alt=""
+            width={1400}
+            height={933}
+            className="h-full w-full scale-105 object-cover blur-2xl"
+          />
+        </div>
         <img
           src="/images/prenup/placeholder-03.jpg"
           alt="A couple walking hand in hand through a mountain landscape"
           width={1400}
           height={933}
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center lg:object-contain"
         />
         <div
           aria-hidden="true"

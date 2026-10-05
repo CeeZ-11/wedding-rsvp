@@ -11,6 +11,26 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/api/gifts', (route) => route.fulfill({ json: { takenGifts: [] } }));
 });
 
+for (const { width, height } of [
+  { width: 1366, height: 768 },
+  { width: 1440, height: 900 },
+  { width: 1920, height: 1080 },
+  { width: 390, height: 844 },
+]) {
+  test(`hero framing and overflow at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+
+    const hero = page.locator('main > section').first();
+    const image = hero.getByRole('img', { name: 'A couple walking hand in hand through a mountain landscape' });
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth === 1400)).toBe(true);
+    await expect(image).toHaveCSS('object-fit', width >= 1024 ? 'contain' : 'cover');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.screenshot({ path: `${screenshotDir}/hero-${width}.png` });
+  });
+}
+
 for (const width of [390, 1440]) {
   test(`homepage at ${width}px has no horizontal overflow`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -172,3 +192,37 @@ test('Wedding Guide section navigation and schedule expansion work', async ({ pa
   await expect(page.getByRole('button', { name: 'View Full Program' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Wedding links' }).getByRole('link', { name: 'RSVP' })).toHaveAttribute('href', '/#rsvp');
 });
+
+for (const width of [390, 1440]) {
+  test(`homepage Venue & Directions opens the Guide venue section at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const link = page.getByRole('link', { name: 'Venue & directions' });
+    await link.scrollIntoViewIfNeeded();
+    await link.click();
+
+    await expect(page).toHaveURL(/\/guide#location$/);
+    await expect(page.getByRole('heading', { name: 'The venue' })).toBeVisible();
+    const sectionTop = await page.locator('#location').evaluate((element) => element.getBoundingClientRect().top);
+    expect(sectionTop).toBeGreaterThanOrEqual(0);
+    expect(sectionTop).toBeLessThan(200);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.screenshot({ path: `${screenshotDir}/guide-location-from-home-${width}.png` });
+  });
+
+  test(`homepage Full Day Schedule opens the Guide schedule section at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const link = page.getByRole('link', { name: 'Full day schedule' });
+    await link.scrollIntoViewIfNeeded();
+    await link.click();
+
+    await expect(page).toHaveURL(/\/guide#schedule$/);
+    await expect(page.getByRole('heading', { name: 'Schedule', exact: true })).toBeVisible();
+    const sectionTop = await page.locator('#schedule').evaluate((element) => element.getBoundingClientRect().top);
+    expect(sectionTop).toBeGreaterThanOrEqual(0);
+    expect(sectionTop).toBeLessThan(200);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.screenshot({ path: `${screenshotDir}/guide-schedule-from-home-${width}.png` });
+  });
+}
