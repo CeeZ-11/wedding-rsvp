@@ -51,7 +51,7 @@ export function Entourage() {
           <p className="font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#D7DDCF]">
             With appreciation
           </p>
-          <h3 className="mt-3 font-serif text-3xl sm:text-4xl">Principal Sponsors</h3>
+          <h3 className="mt-3 font-serif text-3xl text-[#F8F5EB] sm:text-4xl">Principal Sponsors</h3>
           <ul className="mt-8 grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
             {entourage.principalSponsors.map((person) => (
               <li

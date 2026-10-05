@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { MusicPlayer } from "../components/MusicPlayer";
 
 import { Entourage } from "../components/Entourage";
 import { EventLocation } from "../components/EventLocation";
@@ -63,32 +64,36 @@ export function GuidePage() {
 
       {/* 🔝 NAV */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        style={{ backgroundColor: isScrolled ? "#FBFBF9" : "transparent" }}
+        className={`fixed top-0 left-0 right-0 z-40 transition-[padding,box-shadow] duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur border-b border-readable-border py-3 shadow-sm"
+          ? "bg-cream-bg border-b border-readable-border py-2 shadow-sm"
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="mx-auto max-w-5xl px-4">
 
           {/* Top Row */}
-          <div className="flex items-center justify-between mb-2">
+          <div className="mb-2 flex items-center justify-between">
             <Link
               to="/"
               className="text-xs uppercase tracking-widest text-olive-secondary hover:text-deep-olive transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
             >
               ← Back
             </Link>
-            <Link
-              to="/#rsvp"
-              className="rounded-full border border-deep-olive bg-deep-olive px-4 py-2 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a4e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
-            >
-              RSVP
-            </Link>
+            <div className="flex items-center gap-3">
+              <MusicPlayer inline />
+              <Link
+                to="/#rsvp"
+                className="rounded-full border border-deep-olive bg-deep-olive px-4 py-2 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a4e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+              >
+                RSVP
+              </Link>
+            </div>
           </div>
 
           {/* Nav */}
-          <ul className="mx-auto flex max-w-5xl flex-wrap justify-center gap-x-4 gap-y-2 text-[0.7rem] leading-5 uppercase tracking-[0.08em] font-medium sm:text-xs sm:tracking-widest md:gap-x-8 md:text-sm">
+          <ul aria-label="Wedding Guide sections" className="mx-auto flex w-full flex-nowrap justify-between gap-x-3 overflow-x-auto whitespace-nowrap text-[0.65rem] font-medium uppercase leading-5 tracking-[0.05em] sm:justify-center sm:gap-x-5 sm:text-xs sm:tracking-widest md:gap-x-8 md:text-sm">
 
             {navItems.map((item) => (
               <li key={item.id}>
@@ -126,46 +131,53 @@ export function GuidePage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
         >
-          <h1 className="font-serif text-5xl md:text-7xl mb-6 font-medium">
+          <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
+            Seamor &amp; Lady Stephanie
+          </p>
+          <h1 className="font-serif text-5xl font-medium text-deep-olive sm:text-6xl md:text-7xl">
             Wedding Guide
           </h1>
-          <p className="text-lg md:text-xl text-olive-secondary font-sans">
-            Everything you need to know for our special day
+          <div aria-hidden="true" className="mx-auto my-5 h-px w-12 bg-readable-border" />
+          <p className="font-serif text-xl text-olive-secondary sm:text-2xl">
+            December 27, 2026
+          </p>
+          <p className="mt-1 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
+            Balai Ramirez DSB
           </p>
         </motion.section>
 
         {/* Sections */}
-        <section id="schedule" className="scroll-mt-32">
+        <section id="schedule" className="scroll-mt-28 sm:scroll-mt-32">
           <Schedule />
         </section>
 
         <div className="border-t border-readable-border" />
 
-        <section id="location" className="scroll-mt-32">
+        <section id="location" className="scroll-mt-28 sm:scroll-mt-32">
           <EventLocation />
         </section>
 
         <div className="border-t border-readable-border" />
 
-        <section id="dress" className="scroll-mt-32">
+        <section id="dress" className="scroll-mt-28 sm:scroll-mt-32">
           <AttireGuide />
         </section>
 
         <div className="border-t border-readable-border" />
 
-        <section id="seating" className="scroll-mt-32">
+        <section id="seating" className="scroll-mt-28 sm:scroll-mt-32">
           <Seating />
         </section>
 
         <div className="border-t border-readable-border" />
 
-        <section id="entourage" className="scroll-mt-32">
+        <section id="entourage" className="scroll-mt-28 sm:scroll-mt-32">
           <Entourage />
         </section>
 
         <div className="border-t border-readable-border" />
 
-        <section id="explore" className="scroll-mt-32">
+        <section id="explore" className="scroll-mt-28 sm:scroll-mt-32">
           <Explore />
         </section>
 

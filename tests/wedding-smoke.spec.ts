@@ -19,8 +19,20 @@ for (const width of [390, 1440]) {
 
     await page.goto('/');
     await expect(page.locator('#wedding-title')).toBeVisible();
+    const homeNav = page.locator('nav[aria-label="Wedding links"]').filter({ has: page.getByRole('link', { name: 'Wedding Gallery' }) });
+    const musicButton = page.getByRole('button', { name: 'Play music' });
+    await expect(homeNav).toHaveCSS('position', 'absolute');
+    await expect(musicButton).toHaveCSS('position', 'absolute');
     await page.screenshot({ path: `${screenshotDir}/home-${width}.png` });
 
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await page.locator('#our-prenup').scrollIntoViewIfNeeded();
+    await expect.poll(() => homeNav.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0);
+    await expect.poll(() => musicButton.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0);
+    const footerNav = page.locator('footer nav[aria-label="Wedding links"]');
+    await footerNav.scrollIntoViewIfNeeded();
+    await expect(footerNav.getByRole('link', { name: 'Guide' })).toBeVisible();
+    await expect(footerNav.getByRole('link', { name: 'Gallery' })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     expect(pageErrors).toEqual([]);
   });
@@ -32,10 +44,14 @@ for (const width of [390, 1440]) {
 
     await page.goto('/guide');
     await expect(page.getByRole('heading', { name: 'Wedding Guide' })).toBeVisible();
+    await expect(page.getByRole('main').getByText('Seamor & Lady Stephanie')).toBeVisible();
+    await expect(page.getByRole('main').getByText('December 27, 2026')).toBeVisible();
+    await page.screenshot({ path: `${screenshotDir}/guide-intro-${width}.png` });
     await page.getByRole('heading', { name: 'Seating', exact: true }).scrollIntoViewIfNeeded();
     await expect(page.getByRole('heading', { name: 'Ceremony Seating' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Reception Seating' })).toBeVisible();
-    await expect(page.locator('nav').first()).toHaveClass(/bg-white\/95/);
+    await expect(page.locator('nav').first()).toHaveClass(/bg-cream-bg/);
+    await expect(page.locator('nav').first()).toHaveCSS('background-color', 'rgb(251, 251, 249)');
     await page.screenshot({ path: `${screenshotDir}/guide-seating-${width}.png` });
 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -82,6 +98,37 @@ test('prenup gallery images load and lightbox opens, navigates, and closes with 
   await page.screenshot({ path: `${screenshotDir}/gallery-mobile.png` });
 });
 
+for (const width of [390, 1440]) {
+  test(`Principal Sponsors contrast and editorial Explore layout at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/guide');
+
+    const sponsorsHeading = page.getByRole('heading', { name: 'Principal Sponsors' });
+    await sponsorsHeading.scrollIntoViewIfNeeded();
+    await expect(page.locator('nav').first()).toHaveCSS('background-color', 'rgb(251, 251, 249)');
+    await expect(sponsorsHeading).toHaveCSS('color', 'rgb(248, 245, 235)');
+    await expect(page.getByText('Harvey Tee')).toBeVisible();
+    await page.screenshot({ path: `${screenshotDir}/guide-sponsors-${width}.png` });
+
+    const explore = page.locator('#explore');
+    await explore.scrollIntoViewIfNeeded();
+    const places = explore.locator('ul > li');
+    await expect(places).toHaveCount(4);
+    await expect(places.getByRole('heading', { name: 'The Ruins' })).toBeVisible();
+    await expect(places.getByRole('link', { name: /View on map/ }).first()).toHaveAttribute('target', '_blank');
+    const images = explore.locator('img');
+    await expect(images).toHaveCount(4);
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
+    }
+    await explore.evaluate((element) => window.scrollTo(0, element.getBoundingClientRect().top + window.scrollY - 120));
+    await page.waitForTimeout(100);
+    await page.screenshot({ path: `${screenshotDir}/guide-explore-${width}.png` });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+}
+
 test('RSVP submits the expected payload and shows confirmation', async ({ page }) => {
   let submittedPayload: Record<string, unknown> | undefined;
   await page.route('**/api/rsvp', async (route) => {
@@ -123,5 +170,5 @@ test('Wedding Guide section navigation and schedule expansion work', async ({ pa
   await page.screenshot({ path: `${screenshotDir}/guide-schedule-expanded.png` });
   await page.getByRole('button', { name: 'Hide Full Program' }).click();
   await expect(page.getByRole('button', { name: 'View Full Program' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'RSVP' })).toHaveAttribute('href', '/#rsvp');
+  await expect(page.getByRole('navigation', { name: 'Wedding links' }).getByRole('link', { name: 'RSVP' })).toHaveAttribute('href', '/#rsvp');
 });

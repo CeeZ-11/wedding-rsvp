@@ -5,7 +5,7 @@ export function FloatingGuideButton() {
   return (
     <nav
       aria-label="Wedding links"
-      className="fixed right-4 top-4 z-50 flex flex-col items-end gap-2 sm:right-6 sm:top-5 sm:flex-row sm:items-center"
+      className="absolute right-4 top-4 z-50 flex flex-col items-end gap-2 sm:right-6 sm:top-5 sm:flex-row sm:items-center"
     >
       <Link
         to="/guide"
