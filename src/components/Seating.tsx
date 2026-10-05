@@ -1,3 +1,5 @@
+import { Armchair, Church, Utensils } from "lucide-react";
+
 export function Seating() {
   return (
     <div className="mx-auto max-w-5xl space-y-10">
@@ -5,17 +7,18 @@ export function Seating() {
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
           A note for guests
         </p>
-        <h2 className="mb-3 font-serif text-4xl font-medium text-deep-olive sm:text-5xl">
-          Seating
+        <h2 className="mb-3 flex items-center justify-center gap-2 font-serif text-4xl font-medium text-deep-olive sm:text-5xl">
+          <Armchair aria-hidden="true" className="h-6 w-6 stroke-[1.5]" /> Seating
         </h2>
         <p className="mx-auto max-w-xl font-sans text-sm leading-relaxed text-olive-secondary">
           Seating will be organized for family, wedding party, and guests.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 border-y border-readable-border sm:grid-cols-2">
-        <article className="py-7 text-center sm:pr-10 sm:py-9 sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-12">
+        <article className="py-4 text-center sm:pr-10 sm:text-left">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:justify-start">
+            <Church aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             Ceremony
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
@@ -26,8 +29,9 @@ export function Seating() {
           </p>
         </article>
 
-        <article className="border-t border-readable-border py-7 text-center sm:border-l sm:py-9 sm:pl-10 sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+        <article className="py-4 text-center sm:border-l sm:border-readable-border sm:pl-10 sm:text-left">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:justify-start">
+            <Utensils aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             Reception
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">

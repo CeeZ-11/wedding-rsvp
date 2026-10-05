@@ -1,4 +1,4 @@
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin, MapPinned, Navigation } from "lucide-react";
 
 const mapLink = "https://maps.app.goo.gl/ZXqCjSzFiSum3R749";
 
@@ -9,8 +9,8 @@ export function EventLocation() {
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           The setting
         </p>
-        <h2 className="font-serif text-5xl font-medium text-deep-olive sm:text-6xl">
-          The venue
+        <h2 className="flex items-center justify-center gap-3 font-serif text-5xl font-medium text-deep-olive sm:justify-start sm:text-6xl">
+          <MapPinned aria-hidden="true" className="h-7 w-7 stroke-[1.5] sm:h-8 sm:w-8" /> The venue
         </h2>
       </header>
 
@@ -45,7 +45,7 @@ export function EventLocation() {
             View on Google Maps
           </a>
 
-          <div className="mt-8 border-t border-readable-border pt-6 text-left">
+          <div className="mt-8 pt-2 text-left">
             <div className="mb-4 flex items-center gap-2">
               <Navigation aria-hidden="true" className="h-4 w-4 text-deep-olive" />
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">

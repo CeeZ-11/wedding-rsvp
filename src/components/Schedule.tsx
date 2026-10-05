@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Camera, Church, Clock3, DoorOpen, Sparkles, Utensils } from "lucide-react";
 
 export function Schedule() {
   const [showFull, setShowFull] = useState(false);
@@ -9,27 +10,32 @@ export function Schedule() {
     {
       time: "2:00 PM",
       title: "Guest Arrival",
-      description: "Welcome and seating of guests"
+      description: "Welcome and seating of guests",
+      icon: DoorOpen
     },
     {
       time: "2:30 PM",
       title: "Ceremony",
-      description: "Processional, vows, and declaration"
+      description: "Processional, vows, and declaration",
+      icon: Church
     },
     {
       time: "4:00 PM",
       title: "Photos & Fellowship",
-      description: "Group photos and light refreshments"
+      description: "Group photos and light refreshments",
+      icon: Camera
     },
     {
       time: "5:30 PM",
       title: "Reception",
-      description: "Dinner, program, and celebration"
+      description: "Dinner, program, and celebration",
+      icon: Utensils
     },
     {
       time: "9:45 PM",
       title: "Closing",
-      description: "Closing prayer and send-off"
+      description: "Closing prayer and send-off",
+      icon: Sparkles
     }
   ];
 
@@ -38,13 +44,14 @@ export function Schedule() {
 
       {/* Header */}
       <div className="flex flex-col items-center text-center">
-        <h2 className="font-serif text-4xl font-medium text-deep-olive sm:text-5xl mb-3">
-          Schedule
-        </h2>
+        <div className="mb-3 flex items-center gap-2 text-deep-olive">
+          <Clock3 aria-hidden="true" className="h-5 w-5 stroke-[1.5]" />
+          <h2 className="font-serif text-4xl font-medium sm:text-5xl">Schedule</h2>
+        </div>
         <div className="w-16 h-px bg-readable-border"></div>
       </div>
 
-      <div className="mx-auto max-w-5xl border-y border-readable-border">
+      <div className="relative mx-auto max-w-5xl before:absolute before:bottom-8 before:left-[1.2rem] before:top-8 before:w-px before:bg-readable-border sm:before:left-[1.4rem]">
         {timeline.map((event, index) => (
           <motion.div
             key={event.title}
@@ -52,17 +59,18 @@ export function Schedule() {
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : index * 0.04 }}
-            className={`grid grid-cols-[6.5rem_1fr] items-baseline gap-x-4 py-5 text-left sm:grid-cols-[8rem_1fr_1.2fr] sm:gap-x-8 sm:py-6 ${
-              index < timeline.length - 1 ? 'border-b border-readable-border/70' : ''
-            }`}
+            className="relative grid grid-cols-[2.5rem_5rem_1fr] items-baseline gap-x-3 py-5 text-left sm:grid-cols-[3rem_8rem_1fr] sm:gap-x-6 sm:py-6"
           >
+            <span className="z-10 flex h-10 w-10 items-center justify-center rounded-full bg-cream-bg text-deep-olive sm:h-11 sm:w-11">
+              <event.icon aria-hidden="true" className="h-[18px] w-[18px] stroke-[1.5]" />
+            </span>
             <p className="font-serif text-xl font-medium tabular-nums text-deep-olive sm:text-2xl">
               {event.time.replace(' ', '\u00a0')}
             </p>
             <h3 className="font-serif text-xl font-semibold text-deep-olive sm:text-2xl">
               {event.title}
             </h3>
-            <p className="col-start-2 mt-1 font-sans text-sm leading-relaxed text-olive-secondary sm:col-start-auto sm:mt-0 sm:text-base">
+            <p className="col-start-3 mt-1 font-sans text-sm leading-relaxed text-olive-secondary sm:col-start-auto sm:mt-0 sm:text-base">
               {event.description}
             </p>
           </motion.div>
@@ -81,12 +89,12 @@ export function Schedule() {
 
       {/* ✅ FULL CCF PROGRAM (OPTIONAL) */}
       {showFull && (
-  <div className="max-w-3xl mx-auto space-y-10 text-center">
+      <div className="mx-auto max-w-3xl space-y-10 text-left">
 
     {/* Container Card */}
       <div className="max-w-4xl mx-auto">
 
-        <div className="border-y border-readable-border bg-[#F4F2EB] px-6 py-8 sm:px-10 sm:py-12 space-y-10 sm:space-y-12">
+        <div className="space-y-10 bg-[#F4F2EB] px-6 py-8 sm:grid sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 sm:space-y-0 sm:px-10 sm:py-12">
 
           {/* Preparation */}
           <div className="space-y-4">
@@ -107,8 +115,6 @@ export function Schedule() {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
-
           {/* Ceremony */}
           <div className="space-y-4">
             <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
@@ -125,8 +131,6 @@ export function Schedule() {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
-
           {/* Fellowship */}
           <div className="space-y-4">
             <p className="text-xs tracking-[0.2em] uppercase text-olive-secondary">
@@ -138,8 +142,6 @@ export function Schedule() {
               Photos, refreshments, and golden hour
             </p>
           </div>
-
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-readable-border to-transparent" />
 
           {/* Reception */}
           <div className="space-y-4">

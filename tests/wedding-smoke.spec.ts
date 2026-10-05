@@ -74,9 +74,16 @@ for (const { width, height } of [
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 
     await page.goto('/guide');
-    await expect(page.locator('#guide-heading')).toHaveCSS('text-align', 'center');
+    const guideNavFits = await page.locator('nav[aria-label="Wedding Guide sections"] a').evaluateAll((links) =>
+      links.every((link) => {
+        const { left, right } = link.getBoundingClientRect();
+        return left >= 0 && right <= window.innerWidth;
+      }),
+    );
+    expect(guideNavFits).toBe(true);
+    await expect(page.locator('#guide-heading')).toHaveCSS('text-align', isMobile ? 'center' : 'left');
     await expect(page.locator('#schedule h2')).toHaveCSS('text-align', 'center');
-    await expect(page.locator('#schedule .border-y > div').first()).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#schedule .relative.grid').first()).toHaveCSS('text-align', 'left');
     await expect(page.locator('#dress h2')).toHaveCSS('text-align', expected);
     await expect(page.locator('#location h2')).toHaveCSS('text-align', expected);
     await expect(page.locator('#location ol')).toHaveCSS('text-align', 'left');

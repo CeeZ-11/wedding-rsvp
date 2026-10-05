@@ -1,3 +1,5 @@
+import { Shirt, UsersRound } from "lucide-react";
+
 const guestPalette = [
   { color: "#C7A491", label: "Warm taupe" },
   { color: "#EECFCA", label: "Dusty rose" },
@@ -20,10 +22,10 @@ export function AttireGuide() {
         </p>
       </header>
 
-      <section className="grid grid-cols-1 gap-x-12 gap-y-10 border-y border-readable-border py-10 sm:grid-cols-[0.7fr_1.3fr] sm:py-14">
+      <section className="grid grid-cols-1 gap-x-12 gap-y-10 py-4 sm:grid-cols-[0.7fr_1.3fr] sm:py-6">
         <div className="text-center sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
-            Wedding party
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary sm:justify-start">
+            <UsersRound aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Wedding party
           </p>
           <h3 className="mt-2 font-serif text-3xl text-deep-olive sm:text-4xl">
             Attendant attire
@@ -51,7 +53,7 @@ export function AttireGuide() {
               </div>
             </div>
 
-            <div className="border-t border-readable-border pt-7 sm:border-l sm:border-t-0 sm:pl-10 sm:pt-0">
+            <div className="pt-2 sm:border-l sm:border-readable-border sm:pl-10 sm:pt-0">
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
                 Groomsmen &amp; Best Man
               </h4>
@@ -71,7 +73,7 @@ export function AttireGuide() {
             </div>
           </div>
 
-          <p className="mt-8 border-t border-readable-border pt-5 font-sans text-sm leading-relaxed text-olive-secondary">
+          <p className="mt-8 font-sans text-sm leading-relaxed text-olive-secondary">
             Bridesmaids, Groomsmen, and the Best Man should follow fitting instructions from Jadore Bridal.
           </p>
           <p className="mt-4 font-sans text-sm leading-relaxed text-deep-olive">
@@ -107,17 +109,17 @@ export function AttireGuide() {
         </div>
 
         <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-          <div className="border-t border-readable-border py-5 sm:border-t-0 sm:py-0">
-            <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
-              Ladies
+          <div className="py-3 sm:py-0">
+            <h4 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
+              <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Ladies
             </h4>
             <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
               Flowy dresses, midi or maxi styles in soft, muted, earthy tones. Light, breathable fabrics are recommended.
             </p>
           </div>
-          <div className="border-t border-readable-border py-5 sm:border-l sm:border-t-0 sm:pl-10 sm:py-0">
-            <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
-              Gentlemen
+          <div className="py-3 sm:border-l sm:border-readable-border sm:pl-10 sm:py-0">
+            <h4 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
+              <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Gentlemen
             </h4>
             <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
               Polos, button-downs, or light suits in neutral tones.

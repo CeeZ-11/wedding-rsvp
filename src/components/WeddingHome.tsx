@@ -4,9 +4,17 @@ import { Footer } from './Footer';
 import { PrenupGallery } from './PrenupGallery';
 import { RSVPForm } from './RSVPForm';
 import { WelcomeMoment } from './WelcomeMoment';
+import { Camera, Church, DoorOpen, Sparkles, Utensils } from 'lucide-react';
 
 export function WeddingHome() {
   const reduceMotion = useReducedMotion();
+  const keyEvents = [
+    { time: '2:00', title: 'Guest arrival', icon: DoorOpen },
+    { time: '2:30', title: 'Ceremony', icon: Church },
+    { time: '4:00', title: 'Photos & fellowship', icon: Camera },
+    { time: '5:30', title: 'Reception', icon: Utensils },
+    { time: '9:45', title: 'Closing', icon: Sparkles },
+  ];
 
   return (
     <main>
@@ -103,26 +111,15 @@ export function WeddingHome() {
           </a>
         </div>
 
-        <div className="self-center border-t border-readable-border lg:border-l lg:border-t-0 lg:pl-12">
-          <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-b border-readable-border/70 py-5 sm:grid-cols-[8rem_1fr]">
-            <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">2:00</span>
-            <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Guest arrival</span>
-          </div>
-          <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-b border-readable-border/70 py-5 sm:grid-cols-[8rem_1fr]">
-            <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">2:30</span>
-            <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Ceremony</span>
-          </div>
-          <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-b border-readable-border/70 py-5 sm:grid-cols-[8rem_1fr]">
-            <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">4:00</span>
-            <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Photos &amp; fellowship</span>
-          </div>
-          <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 border-b border-readable-border/70 py-5 sm:grid-cols-[8rem_1fr]">
-            <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">5:30</span>
-            <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Reception</span>
-          </div>
-          <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-5 py-5 sm:grid-cols-[8rem_1fr]">
-            <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">9:45</span>
-            <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Closing</span>
+        <div className="self-center border-t border-readable-border pt-4 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+          <div className="space-y-1">
+            {keyEvents.map(({ time, title, icon: Icon }) => (
+              <div key={time} className="grid grid-cols-[2rem_5.5rem_1fr] items-center gap-x-3 py-3 sm:grid-cols-[2rem_7rem_1fr] sm:py-4">
+                <Icon aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-olive-secondary" />
+                <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">{time}</span>
+                <span className="font-sans text-xs uppercase tracking-[0.1em] text-olive-secondary sm:text-sm sm:tracking-[0.14em]">{title}</span>
+              </div>
+            ))}
           </div>
           <div className="mt-3 text-center sm:text-left">
             <a

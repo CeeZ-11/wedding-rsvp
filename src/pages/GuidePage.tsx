@@ -10,6 +10,7 @@ import { Schedule } from "../components/Schedule";
 import { Seating } from "../components/Seating";
 import { Explore } from "../components/Explore";
 import { Footer } from "../components/Footer";
+import { prenupPhotos } from "../data/prenupPhotos";
 
 const navItems = [
   { id: "schedule", label: "Schedule" },
@@ -101,7 +102,7 @@ export function GuidePage() {
           </div>
 
           {/* Nav */}
-          <ul aria-label="Wedding Guide sections" className="mx-auto flex w-full flex-nowrap justify-between gap-x-3 overflow-x-auto whitespace-nowrap text-[0.65rem] font-medium uppercase leading-5 tracking-[0.05em] sm:justify-center sm:gap-x-5 sm:text-xs sm:tracking-widest md:gap-x-8 md:text-sm">
+          <ul aria-label="Wedding Guide sections" className="mx-auto flex w-full flex-nowrap justify-between gap-x-1.5 overflow-x-auto whitespace-nowrap text-[0.6rem] font-medium uppercase leading-5 tracking-[0.02em] sm:justify-center sm:gap-x-5 sm:text-xs sm:tracking-widest md:gap-x-8 md:text-sm">
 
             {navItems.map((item) => (
               <li key={item.id}>
@@ -130,35 +131,41 @@ export function GuidePage() {
       </nav>
 
       {/* 📄 CONTENT */}
-      <main className="max-w-6xl mx-auto px-6 pt-36 pb-24 space-y-24">
+      <main className="max-w-6xl mx-auto px-6 pt-36 pb-24 space-y-20 sm:space-y-24">
 
         {/* HERO */}
         <motion.section
           aria-labelledby="guide-heading"
-          className="text-center"
+          className="grid items-center gap-8 text-center sm:grid-cols-2 sm:gap-12 sm:text-left"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
         >
-          <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
-            Wedding Guide · For the day
-          </p>
-          <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:text-6xl md:text-7xl">
-            Everything you need for December 27
-          </h1>
-          <div aria-hidden="true" className="mx-auto my-6 h-px w-12 bg-readable-border" />
-          <p className="font-serif text-xl text-deep-olive sm:text-2xl">
-            Seamor &amp; Lady Stephanie
-          </p>
-          <p className="mt-2 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
-            December 27, 2026 <span aria-hidden="true">·</span> Balai Ramirez DSB
-          </p>
-          <nav aria-label="Guide highlights" className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-xs font-medium uppercase tracking-[0.12em] text-olive-secondary sm:gap-x-6">
+          <div className="order-2 sm:order-1">
+            <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
+              Wedding Guide · For the day
+            </p>
+            <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:mx-0 sm:text-5xl md:text-6xl">
+              Everything you need for December 27
+            </h1>
+            <div aria-hidden="true" className="mx-auto my-6 h-px w-12 bg-readable-border sm:mx-0" />
+            <p className="font-serif text-xl text-deep-olive sm:text-2xl">
+              Seamor &amp; Lady Stephanie
+            </p>
+            <p className="mt-2 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
+              December 27, 2026 <span aria-hidden="true">·</span> Balai Ramirez DSB
+            </p>
+            <nav aria-label="Guide highlights" className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-xs font-medium uppercase tracking-[0.12em] text-olive-secondary sm:justify-start sm:gap-x-6">
             <a href="#schedule" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Schedule</a>
             <a href="#dress" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Dress code</a>
             <a href="#location" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Venue</a>
             <a href="#entourage" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Entourage</a>
           </nav>
+          </div>
+          <figure className="order-1 sm:order-2">
+            <img src={prenupPhotos[1].src} alt={prenupPhotos[1].alt} width={prenupPhotos[1].width} height={prenupPhotos[1].height} className="aspect-[1.45] w-full object-cover sm:aspect-[0.92]" />
+            <figcaption className="mt-2 text-center font-sans text-xs tracking-wide text-olive-secondary sm:text-left">{prenupPhotos[1].caption}</figcaption>
+          </figure>
         </motion.section>
 
         {/* Sections */}
@@ -166,31 +173,21 @@ export function GuidePage() {
           <Schedule />
         </section>
 
-        <div className="border-t border-readable-border" />
-
         <section id="location" className="scroll-mt-28 sm:scroll-mt-32">
           <EventLocation />
         </section>
-
-        <div className="border-t border-readable-border" />
 
         <section id="dress" className="scroll-mt-28 sm:scroll-mt-32">
           <AttireGuide />
         </section>
 
-        <div className="border-t border-readable-border" />
-
         <section id="seating" className="scroll-mt-28 sm:scroll-mt-32">
           <Seating />
         </section>
 
-        <div className="border-t border-readable-border" />
-
         <section id="entourage" className="scroll-mt-28 sm:scroll-mt-32">
           <Entourage />
         </section>
-
-        <div className="border-t border-readable-border" />
 
         <section id="explore" className="scroll-mt-28 sm:scroll-mt-32">
           <Explore />

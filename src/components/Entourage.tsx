@@ -1,8 +1,9 @@
 import { entourage, Person } from "../data/entourage";
+import { Flower2, HandHeart, UsersRound } from "lucide-react";
 
 function PersonRow({ person }: { person: Person }) {
   return (
-    <li className="border-b border-readable-border/70 py-4 text-left last:border-b-0">
+    <li className="py-3 text-left">
       <p className="font-serif text-xl text-deep-olive sm:text-2xl">{person.name}</p>
       {(person.role || person.relation) && (
         <p className="mt-1 font-sans text-xs leading-relaxed text-olive-secondary sm:text-sm">
@@ -21,7 +22,7 @@ export function Entourage() {
 
   return (
     <div className="space-y-16 text-left sm:space-y-20">
-      <header className="mx-auto max-w-5xl border-b border-readable-border pb-8 text-center sm:pb-10">
+      <header className="mx-auto max-w-5xl text-center">
         <p className="mb-3 font-sans text-xs font-medium uppercase tracking-[0.24em] text-olive-secondary">
           With gratitude
         </p>
@@ -35,7 +36,8 @@ export function Entourage() {
 
       <section className="mx-auto grid max-w-5xl grid-cols-1 gap-10 sm:grid-cols-[0.7fr_1.3fr] sm:gap-16">
         <div className="text-center sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:justify-start">
+            <UsersRound aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             Our family
           </p>
         </div>
@@ -48,7 +50,8 @@ export function Entourage() {
 
       <section className="bg-[#354238] px-6 py-10 text-center text-[#F8F5EB] sm:px-10 sm:py-14 sm:text-left">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#D7DDCF]">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#D7DDCF] sm:justify-start">
+            <HandHeart aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             With appreciation
           </p>
           <h3 className="mt-3 font-serif text-3xl text-[#F8F5EB] sm:text-4xl">Principal Sponsors</h3>
@@ -56,7 +59,7 @@ export function Entourage() {
             {entourage.principalSponsors.map((person) => (
               <li
                 key={person.name}
-                className="border-t border-[#AAB3A3]/60 py-4 font-serif text-xl text-[#F8F5EB] sm:text-2xl"
+                className="py-3 font-serif text-xl text-[#F8F5EB] sm:text-2xl"
               >
                 {person.name}
               </li>
@@ -75,7 +78,8 @@ export function Entourage() {
           <div className="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
             {secondarySponsorGroups.map((group) => (
               <div key={group.title}>
-                <h4 className="border-b border-readable-border pb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">
+                <h4 className="flex items-center gap-2 pb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">
+                  <Flower2 aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                   {group.title} sponsors
                 </h4>
                 <ul>
@@ -89,7 +93,7 @@ export function Entourage() {
         </section>
       )}
 
-      <section className="mx-auto max-w-5xl border-y border-readable-border py-10 sm:py-14">
+      <section className="mx-auto max-w-5xl py-4 sm:py-6">
         <div className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-[0.7fr_1.3fr] sm:items-end sm:gap-16">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Our entourage
@@ -110,7 +114,7 @@ export function Entourage() {
             </ul>
           </div>
 
-          <div className="border-t border-readable-border pt-8 sm:border-l sm:border-t-0 sm:pl-10 sm:pt-0">
+          <div className="pt-2 sm:border-l sm:border-readable-border sm:pl-10 sm:pt-0">
             <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
               Bride&apos;s side · Women
             </p>
