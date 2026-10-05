@@ -8,7 +8,6 @@ export interface PrenupPhoto {
   galleryShape?: 'portrait' | 'square' | 'landscape';
 }
 
-// Replace the placeholder files with your photos, or update filenames and alt text here.
 export const prenupPhotos: PrenupPhoto[] = [
   {
     src: '/images/prenup/placeholder-01.jpg',
@@ -19,13 +18,10 @@ export const prenupPhotos: PrenupPhoto[] = [
     galleryShape: 'portrait',
   },
   {
-    galleryShape: 'landscape',
     src: '/images/prenup/placeholder-02.jpg',
     alt: 'A wedding bouquet held close between a couple',
-    galleryShape: 'square',
     width: 1400,
     height: 933,
-    galleryShape: 'portrait',
     caption: 'The little details',
     galleryShape: 'landscape',
   },

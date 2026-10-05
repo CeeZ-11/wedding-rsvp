@@ -1,42 +1,39 @@
-import { Armchair, Table2 } from "lucide-react";
-
 export function Seating() {
   return (
-    <div className="space-y-10 text-center">
-      <div className="flex flex-col items-center">
-        <h2 className="font-serif text-4xl font-medium text-deep-olive sm:text-5xl mb-3">
+    <div className="mx-auto max-w-5xl space-y-10">
+      <div className="text-center">
+        <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+          A note for guests
+        </p>
+        <h2 className="mb-3 font-serif text-4xl font-medium text-deep-olive sm:text-5xl">
           Seating
         </h2>
-        <div className="w-16 h-px bg-readable-border"></div>
+        <p className="mx-auto max-w-xl font-sans text-sm leading-relaxed text-olive-secondary">
+          Seating will be organized for family, wedding party, and guests.
+        </p>
       </div>
 
-      <p className="font-sans text-sm text-olive-secondary">
-        Seating will be organized for family, wedding party, and guests.
-      </p>
-
-      <div className="mx-auto grid max-w-2xl grid-cols-1 overflow-hidden rounded-2xl border border-readable-border bg-light-sage/10 md:grid-cols-2">
-        <article className="flex flex-col items-center px-6 py-8 sm:px-10 sm:py-10">
-          <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+      <div className="grid grid-cols-1 border-y border-readable-border sm:grid-cols-2">
+        <article className="py-7 sm:pr-10 sm:py-9">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Ceremony
           </p>
-          <Armchair aria-hidden="true" className="mb-4 h-8 w-8 text-deep-olive" strokeWidth={1.5} />
-          <h3 className="mb-2 font-serif text-2xl font-medium text-deep-olive">
+          <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Ceremony Seating
           </h3>
-          <p className="max-w-xs font-sans text-base leading-relaxed text-olive-secondary">
+          <p className="mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
             Seating will be arranged for our ceremony.
           </p>
         </article>
 
-        <article className="flex flex-col items-center border-t border-readable-border px-6 py-8 sm:px-10 sm:py-10 md:border-l md:border-t-0">
-          <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+        <article className="border-t border-readable-border py-7 sm:border-l sm:py-9 sm:pl-10">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Reception
           </p>
-          <Table2 aria-hidden="true" className="mb-4 h-8 w-8 text-deep-olive" strokeWidth={1.5} />
-          <h3 className="mb-2 font-serif text-2xl font-medium text-deep-olive">
+          <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Reception Seating
           </h3>
-          <p className="max-w-xs font-sans text-base leading-relaxed text-olive-secondary">
+          <p className="mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
             A separate seating arrangement will be prepared for the reception.
           </p>
         </article>
