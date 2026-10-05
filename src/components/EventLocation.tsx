@@ -9,8 +9,8 @@ export function EventLocation() {
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           The setting
         </p>
-        <h2 className="flex items-center justify-center gap-3 font-serif text-5xl font-medium text-deep-olive sm:justify-start sm:text-6xl">
-          <MapPinned aria-hidden="true" className="h-7 w-7 stroke-[1.5] sm:h-8 sm:w-8" /> The venue
+        <h2 className="flex items-center justify-center gap-3 font-serif text-4xl font-medium text-deep-olive sm:justify-start sm:text-6xl">
+          <MapPinned aria-hidden="true" className="h-6 w-6 shrink-0 stroke-[1.5] sm:h-8 sm:w-8" /> Balai Ramirez DSB
         </h2>
       </header>
 
@@ -25,10 +25,7 @@ export function EventLocation() {
         </div>
 
         <div className="pt-1 text-center sm:pt-3 sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
-            Balai Ramirez DSB
-          </p>
-          <h3 className="mt-3 font-serif text-3xl leading-tight text-deep-olive sm:text-4xl">
+          <h3 className="mt-3 font-serif text-2xl leading-tight text-deep-olive sm:text-4xl">
             A garden setting for our day
           </h3>
           <p className="mt-4 font-sans text-base leading-relaxed text-olive-secondary">

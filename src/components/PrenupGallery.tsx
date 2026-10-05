@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
 import { prenupPhotos } from '../data/prenupPhotos';
+import { BotanicalMark } from './BotanicalMark';
 
 export function PrenupGallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -163,14 +164,15 @@ export function PrenupGallery() {
       <section
         id="our-prenup"
         aria-labelledby="prenup-heading"
-        className="mx-auto mt-20 max-w-7xl px-4 pb-16 sm:mt-28 sm:px-8 lg:px-12"
+        className="mt-20 bg-light-sage/20 py-16 sm:mt-28 sm:py-24"
       >
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
         <motion.header
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-10 pt-16 text-center sm:mb-14 sm:pt-0 md:text-center"
+          className="mb-10 text-center sm:mb-14 md:text-center"
         >
           <p className="mb-3 font-sans text-xs uppercase tracking-[0.24em] text-olive-secondary sm:tracking-[0.3em]">
             Before the day
@@ -181,6 +183,7 @@ export function PrenupGallery() {
           >
             Our Prenup
           </h2>
+          <BotanicalMark className="mx-auto mt-3 h-7 w-12 text-olive-secondary" />
           <p className="mx-auto mt-3 max-w-md font-serif text-base text-olive-secondary sm:text-lg">
             A little glimpse of our story before the big day.
           </p>
@@ -206,9 +209,16 @@ export function PrenupGallery() {
             renderPhoto(
               photo,
               index,
-              itemIndex === 3 ? 'lg:mt-16' : itemIndex === 5 ? 'lg:mt-8' : '',
+              itemIndex === 2
+                ? 'col-span-2 lg:col-span-1'
+                : itemIndex === 3
+                  ? 'lg:mt-16'
+                  : itemIndex === 4
+                    ? 'lg:mt-8'
+                    : '',
             ),
           )}
+        </div>
         </div>
       </section>
 

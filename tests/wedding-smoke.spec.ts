@@ -74,6 +74,12 @@ for (const { width, height } of [
       await page.waitForTimeout(750);
       await page.screenshot({ path: `${screenshotDir}/alignment-home-${width}-${index}.png` });
     }
+    for (const figure of await page.locator('#our-prenup figure').all()) {
+      await figure.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(100);
+    }
+    await page.waitForTimeout(600);
+    await page.screenshot({ path: `${screenshotDir}/art-direction-home-${width}-full.png`, fullPage: true });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 
     await page.goto('/guide');
@@ -105,6 +111,12 @@ for (const { width, height } of [
       await page.waitForTimeout(750);
       await page.screenshot({ path: `${screenshotDir}/alignment-guide-${width}-${index}.png` });
     }
+    for (const image of await page.locator('img[loading="lazy"]').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(100);
+    }
+    await page.waitForTimeout(600);
+    await page.screenshot({ path: `${screenshotDir}/art-direction-guide-${width}-full.png`, fullPage: true });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 }
@@ -329,7 +341,7 @@ test('Wedding Guide section navigation and schedule expansion work', async ({ pa
 
   await page.getByRole('link', { name: 'Location' }).click();
   await expect(page).toHaveURL(/#location$/);
-  await expect(page.getByRole('heading', { name: 'The venue' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Balai Ramirez DSB' })).toBeVisible();
 
   await page.locator('nav').first().getByRole('link', { name: 'Schedule' }).click();
   await expect(page).toHaveURL(/#schedule$/);
@@ -352,7 +364,7 @@ for (const width of [390, 1440]) {
     await link.click();
 
     await expect(page).toHaveURL(/\/guide#location$/);
-    await expect(page.getByRole('heading', { name: 'The venue' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Balai Ramirez DSB' })).toBeVisible();
     const sectionTop = await page.locator('#location').evaluate((element) => element.getBoundingClientRect().top);
     expect(sectionTop).toBeGreaterThanOrEqual(0);
     expect(sectionTop).toBeLessThan(200);
@@ -377,7 +389,7 @@ for (const width of [390, 1440]) {
   });
 
   for (const destination of [
-    { id: 'location', navLink: 'Schedule', nextId: 'schedule', heading: 'The venue' },
+    { id: 'location', navLink: 'Schedule', nextId: 'schedule', heading: 'Balai Ramirez DSB' },
     { id: 'schedule', navLink: 'Location', nextId: 'location', heading: 'Schedule' },
   ]) {
     test(`direct Guide URL and refresh work for #${destination.id} at ${width}px`, async ({ page }) => {

@@ -11,6 +11,7 @@ import { Seating } from "../components/Seating";
 import { Explore } from "../components/Explore";
 import { Footer } from "../components/Footer";
 import { prenupPhotos } from "../data/prenupPhotos";
+import { BotanicalMark } from "../components/BotanicalMark";
 
 const navItems = [
   { id: "schedule", label: "Schedule" },
@@ -143,12 +144,12 @@ export function GuidePage() {
         >
           <div className="order-2 sm:order-1">
             <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
-              Wedding Guide · For the day
+              Chapter II · The day
             </p>
             <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:mx-0 sm:text-5xl md:text-6xl">
               Everything you need for December 27
             </h1>
-            <div aria-hidden="true" className="mx-auto my-6 h-px w-12 bg-readable-border sm:mx-0" />
+            <BotanicalMark className="mx-auto my-5 h-7 w-12 text-olive-secondary sm:mx-0" />
             <p className="font-serif text-xl text-deep-olive sm:text-2xl">
               Seamor &amp; Lady Stephanie
             </p>
@@ -169,7 +170,7 @@ export function GuidePage() {
         </motion.section>
 
         {/* Sections */}
-        <section id="schedule" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="schedule" className="-mx-6 scroll-mt-28 bg-light-sage/20 px-6 py-12 sm:mx-0 sm:scroll-mt-32 sm:bg-transparent sm:px-0 sm:py-0">
           <Schedule />
         </section>
 

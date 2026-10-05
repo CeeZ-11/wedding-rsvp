@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BotanicalMark } from "./BotanicalMark";
 
 export function Footer() {
   return (
@@ -21,6 +22,8 @@ export function Footer() {
           RSVP
         </Link>
       </nav>
+
+      <BotanicalMark className="mx-auto mb-4 h-8 w-14 text-olive-secondary" />
 
       <p className="font-script text-4xl md:text-5xl text-deep-olive mb-3">
         Seamor &amp; Lady Stephanie

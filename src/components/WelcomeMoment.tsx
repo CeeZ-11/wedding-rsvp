@@ -1,4 +1,5 @@
 import { prenupPhotos } from '../data/prenupPhotos';
+import { BotanicalMark } from './BotanicalMark';
 
 const welcomePhoto = prenupPhotos[0];
 
@@ -19,7 +20,7 @@ export function WelcomeMoment() {
         >
           Our story
         </h2>
-        <div aria-hidden="true" className="mx-auto my-6 h-px w-14 bg-readable-border md:mx-0" />
+        <BotanicalMark className="mx-auto my-5 h-7 w-12 text-olive-secondary md:mx-0" />
         {/* Replace this placeholder with the couple's own welcome copy when provided. */}
         <p className="mx-auto max-w-xl font-serif text-xl leading-relaxed text-olive-secondary sm:text-2xl md:mx-0">
           Personal welcome copy to be added.

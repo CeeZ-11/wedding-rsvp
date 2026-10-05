@@ -5,6 +5,7 @@ import { PrenupGallery } from './PrenupGallery';
 import { RSVPForm } from './RSVPForm';
 import { WelcomeMoment } from './WelcomeMoment';
 import { Camera, Church, DoorOpen, Sparkles, Utensils } from 'lucide-react';
+import { BotanicalMark } from './BotanicalMark';
 
 export function WeddingHome() {
   const reduceMotion = useReducedMotion();
@@ -90,7 +91,7 @@ export function WeddingHome() {
           </p>
           <h2
             id="wedding-details-heading"
-            className="font-serif text-7xl font-medium leading-none tabular-nums text-deep-olive sm:text-8xl"
+            className="font-serif text-8xl font-medium leading-none tabular-nums text-deep-olive sm:text-9xl"
           >
             27
           </h2>
@@ -152,6 +153,7 @@ export function WeddingHome() {
       <PrenupGallery />
 
       <section aria-label="RSVP" className="border-t border-[#76806A] bg-[#303B32] px-4 py-16 sm:py-24">
+        <BotanicalMark className="mx-auto mb-5 h-8 w-14 text-[#C6CEBC]" />
         <div className="mx-auto max-w-4xl border border-[#858B75] bg-card-bg px-1 py-10 sm:px-10 sm:py-14">
           <RSVPForm />
         </div>
