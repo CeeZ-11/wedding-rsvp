@@ -34,7 +34,7 @@ export function Entourage() {
       </header>
 
       <section className="mx-auto grid max-w-5xl grid-cols-1 gap-10 sm:grid-cols-[0.7fr_1.3fr] sm:gap-16">
-        <div>
+        <div className="text-center sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Our family
           </p>
@@ -46,7 +46,7 @@ export function Entourage() {
         </ul>
       </section>
 
-      <section className="bg-[#354238] px-6 py-10 text-[#F8F5EB] sm:px-10 sm:py-14">
+      <section className="bg-[#354238] px-6 py-10 text-center text-[#F8F5EB] sm:px-10 sm:py-14 sm:text-left">
         <div className="mx-auto max-w-5xl">
           <p className="font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#D7DDCF]">
             With appreciation
@@ -67,7 +67,7 @@ export function Entourage() {
 
       {secondarySponsorGroups.length > 0 && (
         <section className="mx-auto grid max-w-5xl grid-cols-1 gap-10 sm:grid-cols-[0.7fr_1.3fr] sm:gap-16">
-          <div>
+          <div className="text-center sm:text-left">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
               Secondary sponsors
             </p>
@@ -94,7 +94,7 @@ export function Entourage() {
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Our entourage
           </p>
-          <h3 className="font-serif text-3xl text-deep-olive sm:text-4xl">Wedding Party</h3>
+          <h3 className="text-center font-serif text-3xl text-deep-olive sm:text-left sm:text-4xl">Wedding Party</h3>
         </div>
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-0">
@@ -126,7 +126,7 @@ export function Entourage() {
 
       <section className="mx-auto max-w-5xl">
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-[0.7fr_1.3fr] sm:gap-16">
-          <div>
+          <div className="text-center sm:text-left">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
               The ceremony
             </p>

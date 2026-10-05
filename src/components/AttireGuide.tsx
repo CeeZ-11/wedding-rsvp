@@ -8,7 +8,7 @@ const guestPalette = [
 export function AttireGuide() {
   return (
     <div className="mx-auto max-w-6xl space-y-14 sm:space-y-20">
-      <header className="max-w-2xl">
+      <header className="mx-auto max-w-2xl text-center sm:mx-0 sm:text-left">
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           Garden wedding
         </p>
@@ -21,7 +21,7 @@ export function AttireGuide() {
       </header>
 
       <section className="grid grid-cols-1 gap-x-12 gap-y-10 border-y border-readable-border py-10 sm:grid-cols-[0.7fr_1.3fr] sm:py-14">
-        <div>
+        <div className="text-center sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
             Wedding party
           </p>
@@ -81,17 +81,17 @@ export function AttireGuide() {
       </section>
 
       <section className="grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-[0.7fr_1.3fr]">
-        <div>
+        <div className="text-center sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
             For guests
           </p>
           <h3 className="mt-2 font-serif text-3xl text-deep-olive sm:text-4xl">
             Garden formal
           </h3>
-          <p className="mt-3 font-sans text-sm leading-relaxed text-olive-secondary">
+          <p className="mt-3 text-left font-sans text-sm leading-relaxed text-olive-secondary">
             Guest guidance only. Guests do not need to visit Jadore Bridal or attend a fitting.
           </p>
-          <div className="mt-6 flex gap-3" aria-label="Suggested guest color palette">
+          <div className="mt-6 flex justify-center gap-3 sm:justify-start" aria-label="Suggested guest color palette">
             {guestPalette.map(({ color, label }) => (
               <span
                 key={label}
@@ -101,7 +101,7 @@ export function AttireGuide() {
               />
             ))}
           </div>
-          <p className="mt-3 font-sans text-xs text-olive-secondary">
+          <p className="mt-3 text-center font-sans text-xs text-olive-secondary sm:text-left">
             Earth tones · Sage · Olive · Neutrals
           </p>
         </div>

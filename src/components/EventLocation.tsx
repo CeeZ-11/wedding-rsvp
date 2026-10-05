@@ -5,7 +5,7 @@ const mapLink = "https://maps.app.goo.gl/ZXqCjSzFiSum3R749";
 export function EventLocation() {
   return (
     <div className="mx-auto max-w-6xl space-y-10 sm:space-y-14">
-      <header className="max-w-2xl">
+      <header className="mx-auto max-w-2xl text-center sm:mx-0 sm:text-left">
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           The setting
         </p>
@@ -24,7 +24,7 @@ export function EventLocation() {
           />
         </div>
 
-        <div className="pt-1 sm:pt-3">
+        <div className="pt-1 text-center sm:pt-3 sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Balai Ramirez DSB
           </p>
@@ -39,13 +39,13 @@ export function EventLocation() {
             href={mapLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-2 border-b border-deep-olive pb-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-deep-olive transition-colors hover:text-olive-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+            className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 border-b border-deep-olive pb-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-deep-olive transition-colors hover:text-olive-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive sm:justify-start"
           >
             <MapPin aria-hidden="true" className="h-4 w-4" />
             View on Google Maps
           </a>
 
-          <div className="mt-8 border-t border-readable-border pt-6">
+          <div className="mt-8 border-t border-readable-border pt-6 text-left">
             <div className="mb-4 flex items-center gap-2">
               <Navigation aria-hidden="true" className="h-4 w-4 text-deep-olive" />
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">

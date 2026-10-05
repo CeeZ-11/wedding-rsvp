@@ -152,7 +152,7 @@ export function PrenupGallery() {
           <Expand aria-hidden="true" size={16} strokeWidth={1.5} />
         </span>
       </button>
-      <figcaption className={`pt-2 font-serif text-sm text-olive-secondary ${photo.feature ? 'sm:text-base' : ''}`}>
+      <figcaption className={`pt-2 text-center font-serif text-sm text-olive-secondary md:text-left ${photo.feature ? 'sm:text-base' : ''}`}>
         {photo.caption}
       </figcaption>
     </motion.figure>
@@ -170,7 +170,7 @@ export function PrenupGallery() {
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-10 pt-16 text-left sm:mb-14 sm:pt-0 md:text-center"
+          className="mb-10 pt-16 text-center sm:mb-14 sm:pt-0 md:text-center"
         >
           <p className="mb-3 font-sans text-xs uppercase tracking-[0.24em] text-olive-secondary sm:tracking-[0.3em]">
             Before the day

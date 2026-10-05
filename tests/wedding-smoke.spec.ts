@@ -17,6 +17,85 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/api/gifts', (route) => route.fulfill({ json: { takenGifts: [] } }));
 });
 
+test('homepage metadata and favicon assets are configured', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+
+  await expect(page).toHaveTitle('Seamor & Lady Stephanie — December 27, 2026');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', 'Join Seamor & Lady Stephanie at Balai Ramirez DSB on December 27, 2026.');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://wed-snap-nine.vercel.app/');
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://wed-snap-nine.vercel.app/');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://wed-snap-nine.vercel.app/og-wedding.jpg');
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#FBFBF9');
+
+  const icon = page.locator('link[rel="icon"][type="image/svg+xml"]');
+  await expect(icon).toHaveAttribute('href', '/favicon.svg');
+  expect((await page.request.get('/favicon.svg')).status()).toBe(200);
+  expect((await page.request.get('/apple-touch-icon.png')).status()).toBe(200);
+  const socialImageResponse = await page.request.get('/og-wedding.jpg');
+  expect(socialImageResponse.status()).toBe(200);
+  expect(socialImageResponse.headers()['content-type']).toContain('image/jpeg');
+});
+
+for (const { width, height } of [
+  { width: 390, height: 844 },
+  { width: 375, height: 812 },
+  { width: 1440, height: 900 },
+]) {
+  test(`mobile text alignment is intentional at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    const isMobile = width < 640;
+    const expected = isMobile ? 'center' : 'left';
+
+    await page.goto('/');
+    const homeSections = [
+      page.locator('#our-story'),
+      page.locator('#the-wedding'),
+      page.locator('section[aria-labelledby="countdown-heading"]'),
+      page.locator('#our-prenup'),
+      page.locator('#rsvp'),
+      page.locator('footer'),
+    ];
+    await expect(page.locator('#our-story h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#wedding-details-heading')).toHaveCSS('text-align', expected);
+    await expect(page.getByRole('link', { name: 'Full day schedule' }).locator('..')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#countdown-heading')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#prenup-heading')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#our-prenup figcaption').first()).toHaveCSS('text-align', expected);
+    await expect(page.locator('#rsvp h2')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('footer > p').first()).toHaveCSS('text-align', 'center');
+    for (const [index, section] of homeSections.entries()) {
+      await section.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(750);
+      await page.screenshot({ path: `${screenshotDir}/alignment-home-${width}-${index}.png` });
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+
+    await page.goto('/guide');
+    await expect(page.locator('#guide-heading')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#schedule h2')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#schedule .border-y > div').first()).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#dress h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#location h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#location ol')).toHaveCSS('text-align', 'left');
+    await expect(page.getByRole('heading', { name: 'Principal Sponsors' })).toHaveCSS('text-align', expected);
+    await expect(page.locator('#entourage ul li').first()).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#explore h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#explore li h3').first()).toHaveCSS('text-align', /^(left|start)$/);
+    const cafeHeading = page.locator('#explore li h3').filter({ hasText: 'Calea & Local Cafés' });
+    const cafeHeadingHeight = await cafeHeading.evaluate((element) => element.getBoundingClientRect().height);
+    expect(cafeHeadingHeight).toBeLessThan(40);
+    for (const [index, selector] of ['main > section:first-child', '#schedule', '#dress', '#location', '#entourage', '#explore'].entries()) {
+      await page.locator(selector).scrollIntoViewIfNeeded();
+      await page.waitForTimeout(750);
+      await page.screenshot({ path: `${screenshotDir}/alignment-guide-${width}-${index}.png` });
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+}
+
 for (const { width, height } of [
   { width: 1366, height: 768 },
   { width: 1440, height: 900 },

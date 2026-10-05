@@ -14,26 +14,26 @@ export function Seating() {
       </div>
 
       <div className="grid grid-cols-1 border-y border-readable-border sm:grid-cols-2">
-        <article className="py-7 sm:pr-10 sm:py-9">
+        <article className="py-7 text-center sm:pr-10 sm:py-9 sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Ceremony
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Ceremony Seating
           </h3>
-          <p className="mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
+          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0 sm:text-base">
             Seating will be arranged for our ceremony.
           </p>
         </article>
 
-        <article className="border-t border-readable-border py-7 sm:border-l sm:py-9 sm:pl-10">
+        <article className="border-t border-readable-border py-7 text-center sm:border-l sm:py-9 sm:pl-10 sm:text-left">
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             Reception
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Reception Seating
           </h3>
-          <p className="mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
+          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0 sm:text-base">
             A separate seating arrangement will be prepared for the reception.
           </p>
         </article>

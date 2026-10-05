@@ -76,7 +76,7 @@ export function WeddingHome() {
         aria-labelledby="wedding-details-heading"
         className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-20 sm:px-10 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-16"
       >
-        <div className="flex flex-col items-start justify-center">
+        <div className="flex flex-col items-center justify-center text-center lg:items-start lg:text-left">
           <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.24em] text-olive-secondary">
             The wedding
           </p>
@@ -124,12 +124,14 @@ export function WeddingHome() {
             <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">9:45</span>
             <span className="font-sans text-sm uppercase tracking-[0.14em] text-olive-secondary">Closing</span>
           </div>
-          <a
-            href="/guide#schedule"
-            className="mt-3 inline-block border-b border-deep-olive pb-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-deep-olive transition-colors hover:text-olive-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
-          >
-            Full day schedule
-          </a>
+          <div className="mt-3 text-center sm:text-left">
+            <a
+              href="/guide#schedule"
+              className="inline-block border-b border-deep-olive pb-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-deep-olive transition-colors hover:text-olive-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+            >
+              Full day schedule
+            </a>
+          </div>
         </div>
       </section>
 

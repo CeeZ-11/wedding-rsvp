@@ -36,7 +36,7 @@ export function Explore() {
 
   return (
     <section className="mx-auto max-w-5xl">
-      <header className="mb-8 border-b border-readable-border pb-5 sm:mb-10 sm:pb-7">
+      <header className="mb-8 border-b border-readable-border pb-5 text-center sm:mb-10 sm:pb-7 sm:text-left">
         <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
           Nearby places
         </p>
@@ -52,7 +52,7 @@ export function Explore() {
               href={place.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group grid grid-cols-[minmax(0,1fr)_7rem] items-center gap-x-4 py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive sm:grid-cols-[2.5rem_minmax(0,1fr)_15rem] sm:gap-x-7 sm:py-7"
+              className="group grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-x-4 py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive sm:grid-cols-[2.5rem_minmax(0,1fr)_15rem] sm:gap-x-7 sm:py-7"
             >
               <span
                 aria-hidden="true"
