@@ -11,24 +11,15 @@ export function WeddingHome() {
     <main>
       <section
         aria-labelledby="wedding-title"
-        className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden"
+        className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden lg:min-h-[100svh]"
       >
-        <div aria-hidden="true" className="absolute inset-0 hidden overflow-hidden lg:block">
-          <img
-            src="/images/prenup/placeholder-03.jpg"
-            alt=""
-            width={1400}
-            height={933}
-            className="h-full w-full scale-105 object-cover blur-2xl"
-          />
-        </div>
         <img
           src="/images/prenup/placeholder-03.jpg"
           alt="A couple walking hand in hand through a mountain landscape"
           width={1400}
           height={933}
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center lg:object-contain"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div
           aria-hidden="true"
@@ -39,7 +30,7 @@ export function WeddingHome() {
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 mx-auto flex w-full max-w-4xl -translate-y-16 flex-col items-center px-5 pb-16 pt-32 text-center sm:-translate-y-20 sm:pb-20 sm:pt-36"
+          className="relative z-10 mx-auto flex w-full max-w-4xl -translate-y-16 flex-col items-center px-5 pb-16 pt-32 text-center sm:-translate-y-20 sm:pb-20 sm:pt-36 [@media(min-width:1024px)_and_(max-height:800px)]:pb-12 [@media(min-width:1024px)_and_(max-height:800px)]:pt-24"
         >
           <p className="mb-5 font-sans text-xs font-medium uppercase tracking-[0.24em] text-deep-olive sm:text-sm sm:tracking-[0.3em]">
             Together with their families

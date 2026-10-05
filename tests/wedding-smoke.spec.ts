@@ -25,7 +25,10 @@ for (const { width, height } of [
     const image = hero.getByRole('img', { name: 'A couple walking hand in hand through a mountain landscape' });
     await expect(image).toBeVisible();
     await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth === 1400)).toBe(true);
-    await expect(image).toHaveCSS('object-fit', width >= 1024 ? 'contain' : 'cover');
+    await expect(image).toHaveCSS('object-fit', 'cover');
+    const heroBounds = await hero.evaluate((element) => element.getBoundingClientRect().toJSON());
+    expect(heroBounds.top).toBe(0);
+    expect(heroBounds.bottom).toBeLessThanOrEqual(height);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.screenshot({ path: `${screenshotDir}/hero-${width}.png` });
   });
@@ -225,4 +228,33 @@ for (const width of [390, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.screenshot({ path: `${screenshotDir}/guide-schedule-from-home-${width}.png` });
   });
+
+  for (const destination of [
+    { id: 'location', navLink: 'Schedule', nextId: 'schedule', heading: 'The venue' },
+    { id: 'schedule', navLink: 'Location', nextId: 'location', heading: 'Schedule' },
+  ]) {
+    test(`direct Guide URL and refresh work for #${destination.id} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      const response = await page.goto(`/guide#${destination.id}`);
+      expect(response?.status()).toBe(200);
+      await expect(page).toHaveURL(new RegExp(`/guide#${destination.id}$`));
+      await expect(page.getByRole('heading', { name: destination.heading, exact: true })).toBeVisible();
+      const initialSection = page.locator(`#${destination.id}`);
+      await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);
+      await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeLessThan(200);
+
+      const refreshed = await page.reload();
+      expect(refreshed?.status()).toBe(200);
+      await expect(page).toHaveURL(new RegExp(`/guide#${destination.id}$`));
+      await expect(page.getByRole('heading', { name: destination.heading, exact: true })).toBeVisible();
+      await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);
+      await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeLessThan(200);
+
+      await page.getByRole('link', { name: destination.navLink, exact: true }).click();
+      await expect(page).toHaveURL(new RegExp(`/guide#${destination.nextId}$`));
+      const nextSection = page.locator(`#${destination.nextId}`);
+      await expect.poll(() => nextSection.evaluate((element) => element.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);
+      await expect.poll(() => nextSection.evaluate((element) => element.getBoundingClientRect().top)).toBeLessThan(200);
+    });
+  }
 }
