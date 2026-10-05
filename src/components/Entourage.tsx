@@ -3,7 +3,7 @@ import { Flower2, HandHeart, UsersRound } from "lucide-react";
 
 function PersonRow({ person }: { person: Person }) {
   return (
-    <li className="py-3 text-left">
+    <li className="py-3 text-center sm:text-left">
       <p className="font-serif text-xl text-deep-olive sm:text-2xl">{person.name}</p>
       {(person.role || person.relation) && (
         <p className="mt-1 font-sans text-xs leading-relaxed text-olive-secondary sm:text-sm">
@@ -78,7 +78,7 @@ export function Entourage() {
           <div className="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
             {secondarySponsorGroups.map((group) => (
               <div key={group.title}>
-                <h4 className="flex items-center gap-2 pb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">
+                <h4 className="flex items-center justify-center gap-2 pb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive sm:justify-start">
                   <Flower2 aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
                   {group.title} sponsors
                 </h4>
@@ -95,7 +95,7 @@ export function Entourage() {
 
       <section className="mx-auto max-w-5xl py-4 sm:py-6">
         <div className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-[0.7fr_1.3fr] sm:items-end sm:gap-16">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
+          <p className="text-center font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:text-left">
             Our entourage
           </p>
           <h3 className="text-center font-serif text-3xl text-deep-olive sm:text-left sm:text-4xl">Wedding Party</h3>
@@ -103,7 +103,7 @@ export function Entourage() {
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-0">
           <div className="sm:pr-10">
-            <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
+            <p className="mb-2 text-center font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary sm:text-left">
               Groom&apos;s side · Men
             </p>
             <ul>
@@ -115,7 +115,7 @@ export function Entourage() {
           </div>
 
           <div className="pt-2 sm:border-l sm:border-readable-border sm:pl-10 sm:pt-0">
-            <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
+            <p className="mb-2 text-center font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary sm:text-left">
               Bride&apos;s side · Women
             </p>
             <ul>

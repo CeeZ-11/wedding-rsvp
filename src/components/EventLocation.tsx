@@ -45,14 +45,14 @@ export function EventLocation() {
             View on Google Maps
           </a>
 
-          <div className="mt-8 pt-2 text-left">
-            <div className="mb-4 flex items-center gap-2">
+          <div className="mt-8 pt-2 text-center sm:text-left">
+            <div className="mb-4 flex items-center justify-center gap-2 sm:justify-start">
               <Navigation aria-hidden="true" className="h-4 w-4 text-deep-olive" />
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive">
                 Directions
               </h4>
             </div>
-            <ol className="space-y-3 font-sans text-sm leading-relaxed text-olive-secondary">
+            <ol className="mx-auto max-w-sm space-y-3 font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
               <li>Head towards Don Salvador Benedicto from Bacolod City.</li>
               <li>Follow the scenic mountain highway.</li>
               <li>Look for the Balai Ramirez signage.</li>

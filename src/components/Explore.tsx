@@ -52,7 +52,7 @@ export function Explore() {
               href={place.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-x-4 py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive sm:grid-cols-[2.5rem_minmax(0,1fr)_15rem] sm:gap-x-7 sm:py-7"
+              className="group grid grid-cols-1 justify-items-center gap-y-4 py-6 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive sm:grid-cols-[2.5rem_minmax(0,1fr)_15rem] sm:justify-items-stretch sm:gap-x-7 sm:gap-y-0 sm:py-7 sm:text-left"
             >
               <span
                 aria-hidden="true"
@@ -60,7 +60,7 @@ export function Explore() {
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <div>
+              <div className="order-2 mx-auto max-w-md sm:order-none sm:mx-0">
                 <h3 className="font-serif text-2xl font-medium text-deep-olive transition-colors group-hover:text-olive-secondary sm:text-3xl">
                   {place.name}
                 </h3>
@@ -76,7 +76,7 @@ export function Explore() {
                 alt=""
                 width={place.width}
                 height={place.height}
-                className="aspect-[4/3] w-full object-cover"
+                className="order-1 aspect-[4/3] w-full max-w-sm object-cover sm:order-none sm:max-w-none"
                 loading="lazy"
                 decoding="async"
               />

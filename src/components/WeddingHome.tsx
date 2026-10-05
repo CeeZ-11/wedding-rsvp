@@ -114,10 +114,12 @@ export function WeddingHome() {
         <div className="self-center border-t border-readable-border pt-4 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
           <div className="space-y-1">
             {keyEvents.map(({ time, title, icon: Icon }) => (
-              <div key={time} className="grid grid-cols-[2rem_5.5rem_1fr] items-center gap-x-3 py-3 sm:grid-cols-[2rem_7rem_1fr] sm:py-4">
-                <Icon aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-olive-secondary" />
-                <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">{time}</span>
-                <span className="font-sans text-xs uppercase tracking-[0.1em] text-olive-secondary sm:text-sm sm:tracking-[0.14em]">{title}</span>
+              <div key={time} className="py-3 text-center sm:py-4 lg:grid lg:grid-cols-[2rem_7rem_1fr] lg:items-center lg:gap-x-3 lg:text-left">
+                <div className="flex items-center justify-center gap-2 lg:contents">
+                  <Icon aria-hidden="true" className="h-4 w-4 stroke-[1.5] text-olive-secondary" />
+                  <span className="font-serif text-2xl tabular-nums text-deep-olive sm:text-3xl">{time}</span>
+                </div>
+                <span className="mt-1 block font-sans text-xs uppercase tracking-[0.1em] text-olive-secondary sm:text-sm sm:tracking-[0.14em] lg:mt-0">{title}</span>
               </div>
             ))}
           </div>

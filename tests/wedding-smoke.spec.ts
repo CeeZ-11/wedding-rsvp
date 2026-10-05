@@ -59,12 +59,15 @@ for (const { width, height } of [
       page.locator('footer'),
     ];
     await expect(page.locator('#our-story h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#our-story figcaption')).toHaveCSS('text-align', expected);
     await expect(page.locator('#wedding-details-heading')).toHaveCSS('text-align', expected);
     await expect(page.getByRole('link', { name: 'Full day schedule' }).locator('..')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#the-wedding .space-y-1 > div').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('#countdown-heading')).toHaveCSS('text-align', 'center');
     await expect(page.locator('#prenup-heading')).toHaveCSS('text-align', 'center');
     await expect(page.locator('#our-prenup figcaption').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('#rsvp h2')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#rsvp > div').first()).toHaveCSS('text-align', 'center');
     await expect(page.locator('footer > p').first()).toHaveCSS('text-align', 'center');
     for (const [index, section] of homeSections.entries()) {
       await section.scrollIntoViewIfNeeded();
@@ -83,18 +86,21 @@ for (const { width, height } of [
     expect(guideNavFits).toBe(true);
     await expect(page.locator('#guide-heading')).toHaveCSS('text-align', isMobile ? 'center' : 'left');
     await expect(page.locator('#schedule h2')).toHaveCSS('text-align', 'center');
-    await expect(page.locator('#schedule .relative.grid').first()).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#schedule .relative > .relative').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('#dress h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#dress h4 + p').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('#location h2')).toHaveCSS('text-align', expected);
-    await expect(page.locator('#location ol')).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#location ol')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#seating h2')).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#seating article p').last()).toHaveCSS('text-align', expected);
     await expect(page.getByRole('heading', { name: 'Principal Sponsors' })).toHaveCSS('text-align', expected);
-    await expect(page.locator('#entourage ul li').first()).toHaveCSS('text-align', 'left');
+    await expect(page.locator('#entourage ul li').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('#explore h2')).toHaveCSS('text-align', expected);
-    await expect(page.locator('#explore li h3').first()).toHaveCSS('text-align', /^(left|start)$/);
+    await expect(page.locator('#explore li h3').first()).toHaveCSS('text-align', expected);
     const cafeHeading = page.locator('#explore li h3').filter({ hasText: 'Calea & Local Cafés' });
     const cafeHeadingHeight = await cafeHeading.evaluate((element) => element.getBoundingClientRect().height);
     expect(cafeHeadingHeight).toBeLessThan(40);
-    for (const [index, selector] of ['main > section:first-child', '#schedule', '#dress', '#location', '#entourage', '#explore'].entries()) {
+    for (const [index, selector] of ['main > section:first-child', '#schedule', '#location', '#dress', '#seating', '#entourage', '#explore'].entries()) {
       await page.locator(selector).scrollIntoViewIfNeeded();
       await page.waitForTimeout(750);
       await page.screenshot({ path: `${screenshotDir}/alignment-guide-${width}-${index}.png` });

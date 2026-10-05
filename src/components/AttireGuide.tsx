@@ -32,16 +32,16 @@ export function AttireGuide() {
           </h3>
         </div>
 
-        <div>
+        <div className="text-center sm:text-left">
           <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
             <div className="pb-7 sm:pb-0">
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
                 Bridesmaids
               </h4>
-              <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
+              <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
                 Soft sage green or muted tones; elegant, flowy garden-style dresses.
               </p>
-              <div className="mt-5 flex gap-2" aria-label="Suggested bridesmaid colors">
+              <div className="mt-5 flex justify-center gap-2 sm:justify-start" aria-label="Suggested bridesmaid colors">
                 {["#919682", "#C7CDBF", "#A3B19B"].map((color) => (
                   <span
                     key={color}
@@ -57,10 +57,10 @@ export function AttireGuide() {
               <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
                 Groomsmen &amp; Best Man
               </h4>
-              <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
+              <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
                 Neutral or beige suits, paired with white shirts and subtle green accents.
               </p>
-              <div className="mt-5 flex gap-2" aria-label="Suggested suit colors">
+              <div className="mt-5 flex justify-center gap-2 sm:justify-start" aria-label="Suggested suit colors">
                 {["#E8E1D9", "#D5C7B8", "#FFFFFF"].map((color) => (
                   <span
                     key={color}
@@ -73,10 +73,10 @@ export function AttireGuide() {
             </div>
           </div>
 
-          <p className="mt-8 font-sans text-sm leading-relaxed text-olive-secondary">
+          <p className="mx-auto mt-8 max-w-lg font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
             Bridesmaids, Groomsmen, and the Best Man should follow fitting instructions from Jadore Bridal.
           </p>
-          <p className="mt-4 font-sans text-sm leading-relaxed text-deep-olive">
+          <p className="mx-auto mt-4 max-w-lg font-sans text-sm leading-relaxed text-deep-olive sm:mx-0">
             <span className="font-semibold">Maid of Honor:</span> Please provide your own attire; no Jadore Bridal fitting is needed.
           </p>
         </div>
@@ -90,7 +90,7 @@ export function AttireGuide() {
           <h3 className="mt-2 font-serif text-3xl text-deep-olive sm:text-4xl">
             Garden formal
           </h3>
-          <p className="mt-3 text-left font-sans text-sm leading-relaxed text-olive-secondary">
+          <p className="mx-auto mt-3 max-w-sm font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
             Guest guidance only. Guests do not need to visit Jadore Bridal or attend a fitting.
           </p>
           <div className="mt-6 flex justify-center gap-3 sm:justify-start" aria-label="Suggested guest color palette">
@@ -108,24 +108,24 @@ export function AttireGuide() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-10 text-center sm:grid-cols-2 sm:text-left">
           <div className="py-3 sm:py-0">
-            <h4 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
+            <h4 className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary sm:justify-start">
               <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Ladies
             </h4>
-            <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
+            <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
               Flowy dresses, midi or maxi styles in soft, muted, earthy tones. Light, breathable fabrics are recommended.
             </p>
           </div>
           <div className="py-3 sm:border-l sm:border-readable-border sm:pl-10 sm:py-0">
-            <h4 className="flex items-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
+            <h4 className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary sm:justify-start">
               <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Gentlemen
             </h4>
-            <p className="mt-3 font-serif text-xl leading-relaxed text-deep-olive">
+            <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
               Polos, button-downs, or light suits in neutral tones.
             </p>
           </div>
-          <p className="col-span-full mt-4 font-sans text-sm italic text-olive-secondary">
+          <p className="col-span-full mx-auto mt-4 max-w-lg font-sans text-sm italic text-olive-secondary sm:mx-0">
             Please avoid overly bright or neon colors.
           </p>
         </div>
