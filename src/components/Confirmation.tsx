@@ -1,4 +1,5 @@
 import { GIFTS } from '../data/gifts';
+import { Check } from 'lucide-react';
 
 interface ConfirmationProps {
   name: string;
@@ -22,20 +23,8 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
   return (
     <div className="text-center space-y-6 animate-in fade-in zoom-in duration-700" role="status" aria-live="polite">
       {/* Icon */}
-      <div className="inline-block p-4 rounded-full bg-light-sage/30 mb-4 mt-4">
-        <svg
-          className="w-12 h-12 text-deep-olive"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-          />
-        </svg>
+      <div aria-hidden="true" className="mx-auto mt-4 mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full border border-readable-border bg-light-sage/20">
+        <Check className="h-7 w-7 text-deep-olive" strokeWidth={1.5} />
       </div>
 
       {/* Title */}
@@ -45,7 +34,7 @@ export const Confirmation: React.FC<ConfirmationProps> = ({
 
       {/* Message */}
       <div className="font-serif text-lg text-olive-secondary space-y-2">
-        <p>Your response has been beautifully received.</p>
+        <p>Your response has been received.</p>
         <p className="text-2xl text-deep-olive mt-4">{name}</p>
         <p className="italic">
           {attending === 'yes'

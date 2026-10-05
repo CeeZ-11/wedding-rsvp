@@ -134,24 +134,31 @@ export function GuidePage() {
 
         {/* HERO */}
         <motion.section
+          aria-labelledby="guide-heading"
           className="text-center"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
         >
-          <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
+          <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
+            Wedding Guide · For the day
+          </p>
+          <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:text-6xl md:text-7xl">
+            Everything you need for December 27
+          </h1>
+          <div aria-hidden="true" className="mx-auto my-6 h-px w-12 bg-readable-border" />
+          <p className="font-serif text-xl text-deep-olive sm:text-2xl">
             Seamor &amp; Lady Stephanie
           </p>
-          <h1 className="font-serif text-5xl font-medium text-deep-olive sm:text-6xl md:text-7xl">
-            Wedding Guide
-          </h1>
-          <div aria-hidden="true" className="mx-auto my-5 h-px w-12 bg-readable-border" />
-          <p className="font-serif text-xl text-olive-secondary sm:text-2xl">
-            December 27, 2026
+          <p className="mt-2 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
+            December 27, 2026 <span aria-hidden="true">·</span> Balai Ramirez DSB
           </p>
-          <p className="mt-1 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
-            Balai Ramirez DSB
-          </p>
+          <nav aria-label="Guide highlights" className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-xs font-medium uppercase tracking-[0.12em] text-olive-secondary sm:gap-x-6">
+            <a href="#schedule" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Schedule</a>
+            <a href="#dress" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Dress code</a>
+            <a href="#location" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Venue</a>
+            <a href="#entourage" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Entourage</a>
+          </nav>
         </motion.section>
 
         {/* Sections */}

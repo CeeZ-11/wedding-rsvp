@@ -2,6 +2,12 @@ import { mkdirSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
 
 const screenshotDir = '/private/tmp/wedding-playwright';
+const auditViewports = [
+  { width: 1366, height: 768 },
+  { width: 1440, height: 900 },
+  { width: 1920, height: 1080 },
+  { width: 390, height: 844 },
+];
 
 test.beforeAll(() => {
   mkdirSync(screenshotDir, { recursive: true });
@@ -34,9 +40,9 @@ for (const { width, height } of [
   });
 }
 
-for (const width of [390, 1440]) {
-  test(`homepage at ${width}px has no horizontal overflow`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
+for (const { width, height } of auditViewports) {
+  test(`homepage at ${width}x${height} has no horizontal overflow`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
     const pageErrors: string[] = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
@@ -47,6 +53,15 @@ for (const width of [390, 1440]) {
     await expect(homeNav).toHaveCSS('position', 'absolute');
     await expect(musicButton).toHaveCSS('position', 'absolute');
     await page.screenshot({ path: `${screenshotDir}/home-${width}.png` });
+    const story = page.locator('#our-story');
+    await expect(story.getByRole('heading', { name: 'Our story' })).toBeVisible();
+    await expect(story.getByText('Personal welcome copy to be added.')).toBeVisible();
+    const storyImage = story.locator('img');
+    await storyImage.scrollIntoViewIfNeeded();
+    await expect.poll(() => storyImage.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
+    await storyImage.evaluate((element: HTMLImageElement) => element.decode());
+    await story.screenshot({ path: `${screenshotDir}/home-story-${width}.png` });
+    await page.evaluate(() => window.scrollTo(0, 0));
 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.locator('#our-prenup').scrollIntoViewIfNeeded();
@@ -60,13 +75,14 @@ for (const width of [390, 1440]) {
     expect(pageErrors).toEqual([]);
   });
 
-  test(`Wedding Guide at ${width}px has no horizontal overflow and Seating is readable`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
+  test(`Wedding Guide at ${width}x${height} has no horizontal overflow and Seating is readable`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
     const pageErrors: string[] = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
     await page.goto('/guide');
-    await expect(page.getByRole('heading', { name: 'Wedding Guide' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Everything you need for December 27' })).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Guide highlights' }).getByRole('link')).toHaveCount(4);
     await expect(page.getByRole('main').getByText('Seamor & Lady Stephanie')).toBeVisible();
     await expect(page.getByRole('main').getByText('December 27, 2026')).toBeVisible();
     await page.screenshot({ path: `${screenshotDir}/guide-intro-${width}.png` });
@@ -167,6 +183,7 @@ test('RSVP submits the expected payload and shows confirmation', async ({ page }
 
   await expect(page.getByRole('status').getByText('Thank You!')).toBeVisible();
   await expect(page.getByRole('status').getByText('Playwright Test Guest')).toBeVisible();
+  await expect(page.getByRole('status').getByText('Your response has been received.')).toBeVisible();
   expect(submittedPayload).toEqual({
     name: 'Playwright Test Guest',
     attendance: 'yes',
@@ -174,6 +191,44 @@ test('RSVP submits the expected payload and shows confirmation', async ({ page }
     dietary: '',
     message: '',
   });
+});
+
+test('RSVP validation and attendance radio keyboard interaction are accessible', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.locator('#rsvp').scrollIntoViewIfNeeded();
+
+  await page.getByRole('button', { name: 'Send RSVP' }).click();
+  await expect(page.getByRole('alert').getByText('Please enter your full name', { exact: true })).toBeVisible();
+  await expect(page.getByRole('radiogroup')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.getByRole('radio', { name: 'Joyfully Accept' })).toHaveAttribute('aria-checked', 'false');
+
+  const accept = page.getByRole('radio', { name: 'Joyfully Accept' });
+  await accept.focus();
+  await page.keyboard.press('ArrowRight');
+  const decline = page.getByRole('radio', { name: 'Regretfully Decline' });
+  await expect(decline).toBeFocused();
+  await expect(decline).toHaveAttribute('aria-checked', 'true');
+  await page.keyboard.press('ArrowLeft');
+  await expect(accept).toBeFocused();
+  await expect(accept).toHaveAttribute('aria-checked', 'true');
+  await page.keyboard.press('End');
+  await expect(decline).toBeFocused();
+  await expect(decline).toHaveAttribute('aria-checked', 'true');
+});
+
+test('RSVP keeps the form visible and reports an API failure', async ({ page }) => {
+  await page.route('**/api/rsvp', (route) => route.fulfill({ status: 500, json: { error: 'test failure' } }));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.locator('#rsvp').scrollIntoViewIfNeeded();
+  await page.getByLabel('Full Name').fill('Playwright Test Guest');
+  await page.getByRole('radio', { name: 'Joyfully Accept' }).click();
+  await page.getByRole('button', { name: 'Send RSVP' }).click();
+
+  await expect(page.getByRole('alert').getByText('We couldn’t send your RSVP. Please try again.')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Send RSVP' })).toBeVisible();
+  await expect(page.getByRole('status')).toHaveCount(0);
 });
 
 test('Wedding Guide section navigation and schedule expansion work', async ({ page }) => {
@@ -184,7 +239,7 @@ test('Wedding Guide section navigation and schedule expansion work', async ({ pa
   await expect(page).toHaveURL(/#location$/);
   await expect(page.getByRole('heading', { name: 'The venue' })).toBeVisible();
 
-  await page.getByRole('link', { name: 'Schedule' }).click();
+  await page.locator('nav').first().getByRole('link', { name: 'Schedule' }).click();
   await expect(page).toHaveURL(/#schedule$/);
   const expandButton = page.getByRole('button', { name: 'View Full Program' });
   await expandButton.click();
@@ -250,7 +305,7 @@ for (const width of [390, 1440]) {
       await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);
       await expect.poll(() => initialSection.evaluate((element) => element.getBoundingClientRect().top)).toBeLessThan(200);
 
-      await page.getByRole('link', { name: destination.navLink, exact: true }).click();
+      await page.locator('nav').first().getByRole('link', { name: destination.navLink, exact: true }).click();
       await expect(page).toHaveURL(new RegExp(`/guide#${destination.nextId}$`));
       const nextSection = page.locator(`#${destination.nextId}`);
       await expect.poll(() => nextSection.evaluate((element) => element.getBoundingClientRect().top)).toBeGreaterThanOrEqual(0);

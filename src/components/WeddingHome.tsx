@@ -3,6 +3,7 @@ import { Countdown } from './Countdown';
 import { Footer } from './Footer';
 import { PrenupGallery } from './PrenupGallery';
 import { RSVPForm } from './RSVPForm';
+import { WelcomeMoment } from './WelcomeMoment';
 
 export function WeddingHome() {
   const reduceMotion = useReducedMotion();
@@ -68,20 +69,7 @@ export function WeddingHome() {
         />
       </section>
 
-      <section
-        aria-labelledby="countdown-heading"
-        className="border-y border-readable-border bg-[#E9EDE5] px-5 py-12 text-center sm:py-16"
-      >
-        <div className="mx-auto max-w-5xl">
-          <h2
-            id="countdown-heading"
-            className="mb-8 font-serif text-3xl font-medium text-deep-olive sm:text-4xl"
-          >
-            Until we celebrate together
-          </h2>
-          <Countdown />
-        </div>
-      </section>
+      <WelcomeMoment />
 
       <section
         id="the-wedding"
@@ -142,6 +130,21 @@ export function WeddingHome() {
           >
             Full day schedule
           </a>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="countdown-heading"
+        className="border-y border-readable-border bg-[#E9EDE5] px-5 py-12 text-center sm:py-16"
+      >
+        <div className="mx-auto max-w-5xl">
+          <h2
+            id="countdown-heading"
+            className="mb-8 font-serif text-3xl font-medium text-deep-olive sm:text-4xl"
+          >
+            Until we celebrate together
+          </h2>
+          <Countdown />
         </div>
       </section>
 

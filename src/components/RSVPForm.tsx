@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { GiftRegistry } from './GiftRegistry';
 import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 
 export function RSVPForm() {
+  const acceptRef = useRef<HTMLButtonElement>(null);
+  const declineRef = useRef<HTMLButtonElement>(null);
   const [fullName, setFullName] = useState('');
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [dietary, setDietary] = useState('');
@@ -11,6 +13,7 @@ export function RSVPForm() {
   const [selectedGiftId, setSelectedGiftId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const [takenGifts, setTakenGifts] = useState<string[]>([]);
 
@@ -50,9 +53,36 @@ export function RSVPForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const selectAttendance = (value: 'yes' | 'no') => {
+    setAttendance(value);
+    setErrors((previous) => ({ ...previous, attendance: undefined }));
+  };
+
+  const handleAttendanceKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    current: 'yes' | 'no',
+  ) => {
+    const next = event.key === 'ArrowRight' || event.key === 'ArrowDown'
+      ? current === 'yes' ? 'no' : 'yes'
+      : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+        ? current === 'no' ? 'yes' : 'no'
+        : event.key === 'Home'
+          ? 'yes'
+          : event.key === 'End'
+            ? 'no'
+            : null;
+
+    if (!next) return;
+
+    event.preventDefault();
+    selectAttendance(next);
+    (next === 'yes' ? acceptRef : declineRef).current?.focus();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setSubmitError('');
     if (!validate()) return;
     if (isSubmitting) return;
 
@@ -69,25 +99,32 @@ export function RSVPForm() {
       message: message || '',
     };
 
-    console.log('SUBMIT DATA:', data);
-
     try {
-      await fetch('/api/rsvp', {
+      const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      // refresh taken gifts
-      const res = await fetch('/api/gifts');
-      const updated = await res.json();
-      setTakenGifts(updated.takenGifts || []);
+      if (!response.ok) {
+        throw new Error('RSVP submission failed');
+      }
+
+      // Gift availability is helpful but should not undo a successful RSVP.
+      try {
+        const giftsResponse = await fetch('/api/gifts');
+        if (giftsResponse.ok) {
+          const updated = await giftsResponse.json();
+          setTakenGifts(updated.takenGifts || []);
+        }
+      } catch {
+        // Keep the successful RSVP confirmation even if gift refresh is unavailable.
+      }
 
       setSubmitted(true);
 
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong.');
+    } catch {
+      setSubmitError('We couldn’t send your RSVP. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -105,6 +142,10 @@ export function RSVPForm() {
           setFullName('');
           setAttendance(null);
           setSelectedGiftId(null);
+          setDietary('');
+          setMessage('');
+          setSubmitError('');
+          setErrors({});
         }}
       />
     );
@@ -113,16 +154,26 @@ export function RSVPForm() {
   return (
     <div id="rsvp" className="w-full max-w-2xl mx-auto px-4 md:px-12 scroll-mt-8">
       {/* Header */}
-      <div className="text-center mb-10">
-        <h2 className="font-script text-4xl md:text-5xl text-deep-olive mb-4">
-          Kindly Respond
+      <div className="mb-10 text-center">
+        <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
+          Kindly respond
+        </p>
+        <h2 className="mx-auto max-w-xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:text-5xl">
+          We&apos;d love to celebrate with you.
         </h2>
-        <p className="font-serif text-olive-secondary tracking-widest uppercase text-sm font-medium">
+        <div aria-hidden="true" className="mx-auto my-5 h-px w-12 bg-readable-border" />
+        <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-olive-secondary sm:text-sm">
           Please reply by November 1st, 2026
         </p>
       </div>
 
-      <form className="space-y-8" onSubmit={handleSubmit}>
+      <form className="space-y-8" onSubmit={handleSubmit} aria-busy={isSubmitting}>
+        {submitError && (
+          <p role="alert" className="border-y border-error-strong/40 py-3 text-center font-sans text-sm text-error-strong">
+            {submitError}
+          </p>
+        )}
+
         {/* Name */}
         <div className="space-y-2">
           <label
@@ -144,11 +195,13 @@ export function RSVPForm() {
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
             placeholder="Your full name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'fullName-error' : undefined}
             className="w-full rounded-sm border border-readable-border bg-white/80 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
           />
 
           {errors.name && (
-            <p className="text-error-strong text-sm text-center mt-1 font-medium">
+            <p id="fullName-error" role="alert" className="text-error-strong text-sm text-center mt-1 font-medium">
               {errors.name}
             </p>
           )}
@@ -160,16 +213,16 @@ export function RSVPForm() {
             Will you attend?
           </label>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4" role="radiogroup" aria-labelledby="attendance-label">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row" role="radiogroup" aria-labelledby="attendance-label" aria-describedby={errors.attendance ? 'attendance-error' : undefined} aria-invalid={Boolean(errors.attendance)}>
             <button
+              ref={acceptRef}
               id="attendance-yes"
               type="button"
               role="radio"
+              tabIndex={attendance === 'no' ? -1 : 0}
               aria-checked={attendance === 'yes'}
-              onClick={() => {
-                setAttendance('yes');
-                setErrors((prev) => ({ ...prev, attendance: undefined }));
-              }}
+              onClick={() => selectAttendance('yes')}
+              onKeyDown={(event) => handleAttendanceKeyDown(event, 'yes')}
               className={`
                 px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
@@ -183,14 +236,14 @@ export function RSVPForm() {
             </button>
 
             <button
+              ref={declineRef}
               id="attendance-no"
               type="button"
               role="radio"
+              tabIndex={attendance === 'no' ? 0 : -1}
               aria-checked={attendance === 'no'}
-              onClick={() => {
-                setAttendance('no');
-                setErrors((prev) => ({ ...prev, attendance: undefined }));
-              }}
+              onClick={() => selectAttendance('no')}
+              onKeyDown={(event) => handleAttendanceKeyDown(event, 'no')}
               className={`
                 px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
@@ -205,7 +258,7 @@ export function RSVPForm() {
           </div>
 
           {errors.attendance && (
-            <p className="text-error-strong text-sm text-center mt-2 font-medium">
+            <p id="attendance-error" role="alert" className="text-error-strong text-sm text-center mt-2 font-medium">
               {errors.attendance}
             </p>
           )}

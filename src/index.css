@@ -1,5 +1,4 @@
-/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap');
+/* External CSS imports stay before Tailwind directives. */
 @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
 
 /* TAILWIND IMPORTS — DO NOT TOUCH */
@@ -22,6 +21,12 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
