@@ -21,7 +21,7 @@ export function WeddingHome() {
     <main id="main">
       <section
         aria-labelledby="wedding-title"
-        className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden border-[6px] border-[#F7F4EE] sm:border-[10px] lg:min-h-[100svh]"
+        className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden lg:min-h-[100svh]"
       >
         <img
           src="/images/prenup/placeholder-03.jpg"
