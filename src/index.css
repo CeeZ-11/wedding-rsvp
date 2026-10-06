@@ -9,11 +9,11 @@
 /* GLOBAL SETTINGS */
 
 :root {
-  --page-background: #FBFBF9;
-  --card-background: #FDFAF6;
-  --text-primary: #595E48;
-  --text-secondary: #626750;
-  --ui-border: #858B75;
+  --page-background: #F7F4EE;
+  --card-background: #FCFBF8;
+  --text-primary: #303B32;
+  --text-secondary: #5F6351;
+  --ui-border: #DDD7CA;
   --accent-beige: #C7A491;
   --accent-beige-strong: #80614F;
   --error-text: #B91C1C;
@@ -37,11 +37,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Headings */
+/* Editorial type rhythm */
 h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: #1F2419;
 }
 
@@ -61,18 +61,13 @@ p {
   color: var(--text-secondary);
 }
 
-/* SCROLLBAR — more refined */
+/* Quiet, square-edged scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    to bottom,
-    #D6DCCF,
-    #B8C1AE
-  );
-  border-radius: 10px;
+  background: #B8C1AE;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -87,70 +82,4 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #FDFBF7 inset !important;
   -webkit-text-fill-color: #2A2E22 !important;
   transition: background-color 5000s ease-in-out 0s;
-}
-
-/* SECTION SPACING */
-.section-spacing {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-}
-
-/* DIVIDER — more elegant */
-.divider {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--ui-border),
-    transparent
-  );
-}
-
-/* CARD — luxury soft glass */
-.card-soft {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--ui-border);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-}
-
-/* BUTTON — champagne accent */
-.btn-outline {
-  border: 1px solid var(--text-primary);
-  color: #3E4434;
-  padding: 0.55rem 1.4rem;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.7rem;
-  transition: all 0.3s ease;
-  background: transparent;
-}
-
-.btn-outline:hover {
-  background: #3E4434;
-  color: #FDFBF7;
-  box-shadow: 0 6px 20px rgba(62, 68, 52, 0.2);
-}
-
-/* TIMELINE LINE */
-.timeline-line {
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--ui-border),
-    transparent
-  );
-  width: 1px;
-}
-
-/* TIMELINE DOT — softer */
-.timeline-dot {
-  background: var(--ui-border);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(133, 139, 117, 0.2);
 }

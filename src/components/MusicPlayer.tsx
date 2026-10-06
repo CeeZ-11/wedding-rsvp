@@ -1,72 +1,66 @@
-import { useEffect, useState, useRef } from 'react';
-import { Play, Pause, Music } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Music, Pause, Play } from 'lucide-react';
 
 interface MusicPlayerProps {
   inline?: boolean;
 }
 
+let sharedAudio: HTMLAudioElement | null = null;
+
 export function MusicPlayer({ inline = false }: MusicPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(() => Boolean(sharedAudio && !sharedAudio.paused));
+
   useEffect(() => {
-  audioRef.current = new Audio('/music/wedding.mp3');
-  audioRef.current.loop = true;
-  audioRef.current.volume = 0.3;
+    if (!sharedAudio) return;
+    const sync = () => setIsPlaying(Boolean(sharedAudio && !sharedAudio.paused));
+    sharedAudio.addEventListener('play', sync);
+    sharedAudio.addEventListener('pause', sync);
+    sharedAudio.addEventListener('ended', sync);
+    sync();
+    return () => {
+      sharedAudio?.removeEventListener('play', sync);
+      sharedAudio?.removeEventListener('pause', sync);
+      sharedAudio?.removeEventListener('ended', sync);
+    };
+  }, []);
 
-  // Start paused by default; require explicit user action to play.
-  return () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-  };
-}, []);
-
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current
-        .play()
-        .catch((e) => console.log('Audio play failed:', e));
+  const togglePlay = async () => {
+    if (!sharedAudio) {
+      sharedAudio = new Audio('/music/wedding.mp3');
+      sharedAudio.preload = 'none';
+      sharedAudio.loop = true;
+      sharedAudio.volume = 0.3;
     }
 
-    setIsPlaying(!isPlaying);
+    if (!sharedAudio.paused) {
+      sharedAudio.pause();
+      setIsPlaying(false);
+      return;
+    }
+
+    try {
+      await sharedAudio.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
   };
 
   return (
     <button
+      type="button"
       onClick={togglePlay}
-      className={`z-50 flex shrink-0 items-center justify-center rounded-full border border-readable-border bg-card-bg text-deep-olive shadow-sm transition-colors hover:bg-light-sage/30 group focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none ${
-        inline ? 'relative h-9 w-9' : 'absolute left-4 top-6 h-12 w-12'
-      }`}
+      className={`group z-50 flex shrink-0 items-center justify-center rounded-full border border-readable-border bg-card-bg text-deep-olive transition-colors hover:bg-light-sage/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 ${inline ? 'relative h-10 w-10' : 'h-10 w-10'}`}
       aria-label={isPlaying ? 'Pause music' : 'Play music'}
       aria-pressed={isPlaying}
     >
-      {isPlaying ? (
-        <Pause className="w-4 h-4" strokeWidth={1.5} />
-      ) : (
-        <div className="relative flex items-center justify-center">
-          <Music
-            className="w-4 h-4 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            strokeWidth={1.5}
-          />
-
-          <Play
-            className="w-4 h-4 group-hover:opacity-0 transition-opacity duration-300 ml-0.5"
-            strokeWidth={1.5}
-          />
-        </div>
-      )}
-
-      {isPlaying && (
-        <span className="absolute -top-1 -right-1 flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-warm-beige opacity-40"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-warm-beige opacity-60"></span>
+      {isPlaying ? <Pause aria-hidden="true" className="h-4 w-4" strokeWidth={1.5} /> : (
+        <span className="relative flex items-center justify-center">
+          <Music aria-hidden="true" className="absolute h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" strokeWidth={1.5} />
+          <Play aria-hidden="true" className="ml-0.5 h-4 w-4" strokeWidth={1.5} />
         </span>
       )}
+      {isPlaying && <span aria-hidden="true" className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-warm-beige" />}
     </button>
   );
 }

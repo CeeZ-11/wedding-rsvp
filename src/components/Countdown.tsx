@@ -33,7 +33,7 @@ export function Countdown() {
 
   if (!timeLeft) {
     return (
-      <p className="text-center text-deep-olive mt-6 font-serif">
+      <p className="mt-6 text-center font-serif text-[#F7F4EE]">
         The big day has arrived 💍
       </p>
     );
@@ -56,10 +56,10 @@ export function Countdown() {
       {units.map(({ label, value }, index) => (
         <div
           key={label}
-          className={`${index ? 'border-l border-readable-border/70' : ''} px-2 sm:px-6`}
+          className={`${index ? 'border-l border-white/20' : ''} px-2 sm:px-6`}
         >
           <p
-            className={`font-serif font-medium leading-none tabular-nums text-deep-olive ${
+            className={`font-serif font-light leading-none tabular-nums text-[#F7F4EE] ${
               index === 0
                 ? 'text-6xl sm:text-7xl md:text-8xl'
                 : 'text-3xl sm:text-4xl md:text-5xl'
@@ -67,7 +67,7 @@ export function Countdown() {
           >
             {index === 0 ? value : String(value).padStart(2, '0')}
           </p>
-          <p className="mt-3 text-[0.6rem] uppercase tracking-[0.14em] text-olive-secondary sm:text-xs sm:tracking-[0.2em]">
+          <p className="mt-3 text-[0.6rem] uppercase tracking-[0.14em] text-[#C6CEBC] sm:text-xs sm:tracking-[0.2em]">
             {label}
           </p>
         </div>

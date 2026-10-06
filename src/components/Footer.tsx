@@ -3,11 +3,11 @@ import { BotanicalMark } from "./BotanicalMark";
 
 export function Footer() {
   return (
-    <footer className="bg-light-sage/20 py-12 text-center border-t border-readable-border">
+    <footer className="border-t border-readable-border bg-[#EEEAE1] px-6 py-14 text-center sm:py-16">
 
       <nav
         aria-label="Wedding links"
-        className="mx-auto mb-8 flex max-w-xl flex-wrap justify-center gap-x-6 gap-y-3 px-4 font-sans text-[0.65rem] font-medium uppercase tracking-[0.14em] text-olive-secondary"
+        className="mx-auto mb-10 flex max-w-xl flex-wrap justify-center gap-x-7 gap-y-3 px-4 font-sans text-[0.65rem] font-medium uppercase tracking-[0.16em] text-olive-secondary"
       >
         <Link className="hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive" to="/">
           Wedding
@@ -25,8 +25,8 @@ export function Footer() {
 
       <BotanicalMark className="mx-auto mb-4 h-8 w-14 text-olive-secondary" />
 
-      <p className="font-script text-4xl md:text-5xl text-deep-olive mb-3">
-        Seamor &amp; Lady Stephanie
+      <p className="mb-3 font-serif text-4xl font-light tracking-tight text-deep-olive sm:text-5xl">
+        Seamor <span className="italic text-warm-beige-strong">&amp;</span> Lady Stephanie
       </p>
 
       <p className="font-serif text-base text-olive-secondary mb-3">

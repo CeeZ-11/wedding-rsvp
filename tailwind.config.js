@@ -16,7 +16,7 @@ export default {
         'olive-secondary': 'var(--text-secondary)',
         'readable-border': 'var(--ui-border)',
         'error-strong': 'var(--error-text)',
-        'cream-bg': '#FBFBF9',
+        'cream-bg': 'var(--page-background)',
         'card-bg': 'var(--card-background)',
       },
       fontFamily: {

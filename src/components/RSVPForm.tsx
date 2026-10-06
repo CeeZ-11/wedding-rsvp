@@ -152,22 +152,8 @@ export function RSVPForm() {
   }
 
   return (
-    <div id="rsvp" className="w-full max-w-2xl mx-auto px-4 md:px-12 scroll-mt-8">
-      {/* Header */}
-      <div className="mb-10 text-center">
-        <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
-          Kindly respond
-        </p>
-        <h2 className="mx-auto max-w-xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:text-5xl">
-          We&apos;d love to celebrate with you.
-        </h2>
-        <div aria-hidden="true" className="mx-auto my-5 h-px w-12 bg-readable-border" />
-        <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-olive-secondary sm:text-sm">
-          Please reply by November 1st, 2026
-        </p>
-      </div>
-
-      <form className="space-y-8" onSubmit={handleSubmit} aria-busy={isSubmitting}>
+    <div className="mx-auto w-full max-w-2xl scroll-mt-8">
+      <form className="space-y-10" onSubmit={handleSubmit} aria-busy={isSubmitting}>
         {submitError && (
           <p role="alert" className="border-y border-error-strong/40 py-3 text-center font-sans text-sm text-error-strong">
             {submitError}
@@ -178,17 +164,18 @@ export function RSVPForm() {
         <div className="space-y-2">
           <label
             htmlFor="fullName"
-            className="block font-serif text-sm tracking-wider text-deep-olive uppercase text-center font-medium"
+          className="block font-sans text-xs font-semibold uppercase tracking-[0.18em] text-deep-olive"
           >
             Full Name
           </label>
-          <p className="font-serif text-olive-secondary text-sm italic text-center">
+          <p className="font-sans text-sm italic text-olive-secondary">
             Please enter your full name (RSVP is for one person)
           </p>
 
           <input
             type="text"
             id="fullName"
+            autoComplete="name"
             value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
@@ -197,7 +184,7 @@ export function RSVPForm() {
             placeholder="Your full name"
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'fullName-error' : undefined}
-            className="w-full rounded-sm border border-readable-border bg-white/80 px-4 py-3 text-center font-serif text-lg text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
+            className="w-full border-x-0 border-b border-t-0 border-readable-border bg-transparent px-0 py-3 text-left font-serif text-xl text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
           />
 
           {errors.name && (
@@ -224,11 +211,11 @@ export function RSVPForm() {
               onClick={() => selectAttendance('yes')}
               onKeyDown={(event) => handleAttendanceKeyDown(event, 'yes')}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
+                flex min-h-[4.5rem] items-center gap-4 border px-5 py-4 text-left font-serif text-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
                   attendance === 'yes'
-                    ? 'bg-deep-olive text-white border-deep-olive shadow-md'
-                    : 'bg-white/70 text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
+                    ? 'bg-deep-olive text-white border-deep-olive'
+                    : 'bg-transparent text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
                 }
               `}
             >
@@ -245,11 +232,11 @@ export function RSVPForm() {
               onClick={() => selectAttendance('no')}
               onKeyDown={(event) => handleAttendanceKeyDown(event, 'no')}
               className={`
-                px-8 py-3 rounded-full font-serif text-lg transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
+                flex min-h-[4.5rem] items-center gap-4 border px-5 py-4 text-left font-serif text-xl transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 focus-visible:outline-none
                 ${
                   attendance === 'no'
-                    ? 'bg-warm-beige-strong text-white border-warm-beige-strong shadow-md'
-                    : 'bg-white/70 text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
+                    ? 'bg-warm-beige-strong text-white border-warm-beige-strong'
+                    : 'bg-transparent text-deep-olive border-readable-border hover:border-deep-olive hover:bg-light-sage/20'
                 }
               `}
             >
@@ -305,12 +292,12 @@ export function RSVPForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`
-              group relative px-12 py-4 bg-deep-olive text-white font-serif text-lg tracking-widest uppercase rounded-sm overflow-hidden transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive
+              className={`
+              group relative min-h-12 px-10 py-3 bg-deep-olive text-white font-sans text-xs font-semibold tracking-[0.16em] uppercase overflow-hidden transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive
               ${
                 isSubmitting
                   ? 'bg-[#4a4e3c] cursor-wait'
-                  : 'hover:shadow-lg hover:bg-[#4a4e3c]'
+                  : 'hover:bg-[#4a4e3c]'
               }
             `}
           >

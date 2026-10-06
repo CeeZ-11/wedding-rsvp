@@ -132,12 +132,13 @@ export function GuidePage() {
       </nav>
 
       {/* 📄 CONTENT */}
-      <main className="max-w-6xl mx-auto px-6 pt-36 pb-24 space-y-20 sm:space-y-24">
+      <main id="main" className="pt-32 sm:pt-36">
+        <div className="mx-auto max-w-6xl px-6">
 
         {/* HERO */}
         <motion.section
           aria-labelledby="guide-heading"
-          className="grid items-center gap-8 text-center sm:grid-cols-2 sm:gap-12 sm:text-left"
+          className="grid items-center gap-10 pb-14 text-center sm:grid-cols-2 sm:gap-12 sm:pb-16 sm:text-left"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
@@ -146,15 +147,12 @@ export function GuidePage() {
             <p className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary sm:tracking-[0.28em]">
               Chapter II · The day
             </p>
-            <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-4xl font-medium leading-tight text-deep-olive sm:mx-0 sm:text-5xl md:text-6xl">
+            <h1 id="guide-heading" className="mx-auto max-w-4xl font-serif text-5xl font-light leading-[1.02] tracking-tight text-deep-olive sm:mx-0 sm:text-6xl md:text-7xl">
               Everything you need for December 27
             </h1>
             <BotanicalMark className="mx-auto my-5 h-7 w-12 text-olive-secondary sm:mx-0" />
             <p className="font-serif text-xl text-deep-olive sm:text-2xl">
               Seamor &amp; Lady Stephanie
-            </p>
-            <p className="mt-2 font-sans text-xs uppercase tracking-[0.16em] text-olive-secondary sm:text-sm">
-              December 27, 2026 <span aria-hidden="true">·</span> Balai Ramirez DSB
             </p>
             <nav aria-label="Guide highlights" className="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-sans text-xs font-medium uppercase tracking-[0.12em] text-olive-secondary sm:justify-start sm:gap-x-6">
             <a href="#schedule" className="border-b border-transparent py-1 transition-colors hover:border-readable-border hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive">Schedule</a>
@@ -169,28 +167,43 @@ export function GuidePage() {
           </figure>
         </motion.section>
 
+        <div role="group" aria-label="Wedding quick facts" className="mb-12 grid grid-cols-1 border-y border-readable-border sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Date', 'December 27, 2026'],
+            ['Time', '2:00 PM – 10:00 PM'],
+            ['Venue', 'Balai Ramirez DSB'],
+            ['Dress code', 'Semi-formal · garden tones'],
+          ].map(([label, value], index) => (
+            <dl key={label} className={`flex items-baseline justify-between gap-4 border-b border-readable-border py-4 last:border-0 sm:block sm:py-6 lg:border-b-0 ${index > 0 ? 'lg:border-l lg:pl-6' : ''}`}>
+              <dt className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-olive-secondary">{label}</dt>
+              <dd className="text-right font-serif text-lg leading-tight text-deep-olive sm:mt-3 sm:text-left sm:text-xl">{value}</dd>
+            </dl>
+          ))}
+        </div>
+        </div>
+
         {/* Sections */}
-        <section id="schedule" className="-mx-6 scroll-mt-28 bg-light-sage/20 px-6 py-12 sm:mx-0 sm:scroll-mt-32 sm:bg-transparent sm:px-0 sm:py-0">
-          <Schedule />
+        <section id="schedule" className="scroll-mt-28 bg-[#EEEAE1] px-6 py-14 sm:scroll-mt-32 sm:py-20">
+          <div className="mx-auto max-w-6xl"><Schedule /></div>
         </section>
 
-        <section id="location" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="location" className="scroll-mt-28 px-6 py-14 sm:scroll-mt-32 sm:py-20">
           <EventLocation />
         </section>
 
-        <section id="dress" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="dress" className="scroll-mt-28 bg-[#EEEAE1] px-6 py-14 sm:scroll-mt-32 sm:py-20">
           <AttireGuide />
         </section>
 
-        <section id="seating" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="seating" className="scroll-mt-28 px-6 py-14 sm:scroll-mt-32 sm:py-20">
           <Seating />
         </section>
 
-        <section id="entourage" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="entourage" className="scroll-mt-28 bg-[#EEEAE1] px-6 py-14 sm:scroll-mt-32 sm:py-20">
           <Entourage />
         </section>
 
-        <section id="explore" className="scroll-mt-28 sm:scroll-mt-32">
+        <section id="explore" className="scroll-mt-28 px-6 py-14 sm:scroll-mt-32 sm:py-20">
           <Explore />
         </section>
 

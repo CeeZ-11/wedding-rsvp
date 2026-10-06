@@ -62,12 +62,12 @@ for (const { width, height } of [
     await expect(page.locator('#our-story figcaption')).toHaveCSS('text-align', expected);
     await expect(page.locator('#wedding-details-heading')).toHaveCSS('text-align', expected);
     await expect(page.getByRole('link', { name: 'Full day schedule' }).locator('..')).toHaveCSS('text-align', expected);
-    await expect(page.locator('#the-wedding .space-y-1 > div').first()).toHaveCSS('text-align', expected);
+    await expect(page.locator('#the-wedding .space-y-1 > div').first()).toHaveCSS('text-align', 'left');
     await expect(page.locator('#countdown-heading')).toHaveCSS('text-align', 'center');
     await expect(page.locator('#prenup-heading')).toHaveCSS('text-align', 'center');
     await expect(page.locator('#our-prenup figcaption').first()).toHaveCSS('text-align', expected);
-    await expect(page.locator('#rsvp h2')).toHaveCSS('text-align', 'center');
-    await expect(page.locator('#rsvp > div').first()).toHaveCSS('text-align', 'center');
+    await expect(page.locator('#rsvp h2')).toHaveCSS('text-align', expected);
+    await expect(page.locator('#rsvp > div').first()).toHaveCSS('text-align', expected);
     await expect(page.locator('footer > p').first()).toHaveCSS('text-align', 'center');
     for (const [index, section] of homeSections.entries()) {
       await section.scrollIntoViewIfNeeded();
@@ -106,7 +106,7 @@ for (const { width, height } of [
     const cafeHeading = page.locator('#explore li h3').filter({ hasText: 'Calea & Local Cafés' });
     const cafeHeadingHeight = await cafeHeading.evaluate((element) => element.getBoundingClientRect().height);
     expect(cafeHeadingHeight).toBeLessThan(40);
-    for (const [index, selector] of ['main > section:first-child', '#schedule', '#location', '#dress', '#seating', '#entourage', '#explore'].entries()) {
+    for (const [index, selector] of ['main > div > section:first-child', '#schedule', '#location', '#dress', '#seating', '#entourage', '#explore'].entries()) {
       await page.locator(selector).scrollIntoViewIfNeeded();
       await page.waitForTimeout(750);
       await page.screenshot({ path: `${screenshotDir}/alignment-guide-${width}-${index}.png` });
@@ -152,25 +152,33 @@ for (const { width, height } of auditViewports) {
 
     await page.goto('/');
     await expect(page.locator('#wedding-title')).toBeVisible();
+    const homeHeader = page.locator('#root > div > header');
     const homeNav = page.locator('nav[aria-label="Wedding links"]').filter({ has: page.getByRole('link', { name: 'Wedding Gallery' }) });
     const musicButton = page.getByRole('button', { name: 'Play music' });
-    await expect(homeNav).toHaveCSS('position', 'absolute');
-    await expect(musicButton).toHaveCSS('position', 'absolute');
+    await expect(homeHeader).toHaveCSS('position', 'fixed');
+    if (width < 1024) {
+      await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible();
+    } else {
+      await expect(homeNav).toBeVisible();
+    }
+    await expect(musicButton).toBeVisible();
     await page.screenshot({ path: `${screenshotDir}/home-${width}.png` });
     const story = page.locator('#our-story');
     await expect(story.getByRole('heading', { name: 'Our story' })).toBeVisible();
     await expect(story.getByText('Personal welcome copy to be added.')).toBeVisible();
-    const storyImage = story.locator('img');
-    await storyImage.scrollIntoViewIfNeeded();
-    await expect.poll(() => storyImage.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
-    await storyImage.evaluate((element: HTMLImageElement) => element.decode());
+    const storyImages = story.locator('img');
+    await expect(storyImages).toHaveCount(2);
+    for (const storyImage of await storyImages.all()) {
+      await storyImage.scrollIntoViewIfNeeded();
+      await expect.poll(() => storyImage.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true);
+      await storyImage.evaluate((element: HTMLImageElement) => element.decode());
+    }
     await story.screenshot({ path: `${screenshotDir}/home-story-${width}.png` });
     await page.evaluate(() => window.scrollTo(0, 0));
 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.locator('#our-prenup').scrollIntoViewIfNeeded();
-    await expect.poll(() => homeNav.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0);
-    await expect.poll(() => musicButton.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0);
+    await expect.poll(() => homeHeader.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
     const footerNav = page.locator('footer nav[aria-label="Wedding links"]');
     await footerNav.scrollIntoViewIfNeeded();
     await expect(footerNav.getByRole('link', { name: 'Guide' })).toBeVisible();
@@ -218,7 +226,7 @@ test('prenup gallery images load and lightbox opens, navigates, and closes with 
   const supportingWidth = await gallery.locator('figure').nth(1).locator('button').evaluate((element) => element.getBoundingClientRect().width);
   expect(leadWidth).toBeGreaterThan(supportingWidth);
   await gallery.scrollIntoViewIfNeeded();
-  await expect(page.locator('nav a div').first()).toHaveClass(/bg-card-bg/);
+  await expect(page.locator('#root > div > header')).toHaveCSS('position', 'fixed');
   await page.screenshot({ path: `${screenshotDir}/gallery-desktop.png` });
 
   await gallery.getByRole('button', { name: /View photo 1:/ }).click();
@@ -237,8 +245,94 @@ test('prenup gallery images load and lightbox opens, navigates, and closes with 
   const mobileSupportingWidth = await gallery.locator('figure').nth(1).locator('button').evaluate((element) => element.getBoundingClientRect().width);
   expect(Math.abs(mobileLeadWidth - mobileSupportingWidth)).toBeLessThan(2);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  await expect(page.locator('nav a div').first()).toHaveClass(/bg-card-bg/);
+  await expect(page.locator('#root > div > header')).toHaveCSS('position', 'fixed');
   await page.screenshot({ path: `${screenshotDir}/gallery-mobile.png` });
+});
+
+test('mobile homepage navigation opens, closes, and routes to the Guide', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Menu' }).click();
+  const menu = page.getByRole('dialog', { name: 'Wedding navigation' });
+  await expect(menu).toBeVisible();
+  await expect(menu.getByRole('button', { name: 'Close navigation' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Menu' })).toBeFocused();
+
+  await page.getByRole('button', { name: 'Menu' }).click();
+  await menu.getByRole('link', { name: 'Wedding Guide' }).click();
+  await expect(page).toHaveURL(/\/guide$/);
+  await expect(page.getByRole('heading', { name: 'Everything you need for December 27' })).toBeVisible();
+});
+
+test('music starts only after a guest asks and keeps playing across the Guide route', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  let musicRequested = false;
+  page.on('request', (request) => {
+    if (request.url().endsWith('/music/wedding.mp3')) musicRequested = true;
+  });
+  await page.goto('/');
+  await expect.poll(() => musicRequested).toBe(false);
+  await page.getByRole('button', { name: 'Play music' }).click();
+  await expect(page.getByRole('button', { name: 'Pause music' })).toHaveAttribute('aria-pressed', 'true');
+  await expect.poll(() => musicRequested).toBe(true);
+  await page.locator('header nav').getByRole('link', { name: 'Wedding Guide' }).click();
+  await expect(page).toHaveURL(/\/guide$/);
+  await expect(page.getByRole('button', { name: 'Pause music' })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('RSVP accept flow submits the optional details and selected gift', async ({ page }) => {
+  let submittedPayload: Record<string, unknown> | undefined;
+  await page.route('**/api/rsvp', async (route) => {
+    submittedPayload = route.request().postDataJSON();
+    await route.fulfill({ json: { success: true } });
+  });
+  await page.goto('/');
+  const rsvp = page.locator('#rsvp');
+  await rsvp.getByLabel('Full Name').fill('Alex Guest');
+  await rsvp.getByRole('radio', { name: 'Joyfully Accept' }).click();
+  await rsvp.getByLabel('Dietary restrictions (optional)').fill('Vegetarian');
+  await rsvp.getByLabel('Message for the couple (optional)').fill('Looking forward to celebrating.');
+  await rsvp.getByRole('button', { name: 'Air Fryer' }).click();
+  await rsvp.getByRole('button', { name: 'Send RSVP' }).click();
+  await expect(rsvp.getByRole('status')).toContainText('Alex Guest');
+  expect(submittedPayload).toEqual({
+    name: 'Alex Guest',
+    attendance: 'yes',
+    gift: 'Air Fryer',
+    dietary: 'Vegetarian',
+    message: 'Looking forward to celebrating.',
+  });
+});
+
+test('RSVP decline flow submits without showing accepting-only questions', async ({ page }) => {
+  let submittedPayload: Record<string, unknown> | undefined;
+  await page.route('**/api/rsvp', async (route) => {
+    submittedPayload = route.request().postDataJSON();
+    await route.fulfill({ json: { success: true } });
+  });
+  await page.goto('/');
+  const rsvp = page.locator('#rsvp');
+  await rsvp.getByLabel('Full Name').fill('Alex Guest');
+  await rsvp.getByRole('radio', { name: 'Regretfully Decline' }).click();
+  await expect(rsvp.getByLabel('Dietary restrictions (optional)')).toBeHidden();
+  await rsvp.getByRole('button', { name: 'Send RSVP' }).click();
+  await expect(rsvp.getByRole('status')).toContainText('Alex Guest');
+  expect(submittedPayload).toEqual({ name: 'Alex Guest', attendance: 'no', gift: '', dietary: '', message: '' });
+});
+
+test('homepage and Guide fit intermediate responsive widths without horizontal overflow', async ({ page }) => {
+  for (const width of [320, 430, 768, 1024, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    await expect(page.locator('#wedding-title')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `homepage overflow at ${width}px`).toBe(true);
+
+    await page.goto('/guide');
+    await expect(page.locator('#guide-heading')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `Guide overflow at ${width}px`).toBe(true);
+  }
 });
 
 for (const width of [390, 1440]) {
