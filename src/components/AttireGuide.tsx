@@ -76,9 +76,7 @@ export function AttireGuide() {
           <p className="mx-auto mt-8 max-w-lg font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
             Bridesmaids, Groomsmen, and the Best Man should follow fitting instructions from Jadore Bridal.
           </p>
-          <p className="mx-auto mt-4 max-w-lg font-sans text-sm leading-relaxed text-deep-olive sm:mx-0">
-            <span className="font-semibold">Maid of Honor:</span> Please provide your own attire; no Jadore Bridal fitting is needed.
-          </p>
+
         </div>
       </section>
 
