@@ -32,21 +32,23 @@ export const entourage: EntourageData = {
   ],
 
   principalSponsors: [
+    { name: "Chris Cepeda", role: "Principal Sponsor" },
+    { name: "Melody Cepeda", role: "Principal Sponsor" },
     { name: "Harvey Tee", role: "Principal Sponsor" },
     { name: "Mechiel Tee", role: "Principal Sponsor" },
-    { name: "Faith Victory Villaruz", role: "Principal Sponsor" },
     { name: "Carl Emmanuel Villaruz", role: "Principal Sponsor" },
+    { name: "Faith Victory Villaruz", role: "Principal Sponsor" },
   ],
 
   secondarySponsors: {
     veil: [
-      { name: "Danimae Alcala", role: "Veil Sponsor" },
       { name: "Anthony Alcala", role: "Veil Sponsor" },
+      { name: "Danimae Alcala", role: "Veil Sponsor" },
     ],
 
     cord: [
-      { name: "Neri Nelle Garidan", role: "Cord Sponsor" },
       { name: "Romarco Garidan", role: "Cord Sponsor" },
+      { name: "Neri Nelle Garidan", role: "Cord Sponsor" },
     ],
 
   },
