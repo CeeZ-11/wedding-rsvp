@@ -22,9 +22,15 @@ export function WelcomeMoment() {
           Our story
         </h2>
         <BotanicalMark className="mx-auto my-5 h-7 w-12 text-olive-secondary md:mx-0" />
-        {/* Replace this placeholder with the couple's own welcome copy when provided. */}
         <p className="mx-auto max-w-xl font-serif text-xl leading-relaxed text-olive-secondary sm:text-2xl md:mx-0">
-          Personal welcome copy to be added.
+          We believe our story is a reminder of God's grace and faithfulness. Through every season, He has guided our steps and brought us to this beautiful moment.
+        </p>
+        <p className="mx-auto mt-4 max-w-xl font-serif text-xl leading-relaxed text-olive-secondary sm:text-2xl md:mx-0">
+          As we prepare to become husband and wife, we're thankful for His plans and for the family and friends who have supported us along the way. We look forward to celebrating God's goodness and the beginning of our life together with you.
+        </p>
+        <p className="mx-auto mt-5 max-w-xl font-serif text-lg leading-relaxed text-deep-olive sm:text-xl md:mx-0">
+          <span className="block italic">With grateful hearts,</span>
+          <span className="mt-1 block">Seamor &amp; Steph</span>
         </p>
       </div>
 

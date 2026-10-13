@@ -165,7 +165,10 @@ for (const { width, height } of auditViewports) {
     await page.screenshot({ path: `${screenshotDir}/home-${width}.png` });
     const story = page.locator('#our-story');
     await expect(story.getByRole('heading', { name: 'Our story' })).toBeVisible();
-    await expect(story.getByText('Personal welcome copy to be added.')).toBeVisible();
+    await expect(story.getByText("We believe our story is a reminder of God's grace and faithfulness. Through every season, He has guided our steps and brought us to this beautiful moment.")).toBeVisible();
+    await expect(story.getByText("As we prepare to become husband and wife, we're thankful for His plans and for the family and friends who have supported us along the way. We look forward to celebrating God's goodness and the beginning of our life together with you.")).toBeVisible();
+    await expect(story.getByText('With grateful hearts,')).toBeVisible();
+    await expect(story.getByText('Seamor & Steph')).toBeVisible();
     const storyImages = story.locator('img');
     await expect(storyImages).toHaveCount(2);
     for (const storyImage of await storyImages.all()) {
