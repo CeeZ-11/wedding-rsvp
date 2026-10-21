@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "npx vite",
+    "test": "npm run test:e2e",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "build": "npx vite build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "preview": "npx vite preview"

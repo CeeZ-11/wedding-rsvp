@@ -10,8 +10,15 @@ import { Schedule } from "../components/Schedule";
 import { Seating } from "../components/Seating";
 import { Explore } from "../components/Explore";
 import { Footer } from "../components/Footer";
-import { prenupPhotos } from "../data/prenupPhotos";
 import { BotanicalMark } from "../components/BotanicalMark";
+
+const guidePhoto = {
+  src: "/images/prenup/prenup-0241.jpg",
+  alt: "Seamor and Lady Stephanie sharing a moment in a sunlit garden",
+  width: 1365,
+  height: 2048,
+  caption: "A moment in the garden",
+};
 
 const navItems = [
   { id: "schedule", label: "Schedule" },
@@ -162,8 +169,8 @@ export function GuidePage() {
           </nav>
           </div>
           <figure className="order-1 sm:order-2">
-            <img src={prenupPhotos[1].src} alt={prenupPhotos[1].alt} width={prenupPhotos[1].width} height={prenupPhotos[1].height} className="aspect-[1.45] w-full object-cover sm:aspect-[0.92]" />
-            <figcaption className="mt-2 text-center font-sans text-xs tracking-wide text-olive-secondary sm:text-left">{prenupPhotos[1].caption}</figcaption>
+            <img src={guidePhoto.src} alt={guidePhoto.alt} width={guidePhoto.width} height={guidePhoto.height} className="aspect-[1.45] w-full object-cover sm:aspect-[0.92]" />
+            <figcaption className="mt-2 text-center font-sans text-xs tracking-wide text-olive-secondary sm:text-left">{guidePhoto.caption}</figcaption>
           </figure>
         </motion.section>
 

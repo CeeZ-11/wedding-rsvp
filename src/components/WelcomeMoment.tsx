@@ -1,8 +1,20 @@
-import { prenupPhotos } from '../data/prenupPhotos';
+import type { PrenupPhoto } from '../data/prenupPhotos';
 import { BotanicalMark } from './BotanicalMark';
 
-const welcomePhoto = prenupPhotos[0];
-const detailPhoto = prenupPhotos[1];
+const welcomePhoto: PrenupPhoto = {
+  src: '/images/prenup/prenup-0237.jpg',
+  alt: 'Seamor and Lady Stephanie smiling at one another beneath the trees',
+  width: 2048,
+  height: 1365,
+  caption: 'A quiet moment together',
+};
+const detailPhoto: PrenupPhoto = {
+  src: '/images/prenup/prenup-0402.jpg',
+  alt: 'Seamor and Lady Stephanie holding each other close in the garden',
+  width: 2048,
+  height: 1365,
+  caption: 'In each other’s company',
+};
 
 export function WelcomeMoment() {
   return (
@@ -42,7 +54,7 @@ export function WelcomeMoment() {
           height={welcomePhoto.height}
           loading="lazy"
           decoding="async"
-          className="ml-auto aspect-[4/5] w-[80%] object-cover sm:w-[72%]"
+          className="ml-auto aspect-[4/5] w-[80%] object-cover object-[37.4%_center] sm:w-[72%]"
         />
         <img
           src={detailPhoto.src}

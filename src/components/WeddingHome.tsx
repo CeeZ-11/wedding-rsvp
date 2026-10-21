@@ -21,34 +21,34 @@ export function WeddingHome() {
     <main id="main">
       <section
         aria-labelledby="wedding-title"
-        className="relative isolate flex min-h-[88svh] items-center justify-center overflow-hidden lg:min-h-[100svh]"
+        className="relative isolate flex min-h-[72svh] items-center justify-center overflow-hidden lg:min-h-[100svh]"
       >
         <img
-          src="/images/prenup/placeholder-03.jpg"
-          alt="A couple walking hand in hand through a mountain landscape"
-          width={1400}
-          height={933}
+          src="/images/prenup/prenup-0323.jpg"
+          alt="Seamor and Lady Stephanie holding hands beneath the open sky"
+          width={2048}
+          height={1365}
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full -translate-x-14 scale-[1.08] object-cover object-[58%_center] md:object-[58%_top]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-b from-[#FBFBF9]/15 via-transparent to-[#263128]/30"
+          className="absolute inset-0 bg-gradient-to-b from-[#FBFBF9]/20 via-[#FBFBF9]/5 to-[#263128]/20"
         />
 
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 mx-auto flex w-full max-w-4xl -translate-y-16 flex-col items-center px-5 pb-16 pt-32 text-center sm:-translate-y-20 sm:pb-20 sm:pt-36 [@media(min-width:1024px)_and_(max-height:800px)]:pb-12 [@media(min-width:1024px)_and_(max-height:800px)]:pt-24"
+          className="relative z-10 mx-auto flex w-full max-w-4xl -translate-y-14 flex-col items-center px-5 pb-8 pt-24 text-center sm:-translate-y-28 sm:pb-20 sm:pt-36 md:-translate-y-24 [@media(min-width:1024px)_and_(max-height:800px)]:-translate-y-12 [@media(min-width:1024px)_and_(max-height:800px)]:pb-12 [@media(min-width:1024px)_and_(max-height:800px)]:pt-24"
         >
-          <p className="mb-5 font-sans text-xs font-medium uppercase tracking-[0.24em] text-deep-olive sm:text-sm sm:tracking-[0.3em]">
+          <p className="mb-5 font-sans text-xs font-medium uppercase tracking-[0.24em] text-deep-olive drop-shadow-[0_1px_5px_rgba(251,251,249,0.95)] sm:text-sm sm:tracking-[0.3em]">
             Together with their families
           </p>
 
           <h1
             id="wedding-title"
-            className="flex flex-col items-center font-serif leading-[0.88] tracking-[-0.035em] text-deep-olive"
+            className="flex flex-col items-center font-serif leading-[0.88] tracking-[-0.035em] text-deep-olive drop-shadow-[0_2px_6px_rgba(251,251,249,0.95)]"
           >
             <span className="whitespace-nowrap text-[clamp(2.5rem,12.5vw,3.25rem)] font-light sm:text-8xl md:text-9xl">Seamor</span>
             <span aria-hidden="true" className="my-2 font-light italic text-5xl text-warm-beige-strong sm:text-6xl">
@@ -57,7 +57,7 @@ export function WeddingHome() {
             <span className="whitespace-nowrap text-[clamp(2.5rem,12.5vw,3.25rem)] font-light sm:text-8xl md:text-9xl">Lady Stephanie</span>
           </h1>
 
-          <p className="mt-7 font-serif text-xl font-medium text-deep-olive sm:text-2xl">
+          <p className="mt-7 font-serif text-xl font-medium text-deep-olive drop-shadow-[0_1px_5px_rgba(251,251,249,0.95)] sm:text-2xl">
             We&apos;re getting married
           </p>
           <a
@@ -67,14 +67,14 @@ export function WeddingHome() {
             RSVP
           </a>
           <div className="mt-5 space-y-1 font-serif text-base sm:text-lg">
-            <p className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">December 27, 2026</p>
-            <p className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">2:00 PM – 10:00 PM · Balai Ramirez DSB</p>
+            <p className="text-deep-olive drop-shadow-[0_1px_5px_rgba(251,251,249,0.95)]">December 27, 2026</p>
+            <p className="text-deep-olive drop-shadow-[0_1px_5px_rgba(251,251,249,0.95)]">2:00 PM – 10:00 PM · Balai Ramirez DSB</p>
           </div>
         </motion.div>
 
         <span
           aria-hidden="true"
-          className="absolute bottom-0 left-1/2 h-12 w-px -translate-x-1/2 bg-deep-olive/45"
+          className="absolute bottom-0 left-1/2 h-12 w-px -translate-x-1/2 bg-[#FBFBF9]/65"
         />
       </section>
 

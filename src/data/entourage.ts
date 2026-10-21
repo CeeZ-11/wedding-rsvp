@@ -65,6 +65,7 @@ export const entourage: EntourageData = {
       { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Ariel Bargat", role: "Groomsman", relation: "Friend of the Bride" },
       { name: "Harold Caceres", role: "Groomsman", relation: "Friend of the Bride" },
+      { name: "Mikhael Gerard Lacson Marañon", role: "Groomsman", relation: "Friend of the Groom" },
     ],
   },
 
@@ -80,6 +81,7 @@ export const entourage: EntourageData = {
       { name: "Ivy Grace Karaan", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Leizyl Resabal", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
+      { name: "Angeli Vistal", role: "Bridesmaid", relation: "Friend of the Bride" },
     ],
   },
 

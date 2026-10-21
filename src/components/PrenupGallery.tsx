@@ -112,7 +112,7 @@ export function PrenupGallery() {
         delay: reduceMotion ? 0 : (index % 3) * 0.07,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`break-inside-avoid ${className}`}
+      className={`mb-4 break-inside-avoid sm:mb-6 lg:mb-8 ${className}`}
     >
       <button
         ref={(element) => {
@@ -126,15 +126,7 @@ export function PrenupGallery() {
           setActiveIndex(index);
         }}
         aria-label={`View photo ${index + 1}: ${photo.alt}`}
-        className={`group relative block w-full overflow-hidden bg-light-sage/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-4 ${
-          photo.feature
-            ? ''
-            : photo.galleryShape === 'portrait'
-            ? 'aspect-[4/5]'
-            : photo.galleryShape === 'square'
-            ? 'aspect-square'
-            : 'aspect-[4/3]'
-        }`}
+        className="group relative block h-auto w-full overflow-hidden bg-light-sage/20 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-4"
       >
         <img
           src={photo.src}
@@ -144,18 +136,13 @@ export function PrenupGallery() {
           loading="lazy"
           decoding="async"
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 42vw"
-          className={`block w-full transition-transform duration-700 ease-out group-hover:scale-[1.025] group-focus-visible:scale-[1.025] ${
-            photo.feature ? 'h-auto' : 'h-full object-cover'
-          }`}
+          className="block h-auto w-full"
         />
         <span className="absolute inset-0 bg-deep-olive/0 transition-colors duration-300 group-hover:bg-deep-olive/10 group-focus-visible:bg-deep-olive/10" />
         <span className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center border border-white/70 bg-deep-olive/50 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
           <Expand aria-hidden="true" size={16} strokeWidth={1.5} />
         </span>
       </button>
-      <figcaption className={`pt-2 text-center font-serif text-sm text-olive-secondary md:text-left ${photo.feature ? 'sm:text-base' : ''}`}>
-        {photo.caption}
-      </figcaption>
     </motion.figure>
   );
 
@@ -204,18 +191,12 @@ export function PrenupGallery() {
           </div>
         )}
 
-        <div className="mt-10 grid grid-cols-2 items-start gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 lg:grid-cols-3 lg:gap-x-8">
-          {remainingPhotos.slice(1).map(({ photo, index }, itemIndex) =>
+        <div className="mt-8 columns-1 sm:mt-12 sm:columns-2 sm:gap-6 lg:mt-16 lg:columns-3 lg:gap-8">
+          {remainingPhotos.slice(1).map(({ photo, index }) =>
             renderPhoto(
               photo,
               index,
-              itemIndex === 2
-                ? 'col-span-2 lg:col-span-1'
-                : itemIndex === 3
-                  ? 'lg:mt-16'
-                  : itemIndex === 4
-                    ? 'lg:mt-8'
-                    : '',
+              '',
             ),
           )}
         </div>
@@ -287,9 +268,6 @@ export function PrenupGallery() {
                   className="max-h-[70vh] w-auto max-w-full select-none object-contain sm:max-h-[76vh]"
                 />
               </AnimatePresence>
-              <p className="mt-4 text-center font-serif text-base text-white/85 sm:text-lg">
-                {activePhoto.caption}
-              </p>
             </div>
 
             <button
