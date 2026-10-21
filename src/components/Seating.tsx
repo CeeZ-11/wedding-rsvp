@@ -16,28 +16,28 @@ export function Seating() {
       </div>
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-12">
-        <article className="py-4 text-center sm:pr-10 sm:text-left">
-          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:justify-start">
+        <article className="py-4 text-center">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             <Church aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             Ceremony
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Ceremony Seating
           </h3>
-          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
             Seating will be arranged for our ceremony.
           </p>
         </article>
 
-        <article className="py-4 text-center sm:border-l sm:border-readable-border sm:pl-10 sm:text-left">
-          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary sm:justify-start">
+        <article className="py-4 text-center sm:border-l sm:border-readable-border">
+          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
             <Utensils aria-hidden="true" className="h-4 w-4 stroke-[1.5]" />
             Reception
           </p>
           <h3 className="mt-2 font-serif text-2xl font-medium text-deep-olive sm:text-3xl">
             Reception Seating
           </h3>
-          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0 sm:text-base">
+          <p className="mx-auto mt-2 max-w-xs font-sans text-sm leading-relaxed text-olive-secondary sm:text-base">
             A separate seating arrangement will be prepared for the reception.
           </p>
         </article>

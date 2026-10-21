@@ -46,7 +46,7 @@ export function WelcomeMoment() {
         </p>
       </div>
 
-      <figure className="relative mx-auto w-full max-w-xl pb-9 md:justify-self-end">
+      <figure className="relative mx-auto w-full max-w-xl md:pb-9 md:justify-self-end">
         <img
           src={welcomePhoto.src}
           alt={welcomePhoto.alt}
@@ -56,6 +56,9 @@ export function WelcomeMoment() {
           decoding="async"
           className="ml-auto aspect-[4/5] w-[80%] object-cover object-[37.4%_center] sm:w-[72%]"
         />
+        <figcaption className="mt-3 text-center font-serif text-sm italic text-olive-secondary sm:text-center md:text-left">
+          {welcomePhoto.caption}
+        </figcaption>
         <img
           src={detailPhoto.src}
           alt={detailPhoto.alt}
@@ -63,11 +66,8 @@ export function WelcomeMoment() {
           height={detailPhoto.height}
           loading="lazy"
           decoding="async"
-          className="absolute bottom-8 left-0 aspect-[4/3] w-[44%] border-[6px] border-[#FBFBF9] object-cover sm:border-[10px]"
+          className="relative mt-5 mr-auto block aspect-[4/3] w-[68%] border-[6px] border-[#FBFBF9] object-cover sm:border-[10px] md:absolute md:bottom-8 md:left-0 md:mr-0 md:mt-0 md:w-[44%]"
         />
-        <figcaption className="mt-3 text-center font-serif text-sm italic text-olive-secondary sm:text-center md:text-left">
-          {welcomePhoto.caption}
-        </figcaption>
       </figure>
     </section>
   );

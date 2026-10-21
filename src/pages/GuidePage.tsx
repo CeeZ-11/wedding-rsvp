@@ -181,9 +181,9 @@ export function GuidePage() {
             ['Venue', 'Balai Ramirez DSB'],
             ['Dress code', 'Semi-formal · garden tones'],
           ].map(([label, value], index) => (
-            <dl key={label} className={`flex items-baseline justify-between gap-4 border-b border-readable-border py-4 last:border-0 sm:block sm:py-6 lg:border-b-0 ${index > 0 ? 'lg:border-l lg:pl-6' : ''}`}>
+            <dl key={label} className={`flex items-baseline justify-between gap-4 border-b border-readable-border py-4 last:border-0 sm:block sm:py-6 lg:border-b-0 lg:text-center ${index > 0 ? 'lg:border-l lg:pl-6' : ''}`}>
               <dt className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-olive-secondary">{label}</dt>
-              <dd className="text-right font-serif text-lg leading-tight text-deep-olive sm:mt-3 sm:text-left sm:text-xl">{value}</dd>
+              <dd className="text-right font-serif text-lg leading-tight text-deep-olive sm:mt-3 sm:text-left sm:text-xl lg:text-center">{value}</dd>
             </dl>
           ))}
         </div>

@@ -36,7 +36,7 @@ export function Explore() {
 
   return (
     <section className="mx-auto max-w-5xl">
-      <header className="mb-8 border-b border-readable-border pb-5 text-center sm:mb-10 sm:pb-7 sm:text-left">
+      <header className="mb-8 border-b border-readable-border pb-5 text-center sm:mb-10 sm:pb-7">
         <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-secondary">
           Nearby places
         </p>

@@ -5,11 +5,11 @@ const mapLink = "https://maps.app.goo.gl/ZXqCjSzFiSum3R749";
 export function EventLocation() {
   return (
     <div className="mx-auto max-w-6xl space-y-10 sm:space-y-14">
-      <header className="mx-auto max-w-2xl text-center sm:mx-0 sm:text-left">
+      <header className="mx-auto max-w-2xl text-center">
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           The setting
         </p>
-        <h2 className="flex items-center justify-center gap-3 font-serif text-4xl font-medium text-deep-olive sm:justify-start sm:text-6xl">
+        <h2 className="flex items-center justify-center gap-3 font-serif text-4xl font-medium text-deep-olive sm:text-6xl">
           <MapPinned aria-hidden="true" className="h-6 w-6 shrink-0 stroke-[1.5] sm:h-8 sm:w-8" /> Balai Ramirez DSB
         </h2>
       </header>

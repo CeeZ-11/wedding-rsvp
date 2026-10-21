@@ -10,7 +10,7 @@ const guestPalette = [
 export function AttireGuide() {
   return (
     <div className="mx-auto max-w-6xl space-y-14 sm:space-y-20">
-      <header className="mx-auto max-w-2xl text-center sm:mx-0 sm:text-left">
+      <header className="mx-auto max-w-2xl text-center">
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           Garden wedding
         </p>

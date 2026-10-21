@@ -29,7 +29,7 @@ export function WeddingHome() {
           width={2048}
           height={1365}
           decoding="async"
-          className="absolute inset-0 h-full w-full -translate-x-14 scale-[1.08] object-cover object-[58%_center] md:object-[58%_top]"
+          className="absolute inset-0 h-full w-full translate-x-0 scale-[1.08] object-cover object-[58%_center] sm:-translate-x-14 md:object-[58%_top]"
         />
         <div
           aria-hidden="true"
