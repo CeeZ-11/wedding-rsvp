@@ -109,11 +109,25 @@ export const prenupPhotos: PrenupPhoto[] = [
     galleryShape: 'landscape',
   },
   {
-    src: '/images/prenup/prenup-0701.jpg',
+    src: '/images/prenup/prenup-1112.jpg',
+    alt: 'Seamor and Lady Stephanie embracing beside a roadside sign',
+    width: 1365,
+    height: 2048,
+    galleryShape: 'portrait',
+  },
+  {
+    src: '/images/prenup/prenup-1113.jpg',
     alt: 'Seamor and Lady Stephanie running together along the roadside',
     width: 2048,
     height: 1365,
     galleryShape: 'landscape',
+  },
+  {
+    src: '/images/prenup/prenup-1115.jpg',
+    alt: 'Seamor and Lady Stephanie running together through a garden',
+    width: 1365,
+    height: 2048,
+    galleryShape: 'portrait',
   },
   {
     src: '/images/prenup/prenup-0221.jpg',
