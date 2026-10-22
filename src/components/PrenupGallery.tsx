@@ -172,7 +172,7 @@ export function PrenupGallery() {
           </h2>
           <BotanicalMark className="mx-auto mt-3 h-7 w-12 text-olive-secondary" />
           <p className="mx-auto mt-3 max-w-md font-serif text-base text-olive-secondary sm:text-lg">
-            A little glimpse of our story before the big day.
+            Moments from our prenup photoshoot.
           </p>
         </motion.header>
 
