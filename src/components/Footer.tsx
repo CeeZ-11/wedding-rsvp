@@ -15,7 +15,7 @@ export function Footer() {
         <Link className="hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive" to="/guide">
           Guide
         </Link>
-        <a className="hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive" href="https://wed-snap-nine.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <a className="hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive" href="https://wedding-rsvp-bay-iota.vercel.app/" target="_blank" rel="noopener noreferrer">
           Gallery
         </a>
         <Link className="hover:text-deep-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive" to="/#rsvp">

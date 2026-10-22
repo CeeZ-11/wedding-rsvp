@@ -23,10 +23,10 @@ test('homepage metadata and favicon assets are configured', async ({ page }) => 
 
   await expect(page).toHaveTitle('Seamor & Lady Stephanie — December 27, 2026');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', 'Join Seamor & Lady Stephanie at Balai Ramirez DSB on December 27, 2026.');
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://wed-snap-nine.vercel.app/');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://wedding-rsvp-bay-iota.vercel.app/');
   await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
-  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://wed-snap-nine.vercel.app/');
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://wed-snap-nine.vercel.app/og-wedding.jpg');
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://wedding-rsvp-bay-iota.vercel.app/');
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://wedding-rsvp-bay-iota.vercel.app/og-wedding.jpg');
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#FBFBF9');
 
