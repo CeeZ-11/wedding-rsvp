@@ -7,39 +7,63 @@ interface MusicPlayerProps {
 
 let sharedAudio: HTMLAudioElement | null = null;
 
+function getSharedAudio() {
+  if (!sharedAudio) {
+    sharedAudio = new Audio('/music/wedding.mp3');
+    sharedAudio.preload = 'none';
+    sharedAudio.loop = true;
+    sharedAudio.volume = 0.3;
+  }
+
+  return sharedAudio;
+}
+
 export function MusicPlayer({ inline = false }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(() => Boolean(sharedAudio && !sharedAudio.paused));
 
   useEffect(() => {
-    if (!sharedAudio) return;
-    const sync = () => setIsPlaying(Boolean(sharedAudio && !sharedAudio.paused));
-    sharedAudio.addEventListener('play', sync);
-    sharedAudio.addEventListener('pause', sync);
-    sharedAudio.addEventListener('ended', sync);
+    const audio = getSharedAudio();
+    const sync = () => setIsPlaying(!audio.paused);
+    const removeUnlockListeners = () => {
+      document.removeEventListener('pointerdown', unlockPlayback);
+      document.removeEventListener('keydown', unlockPlayback);
+      document.removeEventListener('touchstart', unlockPlayback);
+    };
+    const unlockPlayback = () => {
+      void audio.play().then(removeUnlockListeners).catch(() => undefined);
+    };
+
+    audio.addEventListener('play', sync);
+    audio.addEventListener('pause', sync);
+    audio.addEventListener('ended', sync);
     sync();
+
+    // Browsers may block audible autoplay until the visitor interacts with the page.
+    void audio.play().catch(() => {
+      document.addEventListener('pointerdown', unlockPlayback, { once: true });
+      document.addEventListener('keydown', unlockPlayback, { once: true });
+      document.addEventListener('touchstart', unlockPlayback, { once: true });
+    });
+
     return () => {
-      sharedAudio?.removeEventListener('play', sync);
-      sharedAudio?.removeEventListener('pause', sync);
-      sharedAudio?.removeEventListener('ended', sync);
+      removeUnlockListeners();
+      audio.removeEventListener('play', sync);
+      audio.removeEventListener('pause', sync);
+      audio.removeEventListener('ended', sync);
     };
   }, []);
 
   const togglePlay = async () => {
-    if (!sharedAudio) {
-      sharedAudio = new Audio('/music/wedding.mp3');
-      sharedAudio.preload = 'none';
-      sharedAudio.loop = true;
-      sharedAudio.volume = 0.3;
-    }
+    const audio = getSharedAudio();
 
-    if (!sharedAudio.paused) {
-      sharedAudio.pause();
+    if (!audio.paused) {
+      audio.pause();
       setIsPlaying(false);
       return;
     }
 
     try {
-      await sharedAudio.play();
+      await audio.play();
       setIsPlaying(true);
     } catch {
       setIsPlaying(false);
