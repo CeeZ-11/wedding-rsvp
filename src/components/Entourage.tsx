@@ -145,6 +145,14 @@ export function Entourage() {
               Ceremony Roles
             </h3>
           </div>
+          <div className="mx-auto mt-6 max-w-4xl border-b border-readable-border pb-6">
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
+              Officiating Pastor
+            </p>
+            <p className="mt-2 font-serif text-xl text-deep-olive sm:text-2xl">
+              {entourage.officiatingPastor.name}
+            </p>
+          </div>
           <ul className="mx-auto mt-5 grid max-w-4xl grid-cols-1 gap-x-10 sm:grid-cols-2 sm:[&>li:nth-child(even)]:border-l sm:[&>li:nth-child(even)]:border-readable-border sm:[&>li:nth-child(even)]:pl-6">
             {entourage.ceremonyRoles.map((person) => (
               <PersonRow key={person.name} person={person} />

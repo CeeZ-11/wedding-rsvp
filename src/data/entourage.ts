@@ -20,6 +20,7 @@ export interface EntourageData {
     maidOfHonor: Person;
     bridesmaids: Person[];
   };
+  officiatingPastor: Person;
   ceremonyRoles: Person[];
 }
 
@@ -83,6 +84,11 @@ export const entourage: EntourageData = {
       { name: "Nerilynne Briones", role: "Bridesmaid", relation: "Friend of the Bride" },
       { name: "Angeli Vistal", role: "Bridesmaid", relation: "Friend of the Bride" },
     ],
+  },
+
+  officiatingPastor: {
+    name: "Roland Tejada",
+    role: "Officiating Pastor",
   },
 
   ceremonyRoles: [
