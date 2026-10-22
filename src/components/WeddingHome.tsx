@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Countdown } from './Countdown';
 import { Footer } from './Footer';
@@ -5,10 +6,22 @@ import { PrenupGallery } from './PrenupGallery';
 import { RSVPForm } from './RSVPForm';
 import { WelcomeMoment } from './WelcomeMoment';
 import { BotanicalMark } from './BotanicalMark';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export function WeddingHome() {
   const reduceMotion = useReducedMotion();
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (pathname !== '/' || hash !== '#rsvp') return;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
+
   const keyEvents = [
     { time: '2:00', title: 'Guest arrival' },
     { time: '2:30', title: 'Ceremony' },
@@ -194,7 +207,7 @@ export function WeddingHome() {
             <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-[#C6CEBC]">Kindly respond</p>
             <h2 id="rsvp-heading" className="font-serif text-4xl font-light leading-tight text-[#F7F4EE] sm:text-5xl">We&apos;d love to celebrate with you.</h2>
             <div aria-hidden="true" className="mx-auto my-5 h-px w-12 bg-[#858B75] lg:mx-0" />
-            <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-[#D0D4C8] sm:text-sm">Please reply by November 1st, 2026</p>
+            <p className="font-sans text-xs font-medium uppercase tracking-[0.14em] text-[#D0D4C8] sm:text-sm">Please reply on or before December 1, 2026</p>
           </div>
           <div className="border border-[#858B75] bg-[#F7F4EE] px-4 py-8 sm:px-8 sm:py-10 lg:col-span-7 lg:col-start-6 lg:px-10">
             <RSVPForm />
