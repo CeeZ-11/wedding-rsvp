@@ -95,7 +95,7 @@ export const prenupPhotos: PrenupPhoto[] = [
     galleryShape: 'landscape',
   },
   {
-    src: '/images/prenup/prenup-0597.jpg',
+    src: '/images/prenup/prenup-1111.jpg',
     alt: 'Seamor and Lady Stephanie sharing a playful stretching moment on the road',
     width: 2048,
     height: 1365,

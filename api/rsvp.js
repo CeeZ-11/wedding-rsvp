@@ -1,6 +1,5 @@
 /* eslint-env node */
 const guestNames = require('../src/data/guestNames.json');
-const approvedNames = new Map(guestNames.map((name) => [name.toLocaleLowerCase(), name]));
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,8 +16,9 @@ module.exports = async function handler(req, res) {
     const body =
       typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
-    const submittedName = typeof body?.name === 'string' ? body.name.trim() : '';
-    const name = approvedNames.get(submittedName.toLocaleLowerCase());
+    const name = typeof body?.name === 'string' && guestNames.includes(body.name)
+      ? body.name
+      : '';
 
     if (!name) {
       return res.status(400).json({ error: 'Please select a name from the guest list.' });

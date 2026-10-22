@@ -79,10 +79,9 @@ function jsonResponse(value) {
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    const submittedName = typeof data.name === 'string' ? data.name.trim() : '';
-    const approvedName = APPROVED_GUESTS.find(
-      (name) => name.toLocaleLowerCase() === submittedName.toLocaleLowerCase(),
-    );
+    const approvedName = typeof data.name === 'string' && APPROVED_GUESTS.includes(data.name)
+      ? data.name
+      : '';
 
     if (!approvedName) {
       return jsonResponse({ error: 'Name is not on the approved guest list.' });
@@ -100,7 +99,7 @@ function doPost(e) {
         ? sheet.getRange(2, 1, lastRow - 1, 7).getValues()
         : [];
       const matchingIndexes = existingRows.reduce((indexes, row, index) => {
-        if (String(row[0]).trim().toLocaleLowerCase() === approvedName.toLocaleLowerCase()) {
+        if (String(row[0]) === approvedName) {
           indexes.push(index);
         }
         return indexes;

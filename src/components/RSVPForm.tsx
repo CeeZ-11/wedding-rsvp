@@ -4,10 +4,14 @@ import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
 import guestNames from '../data/guestNames.json';
 
+const sortedGuestNames = [...guestNames].sort((a, b) => a.localeCompare(b));
+
 export function RSVPForm() {
   const acceptRef = useRef<HTMLButtonElement>(null);
   const declineRef = useRef<HTMLButtonElement>(null);
   const [fullName, setFullName] = useState('');
+  const [nameSuggestionsOpen, setNameSuggestionsOpen] = useState(false);
+  const [activeNameSuggestion, setActiveNameSuggestion] = useState(-1);
   const [attendance, setAttendance] = useState<'yes' | 'no' | null>(null);
   const [dietary, setDietary] = useState('');
   const [message, setMessage] = useState('');
@@ -22,6 +26,20 @@ export function RSVPForm() {
     name?: string;
     attendance?: string;
   }>({});
+
+  const nameQuery = fullName.trim().toLocaleLowerCase();
+  const nameSuggestions = nameQuery.length >= 2
+    ? sortedGuestNames
+      .filter((name) => name.toLocaleLowerCase().includes(nameQuery))
+      .slice(0, 8)
+    : [];
+
+  const selectGuestName = (name: string) => {
+    setFullName(name);
+    setNameSuggestionsOpen(false);
+    setActiveNameSuggestion(-1);
+    setErrors((previous) => ({ ...previous, name: undefined }));
+  };
 
   // FETCH TAKEN GIFTS
   useEffect(() => {
@@ -43,7 +61,7 @@ export function RSVPForm() {
     const newErrors: typeof errors = {};
 
     if (!guestNames.includes(fullName)) {
-      newErrors.name = 'Please select your name from the guest list';
+      newErrors.name = 'This name is not on the guest list. Please choose your exact name from the suggestions.';
     }
 
     if (!attendance) {
@@ -141,6 +159,8 @@ export function RSVPForm() {
         onReset={() => {
           setSubmitted(false);
           setFullName('');
+          setNameSuggestionsOpen(false);
+          setActiveNameSuggestion(-1);
           setAttendance(null);
           setSelectedGiftId(null);
           setDietary('');
@@ -170,26 +190,81 @@ export function RSVPForm() {
             Full Name
           </label>
           <p className="font-sans text-sm italic text-olive-secondary">
-            Select your name from the guest list (RSVP is for one person)
+            Type your name and select it from the suggestions (RSVP is for one person)
           </p>
 
-          <select
+          <div className="relative">
+            <input
             id="fullName"
+            type="text"
             required
+            autoComplete="off"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={nameSuggestionsOpen && nameQuery.length >= 2}
+            aria-controls={nameSuggestionsOpen && nameQuery.length >= 2 ? 'guest-name-suggestions' : undefined}
+            aria-activedescendant={activeNameSuggestion >= 0 ? `guest-name-option-${activeNameSuggestion}` : undefined}
             value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
+              setNameSuggestionsOpen(true);
+              setActiveNameSuggestion(-1);
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
+            onFocus={() => setNameSuggestionsOpen(true)}
+            onBlur={() => setNameSuggestionsOpen(false)}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowDown' && nameSuggestions.length > 0) {
+                event.preventDefault();
+                setNameSuggestionsOpen(true);
+                setActiveNameSuggestion((active) => Math.min(active + 1, nameSuggestions.length - 1));
+              } else if (event.key === 'ArrowUp' && nameSuggestions.length > 0) {
+                event.preventDefault();
+                setActiveNameSuggestion((active) => Math.max(active <= 0 ? 0 : active - 1, 0));
+              } else if (event.key === 'Enter' && nameSuggestionsOpen && nameSuggestions.length > 0) {
+                event.preventDefault();
+                selectGuestName(nameSuggestions[Math.max(activeNameSuggestion, 0)]);
+              } else if (event.key === 'Escape') {
+                setNameSuggestionsOpen(false);
+              }
+            }}
+            placeholder="Start typing your name"
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'fullName-error' : undefined}
             className="w-full border-x-0 border-b border-t-0 border-readable-border bg-transparent px-0 py-3 text-left font-serif text-xl text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
-          >
-            <option value="" disabled>Select your name</option>
-            {[...guestNames].sort((a, b) => a.localeCompare(b)).map((name) => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
+            />
+
+            {nameSuggestionsOpen && nameQuery.length >= 2 && nameSuggestions.length > 0 && (
+              <ul
+                id="guest-name-suggestions"
+                role="listbox"
+                className="absolute z-20 mt-1 max-h-56 w-full overflow-y-auto border border-readable-border bg-cream-bg py-1 shadow-md"
+              >
+                {nameSuggestions.map((name, index) => (
+                  <li key={name} role="presentation">
+                    <button
+                      id={`guest-name-option-${index}`}
+                      type="button"
+                      role="option"
+                      aria-selected={activeNameSuggestion === index}
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => selectGuestName(name)}
+                      onMouseEnter={() => setActiveNameSuggestion(index)}
+                      className={`w-full px-3 py-2 text-left font-serif text-lg text-deep-olive hover:bg-light-sage/30 focus-visible:bg-light-sage/30 focus-visible:outline-none ${activeNameSuggestion === index ? 'bg-light-sage/30' : ''}`}
+                    >
+                      {name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {nameSuggestionsOpen && nameQuery.length >= 2 && nameSuggestions.length === 0 && (
+              <p id="guest-name-suggestions" className="absolute z-20 mt-1 w-full border border-readable-border bg-cream-bg px-3 py-3 font-sans text-sm text-olive-secondary shadow-md" role="status">
+                No matching name found. Please contact us if your name should be listed.
+              </p>
+            )}
+          </div>
 
           {errors.name && (
             <p id="fullName-error" role="alert" className="text-error-strong text-sm text-center mt-1 font-medium">
