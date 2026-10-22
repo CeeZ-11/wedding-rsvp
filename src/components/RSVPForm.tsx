@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { GiftRegistry } from './GiftRegistry';
 import { Confirmation } from './Confirmation';
 import { GIFTS } from '../data/gifts';
+import guestNames from '../data/guestNames.json';
 
 export function RSVPForm() {
   const acceptRef = useRef<HTMLButtonElement>(null);
@@ -41,8 +42,8 @@ export function RSVPForm() {
   const validate = () => {
     const newErrors: typeof errors = {};
 
-    if (!fullName.trim()) {
-      newErrors.name = 'Please enter your full name';
+    if (!guestNames.includes(fullName)) {
+      newErrors.name = 'Please select your name from the guest list';
     }
 
     if (!attendance) {
@@ -169,23 +170,26 @@ export function RSVPForm() {
             Full Name
           </label>
           <p className="font-sans text-sm italic text-olive-secondary">
-            Please enter your full name (RSVP is for one person)
+            Select your name from the guest list (RSVP is for one person)
           </p>
 
-          <input
-            type="text"
+          <select
             id="fullName"
-            autoComplete="name"
+            required
             value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
               setErrors((prev) => ({ ...prev, name: undefined }));
             }}
-            placeholder="Your full name"
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'fullName-error' : undefined}
             className="w-full border-x-0 border-b border-t-0 border-readable-border bg-transparent px-0 py-3 text-left font-serif text-xl text-deep-olive placeholder:text-olive-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-olive focus-visible:ring-offset-2 transition-colors"
-          />
+          >
+            <option value="" disabled>Select your name</option>
+            {[...guestNames].sort((a, b) => a.localeCompare(b)).map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
 
           {errors.name && (
             <p id="fullName-error" role="alert" className="text-error-strong text-sm text-center mt-1 font-medium">
