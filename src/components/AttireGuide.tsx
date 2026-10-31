@@ -1,15 +1,63 @@
-import { Shirt, UsersRound } from "lucide-react";
-
-const guestPalette = [
-  { color: "#C7A491", label: "Warm taupe" },
-  { color: "#EECFCA", label: "Dusty rose" },
-  { color: "#919682", label: "Sage" },
-  { color: "#EAE6DF", label: "Soft neutral" },
+const attireCards = [
+  {
+    number: '01',
+    title: 'Bridesmaids',
+    image: '/images/attire/01-bridesmaids-attire.jpg',
+    alt: 'Bridesmaids attire guide with elegant dresses in suggested pastel colors',
+    width: 1536,
+    height: 1024,
+    description: 'An elegant mix of pastel shades, including soft sage. Please follow fitting instructions from Jadore Bridal.',
+  },
+  {
+    number: '02',
+    title: "Groom’s Party",
+    image: '/images/attire/02-grooms-party-attire.jpg',
+    alt: 'Groom’s party attire guide showing black and white outfits for groomsmen, the groom, and the best man',
+    width: 1536,
+    height: 1024,
+    description: 'Classic black and white, with role-specific looks shown above. Please follow fitting instructions from Jadore Bridal.',
+  },
+  {
+    number: '03',
+    title: 'Parents',
+    image: '/images/attire/03-parents-attire.jpg',
+    alt: 'Parents attire guide showing a cream Barong Tagalog for fathers and muted gowns for mothers',
+    width: 1536,
+    height: 1024,
+    description: 'Fathers in cream or ivory Barong Tagalog; mothers in elegant gowns in soft, muted tones.',
+  },
+  {
+    number: '04',
+    title: 'Children',
+    image: '/images/attire/04-childrens-attire.jpg',
+    alt: 'Children’s attire guide for the flower girl, ring bearer, Bible bearer, and coin bearer',
+    width: 1536,
+    height: 1024,
+    description: 'The flower girl wears white or ivory with pastel accents. The boys wear white shirts, black trousers, suspenders, and bow ties.',
+  },
+  {
+    number: '05',
+    title: 'Wedding Sponsors',
+    image: '/images/attire/05-wedding-sponsors-attire.jpg',
+    alt: 'Wedding sponsors attire guide showing formal garden outfits for principal, candle, veil, and cord sponsors',
+    width: 1536,
+    height: 1024,
+    description: 'Ninongs wear a cream or ivory Barong Tagalog with dark trousers. Ninangs wear elegant floor-length or midi gowns in soft, muted tones.',
+  },
+  {
+    number: '06',
+    title: 'Guests',
+    image: '/images/attire/06-guests-attire.jpg',
+    alt: 'Guests attire guide for a garden semi-formal wedding, with outfit ideas for ladies and gentlemen',
+    width: 1536,
+    height: 1024,
+    description: 'Garden Semi-Formal. Choose soft, garden-inspired colors and light fabrics. Barong Tagalog is welcome; no fitting is needed.',
+  },
 ];
 
 export function AttireGuide() {
   return (
-    <div className="mx-auto max-w-6xl space-y-14 sm:space-y-20">
+    <div className="mx-auto max-w-7xl space-y-10 sm:space-y-14">
       <header className="mx-auto max-w-2xl text-center">
         <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
           Garden wedding
@@ -22,112 +70,32 @@ export function AttireGuide() {
         </p>
       </header>
 
-      <section className="grid grid-cols-1 gap-x-12 gap-y-10 py-4 sm:grid-cols-[0.7fr_1.3fr] sm:py-6">
-        <div className="text-center sm:text-left">
-          <p className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary sm:justify-start">
-            <UsersRound aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Wedding party
-          </p>
-          <h3 className="mt-2 font-serif text-3xl text-deep-olive sm:text-4xl">
-            Attendant attire
-          </h3>
-        </div>
-
-        <div className="text-center sm:text-left">
-          <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-            <div className="pb-7 sm:pb-0">
-              <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
-                Bridesmaids
-              </h4>
-              <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
-                Soft sage green or muted tones; elegant, flowy garden-style dresses.
-              </p>
-              <div className="mt-5 flex justify-center gap-2 sm:justify-start" aria-label="Suggested bridesmaid colors">
-                {["#919682", "#C7CDBF", "#A3B19B"].map((color) => (
-                  <span
-                    key={color}
-                    aria-hidden="true"
-                    className="h-7 w-7 rounded-full border border-black/10"
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-2 sm:border-l sm:border-readable-border sm:pl-10 sm:pt-0">
-              <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary">
-                Groomsmen &amp; Best Man
-              </h4>
-              <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
-                Neutral or beige suits, paired with white shirts and subtle green accents.
-              </p>
-              <div className="mt-5 flex justify-center gap-2 sm:justify-start" aria-label="Suggested suit colors">
-                {["#E8E1D9", "#D5C7B8", "#FFFFFF"].map((color) => (
-                  <span
-                    key={color}
-                    aria-hidden="true"
-                    className="h-7 w-7 rounded-full border border-readable-border"
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <p className="mx-auto mt-8 max-w-lg font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
-            Bridesmaids, Groomsmen, and the Best Man should follow fitting instructions from Jadore Bridal.
-          </p>
-
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-[0.7fr_1.3fr]">
-        <div className="text-center sm:text-left">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-olive-secondary">
-            For guests
-          </p>
-          <h3 className="mt-2 font-serif text-3xl text-deep-olive sm:text-4xl">
-            Garden formal
-          </h3>
-          <p className="mx-auto mt-3 max-w-sm font-sans text-sm leading-relaxed text-olive-secondary sm:mx-0">
-            Guest guidance only. Guests do not need to visit Jadore Bridal or attend a fitting.
-          </p>
-          <div className="mt-6 flex justify-center gap-3 sm:justify-start" aria-label="Suggested guest color palette">
-            {guestPalette.map(({ color, label }) => (
-              <span
-                key={label}
-                aria-label={label}
-                className="h-8 w-8 rounded-full border border-black/10 sm:h-9 sm:w-9"
-                style={{ backgroundColor: color }}
+      <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 md:gap-x-14 md:gap-y-16">
+        {attireCards.map((card) => (
+          <article key={card.title} className="min-w-0 text-left">
+            <div className="aspect-[3/2] bg-[#F7F4EE]">
+              <img
+                src={card.image}
+                alt={card.alt}
+                width={card.width}
+                height={card.height}
+                loading="lazy"
+                decoding="async"
+                className="block h-full w-full object-contain"
               />
-            ))}
-          </div>
-          <p className="mt-3 text-center font-sans text-xs text-olive-secondary sm:text-left">
-            Earth tones · Sage · Olive · Neutrals
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-x-10 text-center sm:grid-cols-2 sm:text-left">
-          <div className="py-3 sm:py-0">
-            <h4 className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary sm:justify-start">
-              <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Ladies
-            </h4>
-            <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
-              Flowy dresses, midi or maxi styles in soft, muted, earthy tones. Light, breathable fabrics are recommended.
-            </p>
-          </div>
-          <div className="py-3 sm:border-l sm:border-readable-border sm:pl-10 sm:py-0">
-            <h4 className="flex items-center justify-center gap-2 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-olive-secondary sm:justify-start">
-              <Shirt aria-hidden="true" className="h-4 w-4 stroke-[1.5]" /> Gentlemen
-            </h4>
-            <p className="mx-auto mt-3 max-w-md font-serif text-xl leading-relaxed text-deep-olive sm:mx-0">
-              Polos, button-downs, or light suits in neutral tones.
-            </p>
-          </div>
-          <p className="col-span-full mx-auto mt-4 max-w-lg font-sans text-sm italic text-olive-secondary sm:mx-0">
-            Please avoid overly bright or neon colors.
-          </p>
-        </div>
-      </section>
+            </div>
+            <div className="mt-5 border-t border-readable-border pt-4 sm:mt-6 sm:pt-5">
+              <div className="flex items-baseline gap-4 sm:gap-5">
+                <span aria-hidden="true" className="font-serif text-lg italic text-warm-beige-strong">{card.number}</span>
+                <h3 className="font-serif text-2xl font-medium text-deep-olive sm:text-3xl">{card.title}</h3>
+              </div>
+              <p className="mt-2 pl-9 font-sans text-sm leading-relaxed text-olive-secondary sm:pl-11 sm:text-base">
+                {card.description}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
