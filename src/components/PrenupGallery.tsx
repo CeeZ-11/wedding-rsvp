@@ -200,6 +200,31 @@ export function PrenupGallery() {
             ),
           )}
         </div>
+
+        <div className="mx-auto mt-16 max-w-5xl sm:mt-20">
+          <div className="mb-6 text-center">
+            <p className="font-sans text-xs uppercase tracking-[0.24em] text-olive-secondary sm:tracking-[0.3em]">
+              Relive the day
+            </p>
+            <h3 className="mt-2 font-script text-4xl text-deep-olive sm:text-5xl">
+              A glimpse of our prenup film
+            </h3>
+          </div>
+          <video
+            className="block w-full bg-deep-olive shadow-xl"
+            autoPlay
+            controls
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={featuredPhoto?.photo.src}
+            aria-label="Seamor and Lady Stephanie’s prenup film"
+          >
+            <source src="/videos/ggfilmsbantug-prenup-preview.mp4" type="video/mp4" />
+            Your browser does not support HTML video.
+          </video>
+        </div>
         </div>
       </section>
 
