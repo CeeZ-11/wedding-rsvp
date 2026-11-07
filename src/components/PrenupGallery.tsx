@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Expand, ExternalLink, X } from 'lucide-react';
 import { prenupPhotos } from '../data/prenupPhotos';
 import { BotanicalMark } from './BotanicalMark';
 
@@ -224,6 +224,17 @@ export function PrenupGallery() {
             <source src="/videos/ggfilmsbantug-prenup-preview.mp4" type="video/mp4" />
             Your browser does not support HTML video.
           </video>
+          <div className="mt-7 text-center">
+            <a
+              href="https://www.facebook.com/share/v/18eWWt9Qe4/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-deep-olive bg-deep-olive px-7 py-3 font-sans text-xs font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#4a4e3c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-olive"
+            >
+              Watch the full film on Facebook
+              <ExternalLink aria-hidden="true" size={15} strokeWidth={1.7} />
+            </a>
+          </div>
         </div>
         </div>
       </section>
