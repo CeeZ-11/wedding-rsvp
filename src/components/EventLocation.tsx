@@ -58,6 +58,65 @@ export function EventLocation() {
           </div>
         </div>
       </div>
+
+      <section aria-labelledby="venue-preview-heading" className="pt-2 sm:pt-4">
+        <header className="mx-auto mb-7 max-w-2xl text-center sm:mb-9">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-olive-secondary">
+            Take a look around
+          </p>
+          <h3 id="venue-preview-heading" className="mt-2 font-serif text-2xl text-deep-olive sm:text-3xl">
+            A closer look at Balai Ramirez
+          </h3>
+        </header>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7">
+          <figure className="min-w-0">
+            <img
+              src="/images/venue/balai-ramirez-exterior.jpg"
+              alt="The garden and guesthouse at Balai Ramirez in Don Salvador Benedicto"
+              width={2048}
+              height={2048}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full rounded-sm object-cover"
+            />
+            <figcaption className="mt-2 font-sans text-xs tracking-wide text-olive-secondary">
+              The Balai Ramirez guesthouse and gardens
+            </figcaption>
+          </figure>
+          <figure className="min-w-0">
+            <img
+              src="/images/venue/balai-ramirez-aerial.jpg"
+              alt="Aerial view of the Balai Ramirez grounds, garden, and swimming pool"
+              width={907}
+              height={907}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full rounded-sm object-cover"
+            />
+            <figcaption className="mt-2 font-sans text-xs tracking-wide text-olive-secondary">
+              Aerial view of the venue grounds
+            </figcaption>
+          </figure>
+        </div>
+
+        <figure className="mx-auto mt-8 max-w-5xl sm:mt-10">
+          <video
+            controls
+            playsInline
+            preload="metadata"
+            poster="/images/venue/balai-ramirez-exterior.jpg"
+            aria-label="Video tour of Balai Ramirez DSB"
+            className="block max-h-[75vh] w-full rounded-sm bg-deep-olive"
+          >
+            <source src="/videos/venue/balai-ramirez.mp4" type="video/mp4" />
+            Your browser does not support HTML video.
+          </video>
+          <figcaption className="mt-2 text-center font-sans text-xs tracking-wide text-olive-secondary">
+            A video look at Balai Ramirez
+          </figcaption>
+        </figure>
+      </section>
     </div>
   );
 }
