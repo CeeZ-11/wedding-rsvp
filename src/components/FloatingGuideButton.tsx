@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { MusicPlayer } from './MusicPlayer';
 
-const galleryUrl = 'https://wedding-rsvp-bay-iota.vercel.app/';
+const galleryUrl = 'https://wed-snap-d59i59rxq-ceez-11s-projects.vercel.app/';
 
 export function FloatingGuideButton() {
   const [scrolled, setScrolled] = useState(false);
