@@ -15,6 +15,7 @@ import {
   Circle,
   RefreshCw,
   Wand2,
+  Microwave,
 } from 'lucide-react';
 
 export interface GiftItem {
@@ -40,4 +41,5 @@ export const GIFTS: GiftItem[] = [
   { id: 'frying-pan', name: 'Frying Pan', icon: Circle },
   { id: 'food-processor', name: 'Food Processor', icon: RefreshCw },
   { id: 'hand-mixer', name: 'Hand Mixer', icon: Wand2 },
+  { id: 'microwave-oven', name: 'Microwave Oven', icon: Microwave },
 ];
