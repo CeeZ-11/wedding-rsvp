@@ -38,7 +38,7 @@ export function Footer() {
       </p>
 
       <p className="text-xs uppercase tracking-[0.2em] text-deep-olive font-sans">
-        #TheWedding2026
+        #SLSWedding2026
       </p>
 
     </footer>
