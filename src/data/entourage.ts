@@ -64,7 +64,7 @@ export const entourage: EntourageData = {
       { name: "Allain Paul Benito", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "Daniel Yared", role: "Groomsman", relation: "Friend of the Groom" },
       { name: "John Rey Palacios", role: "Groomsman", relation: "Friend of the Groom" },
-      { name: "Emmanuel Estrabon", role: "Groomsman", relation: "Friend of the Bride" },
+      { name: "Emmanuel Estrabon", role: "Groomsman", relation: "Brother of the Groom" },
       { name: "Harold Caceres", role: "Groomsman", relation: "Friend of the Bride" },
       { name: "Mikhael Gerard Lacson Marañon", role: "Groomsman", relation: "Friend of the Groom" },
     ],
