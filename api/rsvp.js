@@ -1,4 +1,5 @@
 /* eslint-env node */
+// eslint-disable-next-line @typescript-eslint/no-var-requires -- Vercel runs this API file as CommonJS
 const guestNames = require('../src/data/guestNames.json');
 
 module.exports = async function handler(req, res) {
